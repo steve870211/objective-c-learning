@@ -7,11 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+@import UIKit;
 
 @interface Note : NSObject
 
-@property (nonatomic) NSString *shopName;
-@property (nonatomic) NSString *foodName;
-@property (nonatomic) NSString *price;
+@property (nonatomic) NSString *ShopName;
+@property (nonatomic) NSString *FoodName;
+@property (nonatomic) NSString *FoodPrice;
+@property (nonatomic) NSString *Foodnumber;
+@property (nonatomic) UIImage *Foodphoto;
 
 @end

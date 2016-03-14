@@ -16,6 +16,9 @@
 		AAF9D61F1C8EE9E6003397DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAF9D61D1C8EE9E6003397DD /* LaunchScreen.storyboard */; };
 		AAF9D62A1C8EE9E6003397DD /* ___Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF9D6291C8EE9E6003397DD /* ___Tests.m */; };
 		AAF9D6351C8EE9E6003397DD /* ___UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF9D6341C8EE9E6003397DD /* ___UITests.m */; };
+		AAF9D67B1C968B4300DF29B1 /* TheTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF9D67A1C968B4300DF29B1 /* TheTableViewCell.m */; };
+		AAF9D67F1C9694AB00DF29B1 /* plus-57604.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF9D67D1C9694AB00DF29B1 /* plus-57604.png */; };
+		AAF9D6801C9694AB00DF29B1 /* remove-button-512.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF9D67E1C9694AB00DF29B1 /* remove-button-512.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +57,10 @@
 		AAF9D6301C8EE9E6003397DD /* 坐著點UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "坐著點UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF9D6341C8EE9E6003397DD /* ___UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "___UITests.m"; sourceTree = "<group>"; };
 		AAF9D6361C8EE9E6003397DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAF9D6791C968B4300DF29B1 /* TheTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TheTableViewCell.h; sourceTree = "<group>"; };
+		AAF9D67A1C968B4300DF29B1 /* TheTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TheTableViewCell.m; sourceTree = "<group>"; };
+		AAF9D67D1C9694AB00DF29B1 /* plus-57604.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus-57604.png"; sourceTree = "<group>"; };
+		AAF9D67E1C9694AB00DF29B1 /* remove-button-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "remove-button-512.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +91,7 @@
 		AAF9D6031C8EE9E5003397DD = {
 			isa = PBXGroup;
 			children = (
+				AAF9D67C1C96942000DF29B1 /* image */,
 				AAF9D60E1C8EE9E6003397DD /* 坐著點 */,
 				AAF9D6281C8EE9E6003397DD /* 坐著點Tests */,
 				AAF9D6331C8EE9E6003397DD /* 坐著點UITests */,
@@ -108,6 +116,8 @@
 				AAF9D6131C8EE9E6003397DD /* AppDelegate.m */,
 				AAF9D6151C8EE9E6003397DD /* ViewController.h */,
 				AAF9D6161C8EE9E6003397DD /* ViewController.m */,
+				AAF9D6791C968B4300DF29B1 /* TheTableViewCell.h */,
+				AAF9D67A1C968B4300DF29B1 /* TheTableViewCell.m */,
 				AACE400B1C918BFD006DAC44 /* Note.h */,
 				AACE400C1C918BFD006DAC44 /* Note.m */,
 				AAF9D6181C8EE9E6003397DD /* Main.storyboard */,
@@ -143,6 +153,15 @@
 				AAF9D6361C8EE9E6003397DD /* Info.plist */,
 			);
 			path = "坐著點UITests";
+			sourceTree = "<group>";
+		};
+		AAF9D67C1C96942000DF29B1 /* image */ = {
+			isa = PBXGroup;
+			children = (
+				AAF9D67D1C9694AB00DF29B1 /* plus-57604.png */,
+				AAF9D67E1C9694AB00DF29B1 /* remove-button-512.png */,
+			);
+			name = image;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,8 +270,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAF9D67F1C9694AB00DF29B1 /* plus-57604.png in Resources */,
 				AAF9D61F1C8EE9E6003397DD /* LaunchScreen.storyboard in Resources */,
 				AAF9D61C1C8EE9E6003397DD /* Assets.xcassets in Resources */,
+				AAF9D6801C9694AB00DF29B1 /* remove-button-512.png in Resources */,
 				AAF9D61A1C8EE9E6003397DD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -281,6 +302,7 @@
 				AAF9D6171C8EE9E6003397DD /* ViewController.m in Sources */,
 				AAF9D6141C8EE9E6003397DD /* AppDelegate.m in Sources */,
 				AAF9D6111C8EE9E6003397DD /* main.m in Sources */,
+				AAF9D67B1C968B4300DF29B1 /* TheTableViewCell.m in Sources */,
 				AACE400D1C918BFD006DAC44 /* Note.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
