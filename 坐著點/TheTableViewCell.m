@@ -12,14 +12,29 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+  
+    
     // Configure the view for the selected state
 }
 
-
+//- (IBAction)number_plus:(id)sender {
+//    
+//    Note *note=[Note alloc];
+//    NSNumber *a = note.Number;
+//    a = @([note.Number intValue]+1);
+//    note.Number = @([a intValue]);
+//    NSLog(@"%@",a);
+//}
+//
+//- (IBAction)number_decrease:(id)sender {
+//    
+//    
+//    
+//}
 
 @end
