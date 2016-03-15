@@ -120,10 +120,10 @@
 			children = (
 				AAF9D6121C8EE9E6003397DD /* AppDelegate.h */,
 				AAF9D6131C8EE9E6003397DD /* AppDelegate.m */,
-				AAF9D6151C8EE9E6003397DD /* ViewController.h */,
-				AAF9D6161C8EE9E6003397DD /* ViewController.m */,
 				AAF9D6791C968B4300DF29B1 /* TheTableViewCell.h */,
 				AAF9D67A1C968B4300DF29B1 /* TheTableViewCell.m */,
+				AAF9D6151C8EE9E6003397DD /* ViewController.h */,
+				AAF9D6161C8EE9E6003397DD /* ViewController.m */,
 				AA59E4D01C97B3FA003EA63B /* PayCheckTableViewCell.h */,
 				AA59E4D11C97B3FA003EA63B /* PayCheckTableViewCell.m */,
 				AA59E4D31C97B890003EA63B /* PayCheckViewController.h */,
