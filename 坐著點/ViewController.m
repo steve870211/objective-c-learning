@@ -72,19 +72,43 @@
 
 - (IBAction)number_plus:(id)sender {
     
-    Note * menu = self.menus[0];
+//  [sender addTarget:self action:@selector(buttonPlusPress:) forControlEvents:UIControlEventTouchUpInside];
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    
+    Note * menu = self.menus[indexPath.row];
     
     NSNumber *a = menu.Number;
-    a = @([menu.Number intValue]+1);
-    menu.Number = @([a intValue]);
+    if ( a.intValue < 99) {
+        a = @([menu.Number intValue]+1);
+        menu.Number = @([a intValue]);
+    }
     NSLog(@"%@",a);
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+
+
 }
 
 - (IBAction)number_decrease:(id)sender {
+
+//  [sender addTarget:self action:@selector(buttonDecreasePress:) forControlEvents:UIControlEventTouchUpInside];
     
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
     
+    Note * menu = self.menus[indexPath.row];
     
+    NSNumber *a = menu.Number;
+    if ( a.intValue > 0 ) {
+        a = @([menu.Number intValue]-1);
+        menu.Number = @([a intValue]);
+    }
+    NSLog(@"%@",a);
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+
 }
+
+
 
 @end
 

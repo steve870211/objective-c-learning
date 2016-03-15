@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -29,7 +30,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MbI-WJ-ZO6">
-                                                    <rect key="frame" x="250" y="1" width="10.5" height="37.5"/>
+                                                    <rect key="frame" x="241" y="1" width="32.5" height="37.5"/>
                                                     <color key="backgroundColor" red="1" green="0.82330568652870839" blue="0.039238839161269801" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -88,7 +89,19 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="CGa-ko-9ND">
-                        <barButtonItem key="rightBarButtonItem" title="送出訂單" id="IpV-Db-76A"/>
+                        <barButtonItem key="leftBarButtonItem" title="Reset" id="jU9-Su-ftn"/>
+                        <rightBarButtonItems>
+                            <barButtonItem title="送出訂單" id="IpV-Db-76A">
+                                <connections>
+                                    <segue destination="FBz-Oe-LNM" kind="push" id="38g-lv-J4a"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="訂單查詢" id="WtW-ea-23w">
+                                <connections>
+                                    <segue destination="TIE-FR-oQK" kind="push" id="Lzl-Lw-Ebh"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="lq2-aK-sgv" id="bHR-K2-XZO"/>
@@ -96,7 +109,99 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="480" y="294"/>
+            <point key="canvasLocation" x="549" y="295"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Gkj-W9-LSH">
+            <objects>
+                <viewController id="TIE-FR-oQK" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QIa-Ff-22S"/>
+                        <viewControllerLayoutGuide type="bottom" id="Lsf-PJ-GrT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="O1S-QZ-2nD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="GdY-36-UgU"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kzO-Lj-W8X" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1005" y="750"/>
+        </scene>
+        <!--Pay Check View Controller-->
+        <scene sceneID="eez-yE-8Uy">
+            <objects>
+                <viewController id="FBz-Oe-LNM" customClass="PayCheckViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Qag-DZ-9hS"/>
+                        <viewControllerLayoutGuide type="bottom" id="k7J-y7-oU2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ykg-9K-DEx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XTo-at-Rxo">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="paycheckcell" id="ry4-HQ-W2R" customClass="PayCheckTableViewCell">
+                                        <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ry4-HQ-W2R" id="xa9-Vj-yQC">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Shopname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zn3-s8-YK8">
+                                                    <rect key="frame" x="8" y="11" width="83" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Foodname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDi-sV-07R">
+                                                    <rect key="frame" x="99" y="11" width="81" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GIO-wI-KKO">
+                                                    <rect key="frame" x="188" y="11" width="59" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FRn-aH-IHj">
+                                                    <rect key="frame" x="273" y="11" width="39" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="orderFoodname" destination="DDi-sV-07R" id="DBh-7d-a6f"/>
+                                            <outlet property="orderFoodnumber" destination="GIO-wI-KKO" id="exn-m7-8dQ"/>
+                                            <outlet property="orderFoodprice" destination="FRn-aH-IHj" id="wgY-K0-71O"/>
+                                            <outlet property="orderShopname" destination="zn3-s8-YK8" id="9nE-ey-BlK"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="scR-fz-HmK">
+                        <barButtonItem key="rightBarButtonItem" title="結帳" id="w43-Ye-eGX">
+                            <connections>
+                                <segue destination="TIE-FR-oQK" kind="push" id="hGs-LF-geZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jAI-u1-XOb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1005" y="31"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Xfz-GZ-ssG">
@@ -121,4 +226,7 @@
         <image name="plus-57604.png" width="512" height="512"/>
         <image name="remove-button-512.png" width="512" height="512"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="hGs-LF-geZ"/>
+    </inferredMetricsTieBreakers>
 </document>
