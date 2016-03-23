@@ -10,6 +10,7 @@
 		AA59E4D21C97B3FA003EA63B /* PayCheckTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59E4D11C97B3FA003EA63B /* PayCheckTableViewCell.m */; };
 		AA59E4D51C97B890003EA63B /* PayCheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59E4D41C97B890003EA63B /* PayCheckViewController.m */; };
 		AACE400D1C918BFD006DAC44 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = AACE400C1C918BFD006DAC44 /* Note.m */; };
+		AAF4C0C21CA24A1F00AB0FAC /* ShopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF4C0C11CA24A1F00AB0FAC /* ShopsViewController.m */; };
 		AAF9D6111C8EE9E6003397DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF9D6101C8EE9E6003397DD /* main.m */; };
 		AAF9D6141C8EE9E6003397DD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF9D6131C8EE9E6003397DD /* AppDelegate.m */; };
 		AAF9D6171C8EE9E6003397DD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF9D6161C8EE9E6003397DD /* ViewController.m */; };
@@ -47,6 +48,8 @@
 		AA59E4D41C97B890003EA63B /* PayCheckViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayCheckViewController.m; sourceTree = "<group>"; };
 		AACE400B1C918BFD006DAC44 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
 		AACE400C1C918BFD006DAC44 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
+		AAF4C0C01CA24A1F00AB0FAC /* ShopsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopsViewController.h; sourceTree = "<group>"; };
+		AAF4C0C11CA24A1F00AB0FAC /* ShopsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopsViewController.m; sourceTree = "<group>"; };
 		AAF9D60C1C8EE9E6003397DD /* 坐著點.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "坐著點.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF9D6101C8EE9E6003397DD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AAF9D6121C8EE9E6003397DD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -131,6 +134,8 @@
 				AACE400B1C918BFD006DAC44 /* Note.h */,
 				AACE400C1C918BFD006DAC44 /* Note.m */,
 				AAF9D6181C8EE9E6003397DD /* Main.storyboard */,
+				AAF4C0C01CA24A1F00AB0FAC /* ShopsViewController.h */,
+				AAF4C0C11CA24A1F00AB0FAC /* ShopsViewController.m */,
 				AAF9D61B1C8EE9E6003397DD /* Assets.xcassets */,
 				AAF9D61D1C8EE9E6003397DD /* LaunchScreen.storyboard */,
 				AAF9D6201C8EE9E6003397DD /* Info.plist */,
@@ -313,6 +318,7 @@
 				AAF9D6141C8EE9E6003397DD /* AppDelegate.m in Sources */,
 				AAF9D6111C8EE9E6003397DD /* main.m in Sources */,
 				AA59E4D21C97B3FA003EA63B /* PayCheckTableViewCell.m in Sources */,
+				AAF4C0C21CA24A1F00AB0FAC /* ShopsViewController.m in Sources */,
 				AAF9D67B1C968B4300DF29B1 /* TheTableViewCell.m in Sources */,
 				AA59E4D51C97B890003EA63B /* PayCheckViewController.m in Sources */,
 				AACE400D1C918BFD006DAC44 /* Note.m in Sources */,

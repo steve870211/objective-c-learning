@@ -50,7 +50,12 @@
         case 0:
             return @"四海遊龍";
             break;
-            
+        case 1:
+            return @"麥當勞";
+            break;
+        case 2:
+            return @"丸龜製麵";
+            break;
         default:
             return @"";
             break;
@@ -103,7 +108,7 @@
 
 -(void)the_reload_model{
     
-    NSURL *url = [NSURL URLWithString:@"http://localhost:8888/myPHP/OrderEasy.php"];
+    NSURL *url = [NSURL URLWithString:@"http://localhost:8888/OrderEasy/Menus.php"];
     NSMutableURLRequest *request;
     request = [NSMutableURLRequest requestWithURL:url];
     NSURLSessionConfiguration *config;
@@ -214,7 +219,9 @@
     
 }
 
-
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+}
 
 @end
 
