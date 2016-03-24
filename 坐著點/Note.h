@@ -16,7 +16,8 @@
 @property (nonatomic) NSString *FoodName;
 @property (nonatomic) NSString *Price;
 @property (nonatomic) NSNumber *Number;
-@property (nonatomic) UIImage *Foodphoto;
+@property (nonatomic) UIImage *FoodPhoto;
 @property (nonatomic) UIImage *ShopImage;
+@property (nonatomic) NSString *FoodPhotoName;
 
 @end

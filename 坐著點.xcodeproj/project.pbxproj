@@ -10,6 +10,8 @@
 		AA59E4D21C97B3FA003EA63B /* PayCheckTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59E4D11C97B3FA003EA63B /* PayCheckTableViewCell.m */; };
 		AA59E4D51C97B890003EA63B /* PayCheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59E4D41C97B890003EA63B /* PayCheckViewController.m */; };
 		AACE400D1C918BFD006DAC44 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = AACE400C1C918BFD006DAC44 /* Note.m */; };
+		AAE7FABC1CA3C6E700578B19 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE7FABB1CA3C6E700578B19 /* loading.png */; };
+		AAE7FABF1CA4005200578B19 /* FoodDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE7FABE1CA4005200578B19 /* FoodDetailViewController.m */; };
 		AAF231031CA28ADC0087C072 /* ShopsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF231021CA28ADC0087C072 /* ShopsTableViewCell.m */; };
 		AAF4C0C21CA24A1F00AB0FAC /* ShopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF4C0C11CA24A1F00AB0FAC /* ShopsViewController.m */; };
 		AAF9D6111C8EE9E6003397DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF9D6101C8EE9E6003397DD /* main.m */; };
@@ -49,6 +51,9 @@
 		AA59E4D41C97B890003EA63B /* PayCheckViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayCheckViewController.m; sourceTree = "<group>"; };
 		AACE400B1C918BFD006DAC44 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
 		AACE400C1C918BFD006DAC44 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
+		AAE7FABB1CA3C6E700578B19 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
+		AAE7FABD1CA4005200578B19 /* FoodDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodDetailViewController.h; sourceTree = "<group>"; };
+		AAE7FABE1CA4005200578B19 /* FoodDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodDetailViewController.m; sourceTree = "<group>"; };
 		AAF231011CA28ADC0087C072 /* ShopsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopsTableViewCell.h; sourceTree = "<group>"; };
 		AAF231021CA28ADC0087C072 /* ShopsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopsTableViewCell.m; sourceTree = "<group>"; };
 		AAF4C0C01CA24A1F00AB0FAC /* ShopsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopsViewController.h; sourceTree = "<group>"; };
@@ -127,6 +132,8 @@
 				AAF9D6181C8EE9E6003397DD /* Main.storyboard */,
 				AACE400B1C918BFD006DAC44 /* Note.h */,
 				AACE400C1C918BFD006DAC44 /* Note.m */,
+				AAE7FABD1CA4005200578B19 /* FoodDetailViewController.h */,
+				AAE7FABE1CA4005200578B19 /* FoodDetailViewController.m */,
 				AAF9D6121C8EE9E6003397DD /* AppDelegate.h */,
 				AAF9D6131C8EE9E6003397DD /* AppDelegate.m */,
 				AA59E4D01C97B3FA003EA63B /* PayCheckTableViewCell.h */,
@@ -180,6 +187,7 @@
 			children = (
 				AAF9D67D1C9694AB00DF29B1 /* plus-57604.png */,
 				AAF9D67E1C9694AB00DF29B1 /* remove-button-512.png */,
+				AAE7FABB1CA3C6E700578B19 /* loading.png */,
 			);
 			name = image;
 			sourceTree = "<group>";
@@ -295,6 +303,7 @@
 				AAF9D61C1C8EE9E6003397DD /* Assets.xcassets in Resources */,
 				AAF9D6801C9694AB00DF29B1 /* remove-button-512.png in Resources */,
 				AAF9D61A1C8EE9E6003397DD /* Main.storyboard in Resources */,
+				AAE7FABC1CA3C6E700578B19 /* loading.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +333,7 @@
 				AAF9D6111C8EE9E6003397DD /* main.m in Sources */,
 				AA59E4D21C97B3FA003EA63B /* PayCheckTableViewCell.m in Sources */,
 				AAF4C0C21CA24A1F00AB0FAC /* ShopsViewController.m in Sources */,
+				AAE7FABF1CA4005200578B19 /* FoodDetailViewController.m in Sources */,
 				AAF9D67B1C968B4300DF29B1 /* TheTableViewCell.m in Sources */,
 				AAF231031CA28ADC0087C072 /* ShopsTableViewCell.m in Sources */,
 				AA59E4D51C97B890003EA63B /* PayCheckViewController.m in Sources */,

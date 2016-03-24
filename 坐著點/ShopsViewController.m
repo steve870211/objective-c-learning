@@ -63,7 +63,7 @@
             UIAlertController *alert;
             alert = [UIAlertController new];
             UIAlertAction * alertAct;
-            alertAct = [UIAlertAction actionWithTitle:@"連不上" style:UIAlertActionStyleDefault handler:nil];
+            alertAct = [UIAlertAction actionWithTitle:@"連線失敗" style:UIAlertActionStyleDefault handler:nil];
             [alert addAction:alertAct];
             [self presentViewController:alert animated:true completion:nil];
             
@@ -100,7 +100,7 @@
                 UIAlertController *alert;
                 alert = [UIAlertController new];
                 UIAlertAction * alertAct;
-                alertAct = [UIAlertAction actionWithTitle:@"MySQL有問題" style:UIAlertActionStyleDefault handler:nil];
+                alertAct = [UIAlertAction actionWithTitle:@"伺服器失效" style:UIAlertActionStyleDefault handler:nil];
                 [alert addAction:alertAct];
                 [self presentViewController:alert animated:true completion:nil];
                 
@@ -121,6 +121,7 @@
         ViewController *foodViewController = segue.destinationViewController;
         NSIndexPath * indexPath = self.tableView.indexPathForSelectedRow;
         foodViewController.Shops = self.ShopsList[indexPath.row];
+        [_tableView deselectRowAtIndexPath:indexPath animated:true];
     }
 }
 

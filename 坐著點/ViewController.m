@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "Note.h"
 #import "TheTableViewCell.h"
+#import "FoodDetailViewController.h"
 
 @interface ViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -33,9 +34,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self the_reload_model];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    [self the_reload_model];
     _Menus = [[NSMutableArray alloc]initWithObjects:_the_arr, nil];
     
 }
@@ -67,8 +68,6 @@
 // Cell的數量
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
  
-//    return _the_arr.count;
-//    return [[_Menus objectAtIndex:section] count];
     return _Menus.count;
     
 }
@@ -77,39 +76,47 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     TheTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-//    Note *note = _Menus[indexPath.section][indexPath.row];
+    
     Note *note = _Menus[indexPath.row];
     cell.foodname.text = note.FoodName;
-    cell.price.text = [NSString stringWithFormat:@"%@元",note.Price];
-    cell.number.text = [NSString stringWithFormat:@"%@",note.Number];
-    cell.imageView.image = note.Foodphoto;
-    cell.Btn_plus.tag = indexPath.row;
-    cell.Btn_decrease.tag = indexPath.row;
-    cell.number.tag = indexPath.row;
+    cell.price.text = [NSString stringWithFormat:@"單價：%@元",note.Price];
+    cell.foodphoto.image = [UIImage imageNamed:@"loading.png"];
     cell.note = note;
-    cell.backgroundColor = [UIColor grayColor];
     
-//    TheTableViewCell *cell;
-//    cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-//    NSDictionary *er;
-//    er = _the_arr[indexPath.row];
-//    cell.foodname.text = er[@"foodName"];
-//    cell.price.text = er[@"price"];
-//    cell.number = 0;
+//    圖片下載並顯示
+    NSString *food = note.FoodPhotoName;
+    food = [food stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString *urlstr = [NSString stringWithFormat:@"http://localhost:8888/OrderEasy/MenuPhoto/%@",food];
+    NSURL *url = [NSURL URLWithString:urlstr];
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionTask *task = [session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        if (error) {
+            NSLog(@"error %@",error.description);
+        } else {
+            dispatch_async(dispatch_get_main_queue(),^{
+                UIImage *image = [UIImage imageWithData:data];
+                cell.foodphoto.image = image;
+            });
+        }
+    }];
+    [task resume];
     
     return cell;
     
 }
 
+// 與伺服器溝通
 -(void)the_reload_model{
     
     NSURL *url = [NSURL URLWithString:@"http://localhost:8888/OrderEasy/Menus.php"];
     NSMutableURLRequest *request;
     request = [NSMutableURLRequest requestWithURL:url];
-    NSURLSessionConfiguration *config;
-    config = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session;
-    session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+//    NSURLSessionConfiguration *config;
+//    config = [NSURLSessionConfiguration defaultSessionConfiguration];
+//    NSURLSession *session;
+//    session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSession *session = [NSURLSession sharedSession] ;
     NSURLSessionDataTask *dataTask;
     dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
@@ -121,12 +128,12 @@
             alertAct = [UIAlertAction actionWithTitle:@"連不上" style:UIAlertActionStyleDefault handler:nil];
             [alert addAction:alertAct];
             [self presentViewController:alert animated:true completion:nil];
-            
+            [self dismissViewControllerAnimated:true completion:nil];
         } else {
             
-            NSString *con = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//            NSString *con = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             
-            NSLog(@"josn=%@", con);
+//            NSLog(@"josn=%@", con);
             
             NSArray * arr = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             
@@ -140,79 +147,46 @@
                 note.FoodName = book[@"foodName"];
                 note.Price = book[@"price"];
                 note.ShopID = book[@"shopID"];
+                note.FoodPhotoName = book[@"foodPhoto"];
+
+//                if (note.ShopID == _Shops.ShopID) {
+//                    [self.Menus addObject:note];
+//                }
                 
-                if (note.ShopID == _Shops.ShopID) {
+                if ([note.ShopID isEqualToString:_Shops.ShopID]) {
                     [self.Menus addObject:note];
                 }
-                
             }
-
-            
             
             if (_the_arr) {
-                
-                [_tableView reloadData];
-                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [_tableView reloadData];
+                });
             } else {
                 
                 UIAlertController *alert;
                 alert = [UIAlertController new];
                 UIAlertAction * alertAct;
-                alertAct = [UIAlertAction actionWithTitle:@"MySQL有問題" style:UIAlertActionStyleDefault handler:nil];
+                alertAct = [UIAlertAction actionWithTitle:@"伺服器失效" style:UIAlertActionStyleDefault handler:nil];
                 [alert addAction:alertAct];
                 [self presentViewController:alert animated:true completion:nil];
+                [self dismissViewControllerAnimated:true completion:nil];
                 
             }
-            
             NSLog(@"連上囉");
         }
-        
     }];
-    
     [dataTask resume];
-    
-}
-
-// 訂餐數量+1
-- (IBAction)number_plus:(id)sender {
-    
-    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
-    
-//    Note * menu = _Menus[indexPath.section][indexPath.row];
-    Note *menu = _Menus[indexPath.row];
-    
-    NSNumber *a = menu.Number;
-    if ( a.intValue < 99) {
-        a = @([menu.Number intValue]+1);
-        menu.Number = @([a intValue]);
-    }
-//    NSLog(@"%@",a);
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-
-}
-
-// 訂餐數量-1
-- (IBAction)number_decrease:(id)sender {
-    
-    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
-    
-//    Note * menu = _Menus[indexPath.section][indexPath.row];
-    Note *menu = _Menus[indexPath.row];
-    
-    NSNumber *a = menu.Number;
-    if ( a.intValue > 0 ) {
-        a = @([menu.Number intValue]-1);
-        menu.Number = @([a intValue]);
-    }
-//    NSLog(@"%@",a);
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
+    if ([segue.identifier isEqualToString:@"MenuToDetail"]) {
+        FoodDetailViewController *FoodDetailViewController = segue.destinationViewController;
+        NSIndexPath * indexPath = self.tableView.indexPathForSelectedRow;
+        FoodDetailViewController.Foods = self.Menus[indexPath.row];
+        NSLog(@"Foods = %@",FoodDetailViewController.Foods);
+        [_tableView deselectRowAtIndexPath:indexPath animated:true];
+    }
 }
 
 @end
