@@ -10,7 +10,7 @@
 #import "Note.h"
 #import "TheTableViewCell.h"
 
-@interface ViewController ()<UITableViewDataSource>
+@interface ViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
 
 }
@@ -35,6 +35,7 @@
     [super viewDidLoad];
     [self the_reload_model];
     self.tableView.dataSource = self;
+    self.tableView.delegate = self;
     _Menus = [[NSMutableArray alloc]initWithObjects:_the_arr, nil];
     
 }
@@ -45,16 +46,10 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
     switch (section) {
-            
         case 0:
-            return @"四海遊龍";
-            break;
-        case 1:
-            return @"麥當勞";
-            break;
-        case 2:
-            return @"丸龜製麵";
+            return _Shops.ShopName;
             break;
         default:
             return @"";
@@ -84,15 +79,15 @@
     TheTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
 //    Note *note = _Menus[indexPath.section][indexPath.row];
     Note *note = _Menus[indexPath.row];
-//    cell.shopname.text = note.ShopName;
     cell.foodname.text = note.FoodName;
-    cell.price.text = note.Price;
+    cell.price.text = [NSString stringWithFormat:@"%@元",note.Price];
     cell.number.text = [NSString stringWithFormat:@"%@",note.Number];
     cell.imageView.image = note.Foodphoto;
     cell.Btn_plus.tag = indexPath.row;
     cell.Btn_decrease.tag = indexPath.row;
     cell.number.tag = indexPath.row;
     cell.note = note;
+    cell.backgroundColor = [UIColor grayColor];
     
 //    TheTableViewCell *cell;
 //    cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
@@ -144,8 +139,11 @@
                 note.ShopName = book[@"shopName"];
                 note.FoodName = book[@"foodName"];
                 note.Price = book[@"price"];
+                note.ShopID = book[@"shopID"];
                 
-                [self.Menus addObject:note];
+                if (note.ShopID == _Shops.ShopID) {
+                    [self.Menus addObject:note];
+                }
                 
             }
 
@@ -211,12 +209,6 @@
 //    NSLog(@"%@",a);
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 
-}
-
-- (IBAction)resetBtn:(id)sender {
-    
-    
-    
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

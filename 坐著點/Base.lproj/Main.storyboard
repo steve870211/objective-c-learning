@@ -5,7 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -20,12 +19,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="lq2-aK-sgv">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lq2-aK-sgv">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="Top-MJ-Cr5" customClass="TheTableViewCell">
-                                        <rect key="frame" x="0.0" y="113.5" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="92" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Top-MJ-Cr5" id="nDP-tL-n7y">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -123,25 +122,7 @@
                             <constraint firstItem="lq2-aK-sgv" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="wmz-SB-AM8"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="CGa-ko-9ND">
-                        <barButtonItem key="leftBarButtonItem" title="Reset" id="jU9-Su-ftn">
-                            <connections>
-                                <action selector="resetBtn:" destination="BYZ-38-t0r" id="REg-UP-Y62"/>
-                            </connections>
-                        </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem title="送出訂單" id="IpV-Db-76A">
-                                <connections>
-                                    <segue destination="FBz-Oe-LNM" kind="push" id="38g-lv-J4a"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="訂單查詢" id="WtW-ea-23w">
-                                <connections>
-                                    <segue destination="TIE-FR-oQK" kind="push" id="Lzl-Lw-Ebh"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="CGa-ko-9ND"/>
                     <connections>
                         <outlet property="tableView" destination="lq2-aK-sgv" id="bHR-K2-XZO"/>
                     </connections>
@@ -169,7 +150,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kzO-Lj-W8X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1094" y="778"/>
+            <point key="canvasLocation" x="1311" y="778"/>
         </scene>
         <!--Pay Check View Controller-->
         <scene sceneID="eez-yE-8Uy">
@@ -200,12 +181,6 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Foodname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDi-sV-07R">
-                                                    <rect key="frame" x="83" y="11" width="81" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GIO-wI-KKO">
                                                     <rect key="frame" x="154" y="11" width="59" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -222,6 +197,12 @@
                                                     <rect key="frame" x="266" y="6" width="46" height="32"/>
                                                     <state key="normal" title="取消"/>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Foodname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDi-sV-07R">
+                                                    <rect key="frame" x="83" y="11" width="81" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
@@ -247,12 +228,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jAI-u1-XOb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1094" y="78"/>
+            <point key="canvasLocation" x="1849" y="40"/>
         </scene>
-        <!--View Controller-->
+        <!--Shops View Controller-->
         <scene sceneID="naj-3q-ueA">
             <objects>
-                <viewController id="WI9-sV-izU" sceneMemberID="viewController">
+                <viewController id="WI9-sV-izU" customClass="ShopsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="E2f-0q-i0K"/>
                         <viewControllerLayoutGuide type="bottom" id="tyx-xP-j9p"/>
@@ -265,15 +246,35 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="hM9-em-y11">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="shopscell" id="hM9-em-y11" customClass="ShopsTableViewCell">
                                         <rect key="frame" x="0.0" y="92" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hM9-em-y11" id="xer-rD-9Ee">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0w9-3Z-J7a">
+                                                    <rect key="frame" x="0.0" y="0.0" width="56" height="43.5"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhM-se-FzL">
+                                                    <rect key="frame" x="64" y="11" width="75" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ShopName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IPy-kg-eTo">
+                                                    <rect key="frame" x="153" y="11" width="100" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="push" id="4JF-GL-Urr"/>
+                                            <outlet property="ShopID" destination="mhM-se-FzL" id="DkI-jB-Gnz"/>
+                                            <outlet property="ShopName" destination="IPy-kg-eTo" id="uYa-Rk-GiD"/>
+                                            <outlet property="ShopsImage" destination="0w9-3Z-J7a" id="AHI-YJ-OAP"/>
+                                            <segue destination="BYZ-38-t0r" kind="push" identifier="ToFoods" id="4JF-GL-Urr"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -288,6 +289,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Cpl-xk-E16"/>
+                    <connections>
+                        <outlet property="tableView" destination="s9i-Dp-RA1" id="rip-0z-7iT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="deO-tp-0cI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -311,12 +315,27 @@
             </objects>
             <point key="canvasLocation" x="-139" y="295"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="sOj-tI-Mkk">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="c1C-Aw-Qg6" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cMW-tC-VeK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="FBz-Oe-LNM" kind="relationship" relationship="rootViewController" id="Sgg-Ux-IXH"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2As-BD-G7G" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1449" y="40"/>
+        </scene>
     </scenes>
     <resources>
         <image name="plus-57604.png" width="512" height="512"/>
         <image name="remove-button-512.png" width="512" height="512"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="Lzl-Lw-Ebh"/>
-    </inferredMetricsTieBreakers>
 </document>

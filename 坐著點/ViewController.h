@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Note.h"
 
 @interface ViewController : UIViewController
 
+@property (nonatomic) Note *Shops;
 
 @end
 

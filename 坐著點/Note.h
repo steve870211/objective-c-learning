@@ -11,10 +11,12 @@
 
 @interface Note : NSObject
 
+@property (nonatomic) NSString *ShopID;
 @property (nonatomic) NSString *ShopName;
 @property (nonatomic) NSString *FoodName;
 @property (nonatomic) NSString *Price;
 @property (nonatomic) NSNumber *Number;
 @property (nonatomic) UIImage *Foodphoto;
+@property (nonatomic) UIImage *ShopImage;
 
 @end

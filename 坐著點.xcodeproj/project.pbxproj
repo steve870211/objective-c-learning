@@ -10,6 +10,7 @@
 		AA59E4D21C97B3FA003EA63B /* PayCheckTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59E4D11C97B3FA003EA63B /* PayCheckTableViewCell.m */; };
 		AA59E4D51C97B890003EA63B /* PayCheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59E4D41C97B890003EA63B /* PayCheckViewController.m */; };
 		AACE400D1C918BFD006DAC44 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = AACE400C1C918BFD006DAC44 /* Note.m */; };
+		AAF231031CA28ADC0087C072 /* ShopsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF231021CA28ADC0087C072 /* ShopsTableViewCell.m */; };
 		AAF4C0C21CA24A1F00AB0FAC /* ShopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF4C0C11CA24A1F00AB0FAC /* ShopsViewController.m */; };
 		AAF9D6111C8EE9E6003397DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF9D6101C8EE9E6003397DD /* main.m */; };
 		AAF9D6141C8EE9E6003397DD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF9D6131C8EE9E6003397DD /* AppDelegate.m */; };
@@ -48,6 +49,8 @@
 		AA59E4D41C97B890003EA63B /* PayCheckViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayCheckViewController.m; sourceTree = "<group>"; };
 		AACE400B1C918BFD006DAC44 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
 		AACE400C1C918BFD006DAC44 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
+		AAF231011CA28ADC0087C072 /* ShopsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopsTableViewCell.h; sourceTree = "<group>"; };
+		AAF231021CA28ADC0087C072 /* ShopsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopsTableViewCell.m; sourceTree = "<group>"; };
 		AAF4C0C01CA24A1F00AB0FAC /* ShopsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopsViewController.h; sourceTree = "<group>"; };
 		AAF4C0C11CA24A1F00AB0FAC /* ShopsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopsViewController.m; sourceTree = "<group>"; };
 		AAF9D60C1C8EE9E6003397DD /* 坐著點.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "坐著點.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,19 +124,21 @@
 		AAF9D60E1C8EE9E6003397DD /* 坐著點 */ = {
 			isa = PBXGroup;
 			children = (
+				AAF9D6181C8EE9E6003397DD /* Main.storyboard */,
+				AACE400B1C918BFD006DAC44 /* Note.h */,
+				AACE400C1C918BFD006DAC44 /* Note.m */,
 				AAF9D6121C8EE9E6003397DD /* AppDelegate.h */,
 				AAF9D6131C8EE9E6003397DD /* AppDelegate.m */,
-				AAF9D6791C968B4300DF29B1 /* TheTableViewCell.h */,
-				AAF9D67A1C968B4300DF29B1 /* TheTableViewCell.m */,
-				AAF9D6151C8EE9E6003397DD /* ViewController.h */,
-				AAF9D6161C8EE9E6003397DD /* ViewController.m */,
 				AA59E4D01C97B3FA003EA63B /* PayCheckTableViewCell.h */,
 				AA59E4D11C97B3FA003EA63B /* PayCheckTableViewCell.m */,
 				AA59E4D31C97B890003EA63B /* PayCheckViewController.h */,
 				AA59E4D41C97B890003EA63B /* PayCheckViewController.m */,
-				AACE400B1C918BFD006DAC44 /* Note.h */,
-				AACE400C1C918BFD006DAC44 /* Note.m */,
-				AAF9D6181C8EE9E6003397DD /* Main.storyboard */,
+				AAF9D6791C968B4300DF29B1 /* TheTableViewCell.h */,
+				AAF9D67A1C968B4300DF29B1 /* TheTableViewCell.m */,
+				AAF9D6151C8EE9E6003397DD /* ViewController.h */,
+				AAF9D6161C8EE9E6003397DD /* ViewController.m */,
+				AAF231011CA28ADC0087C072 /* ShopsTableViewCell.h */,
+				AAF231021CA28ADC0087C072 /* ShopsTableViewCell.m */,
 				AAF4C0C01CA24A1F00AB0FAC /* ShopsViewController.h */,
 				AAF4C0C11CA24A1F00AB0FAC /* ShopsViewController.m */,
 				AAF9D61B1C8EE9E6003397DD /* Assets.xcassets */,
@@ -246,7 +251,7 @@
 				TargetAttributes = {
 					AAF9D60B1C8EE9E6003397DD = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = H92HAS3T42;
+						DevelopmentTeam = 2CNRR6D9B9;
 					};
 					AAF9D6241C8EE9E6003397DD = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -320,6 +325,7 @@
 				AA59E4D21C97B3FA003EA63B /* PayCheckTableViewCell.m in Sources */,
 				AAF4C0C21CA24A1F00AB0FAC /* ShopsViewController.m in Sources */,
 				AAF9D67B1C968B4300DF29B1 /* TheTableViewCell.m in Sources */,
+				AAF231031CA28ADC0087C072 /* ShopsTableViewCell.m in Sources */,
 				AA59E4D51C97B890003EA63B /* PayCheckViewController.m in Sources */,
 				AACE400D1C918BFD006DAC44 /* Note.m in Sources */,
 			);
@@ -462,10 +468,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "坐著點/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.steve.www.---";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -473,10 +482,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "坐著點/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.steve.www.---";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

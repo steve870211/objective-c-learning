@@ -10,7 +10,6 @@
 
 @interface TheTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *foodphoto;
-@property (weak, nonatomic) IBOutlet UILabel *shopname;
 @property (weak, nonatomic) IBOutlet UILabel *foodname;
 @property (weak, nonatomic) IBOutlet UILabel *price;
 @property (weak, nonatomic) IBOutlet UILabel *number;
