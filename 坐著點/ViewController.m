@@ -1,6 +1,6 @@
 //
 //  ViewController.m
-//  坐著點
+//  坐著點 菜單
 //
 //  Created by 許佳航 on 2016/3/8.
 //  Copyright © 2016年 許佳航. All rights reserved.

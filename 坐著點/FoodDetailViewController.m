@@ -1,6 +1,6 @@
 //
 //  FoodDetailViewController.m
-//  坐著點
+//  坐著點 商品詳細資料
 //
 //  Created by 許佳航 on 2016/3/24.
 //  Copyright © 2016年 許佳航. All rights reserved.
