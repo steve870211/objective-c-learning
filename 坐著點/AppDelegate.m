@@ -17,6 +17,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    self.order = [NSMutableDictionary new];
+    self.shopName = nil;
+    self.foodName = nil;
+    self.price = nil;
+    self.orderNumber = nil;
+    self.total = nil;
+    self.cellphoneNumber = nil;
+    self.customerName = nil;
+    
     return YES;
 }
 

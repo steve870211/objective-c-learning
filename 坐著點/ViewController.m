@@ -79,7 +79,7 @@
     
     Note *note = _Menus[indexPath.row];
     cell.foodname.text = note.FoodName;
-    cell.price.text = [NSString stringWithFormat:@"單價：%@元",note.Price];
+    cell.price.text = [NSString stringWithFormat:@"單價:%@元",note.Price];
     cell.foodphoto.image = [UIImage imageNamed:@"loading.png"];
     cell.note = note;
     
@@ -112,10 +112,6 @@
     NSURL *url = [NSURL URLWithString:@"http://localhost:8888/OrderEasy/Menus.php"];
     NSMutableURLRequest *request;
     request = [NSMutableURLRequest requestWithURL:url];
-//    NSURLSessionConfiguration *config;
-//    config = [NSURLSessionConfiguration defaultSessionConfiguration];
-//    NSURLSession *session;
-//    session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
     NSURLSession *session = [NSURLSession sharedSession] ;
     NSURLSessionDataTask *dataTask;
     dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -148,10 +144,6 @@
                 note.Price = book[@"price"];
                 note.ShopID = book[@"shopID"];
                 note.FoodPhotoName = book[@"foodPhoto"];
-
-//                if (note.ShopID == _Shops.ShopID) {
-//                    [self.Menus addObject:note];
-//                }
                 
                 if ([note.ShopID isEqualToString:_Shops.ShopID]) {
                     [self.Menus addObject:note];

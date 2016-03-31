@@ -13,8 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *orderFoodname;
 @property (weak, nonatomic) IBOutlet UILabel *orderFoodnumber;
 @property (weak, nonatomic) IBOutlet UILabel *orderFoodprice;
+@property (weak, nonatomic) IBOutlet UILabel *serialNumber;
 @property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
-
-
 
 @end

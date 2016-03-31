@@ -41,8 +41,24 @@
     Note *note = _ShopsList[indexPath.row];
     cell.ShopName.text = note.ShopName;
     cell.ShopID.text = note.ShopID;
-//    cell.ShopsImage.image = note.ShopImage;
-    cell.backgroundColor = [UIColor grayColor];
+    cell.ShopsImage.image = [UIImage imageNamed:@"loading.png"];
+    NSString *shop = note.ShopLogoName;
+    shop = [shop stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString *urlstr = [NSString stringWithFormat:@"http://localhost:8888/OrderEasy/MenuPhoto/%@",shop];
+    NSURL *url = [NSURL URLWithString:urlstr];
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionTask *task = [session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        if (error) {
+            NSLog(@"error %@",error.description);
+        } else {
+            dispatch_async(dispatch_get_main_queue(),^{
+                UIImage *image = [UIImage imageWithData:data];
+                cell.ShopsImage.image = image;
+            });
+        }
+    }];
+    [task resume];
     return cell;
 }
 
@@ -71,7 +87,7 @@
             
             NSString *con = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             
-            NSLog(@"josn=%@", con);
+//            NSLog(@"josn=%@", con);
             
             NSArray * arr = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             
@@ -83,8 +99,7 @@
                 Note* note = [Note new];
                 note.ShopID = book[@"shopID"];
                 note.ShopName = book[@"shopName"];
-                note.ShopImage = book[@"shopLogo"];
-                
+                note.ShopLogoName = book[@"shopLogo"];
                 [self.ShopsList addObject:note];
                 
             }

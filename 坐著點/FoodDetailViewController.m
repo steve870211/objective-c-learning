@@ -24,7 +24,7 @@
     self.ShopName.text = self.Foods.ShopName;
     self.ShopID.text = self.Foods.ShopID;
     self.FoodName.text = self.Foods.FoodName;
-    self.Price.text = self.Foods.Price;
+    self.Price.text = [NSString stringWithFormat:@"%@元",self.Foods.Price];
 //    self.FoodPhoto.image = ;
     NSString *food = self.Foods.FoodPhotoName;
     food = [food stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
@@ -61,5 +61,50 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (IBAction)addToOrderBtnPressed:(id)sender {
+    
+    UIAlertController * alert = [UIAlertController
+                                  alertControllerWithTitle:@"您要點幾份?"
+                                  message:nil
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+       
+        textField.keyboardType = UIKeyboardTypeNumberPad;
+        textField.placeholder = @"訂餐數量";
+        
+    }];
+    
+    UIAlertAction *addtoOrder = [UIAlertAction actionWithTitle:@"加入訂單" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        UITextField *amountField = alert.textFields.firstObject;
+        int amount;
+        amount = [amountField.text intValue];
+        
+    }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    [alert addAction:addtoOrder];
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    
+}
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+

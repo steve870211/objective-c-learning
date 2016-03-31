@@ -19,5 +19,6 @@
 @property (nonatomic) UIImage *FoodPhoto;
 @property (nonatomic) UIImage *ShopImage;
 @property (nonatomic) NSString *FoodPhotoName;
+@property (nonatomic) NSString *ShopLogoName;
 
 @end
