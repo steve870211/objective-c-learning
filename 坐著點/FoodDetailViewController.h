@@ -12,5 +12,6 @@
 @interface FoodDetailViewController : UIViewController
 
 @property (nonatomic) Note *Foods;
+@property (nonatomic) NSMutableDictionary *car ; // 用來接訂單資料 用segue傳給paycheck
 
 @end

@@ -212,7 +212,7 @@
                         <rightBarButtonItems>
                             <barButtonItem title="購物車" id="RTi-bG-Dpz">
                                 <connections>
-                                    <segue destination="FBz-Oe-LNM" kind="push" id="XQc-NZ-qg9"/>
+                                    <segue destination="FBz-Oe-LNM" kind="push" identifier="foodtopay" id="XQc-NZ-qg9"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="訂單查詢" id="hLJ-Wd-A0J"/>
@@ -249,7 +249,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kzO-Lj-W8X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1849" y="806"/>
+            <point key="canvasLocation" x="1065" y="1079"/>
         </scene>
         <!--Pay Check View Controller-->
         <scene sceneID="eez-yE-8Uy">
@@ -305,7 +305,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="serial number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S5j-s2-c9h">
                                                     <rect key="frame" x="165" y="11" width="105" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -334,19 +334,19 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="姓名：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tg2-E0-On9">
                                 <rect key="frame" x="20" y="489" width="51" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="電話：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U3E-JC-097">
                                 <rect key="frame" x="20" y="527" width="51" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="總價" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2D3-af-6ot">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="總價：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2D3-af-6ot">
                                 <rect key="frame" x="20" y="432" width="280" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -378,11 +378,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="XTo-at-Rxo" id="gn7-f4-c9l"/>
+                        <outlet property="totalprice" destination="2D3-af-6ot" id="pF4-eP-RSc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jAI-u1-XOb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1849" y="40"/>
+            <point key="canvasLocation" x="681" y="1079"/>
         </scene>
         <!--Shops View Controller-->
         <scene sceneID="naj-3q-ueA">
@@ -498,10 +499,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2As-BD-G7G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1449" y="40"/>
+            <point key="canvasLocation" x="275" y="1079"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="eTm-g2-gni"/>
+        <segue reference="XQc-NZ-qg9"/>
     </inferredMetricsTieBreakers>
 </document>

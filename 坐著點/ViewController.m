@@ -144,6 +144,7 @@
                 note.Price = book[@"price"];
                 note.ShopID = book[@"shopID"];
                 note.FoodPhotoName = book[@"foodPhoto"];
+                note.FoodID = book[@"foodID"];
                 
                 if ([note.ShopID isEqualToString:_Shops.ShopID]) {
                     [self.Menus addObject:note];
@@ -165,7 +166,7 @@
                 [self dismissViewControllerAnimated:true completion:nil];
                 
             }
-            NSLog(@"連上囉");
+//            NSLog(@"連上囉");
         }
     }];
     [dataTask resume];
@@ -176,7 +177,7 @@
         FoodDetailViewController *FoodDetailViewController = segue.destinationViewController;
         NSIndexPath * indexPath = self.tableView.indexPathForSelectedRow;
         FoodDetailViewController.Foods = self.Menus[indexPath.row];
-        NSLog(@"Foods = %@",FoodDetailViewController.Foods);
+//        NSLog(@"Foods = %@",FoodDetailViewController.Foods);
         [_tableView deselectRowAtIndexPath:indexPath animated:true];
     }
 }

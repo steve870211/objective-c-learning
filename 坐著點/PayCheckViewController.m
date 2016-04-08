@@ -8,11 +8,12 @@
 
 #import "PayCheckViewController.h"
 #import "PayCheckTableViewCell.h"
-#import "AppDelegate.h"
+#import "Order.h"
 
 @interface PayCheckViewController ()<UITableViewDataSource,UITableViewDelegate>
-@property NSMutableArray *orders;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UILabel *totalprice;
+@property NSMutableArray *ordernumber;
 
 @end
 
@@ -21,8 +22,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.tableView.delegate = self;
+    Order *order = [Order sharedInstance];
+    self.ordernumber = [[NSMutableArray alloc]initWithArray:order.AllOrder];
+    NSLog(@"order.count=%ld",order.AllOrder.count);
+    
     self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+//    self.totalprice.text = [NSString stringWithFormat:@"總金額:%@",order.AllOrder[1]];
     
 }
 
@@ -35,6 +41,14 @@
     
     PayCheckTableViewCell *paycheckcell = [tableView dequeueReusableCellWithIdentifier:@"paycheckcell"forIndexPath:indexPath];
     
+    Order *order = [Order sharedInstance];
+    NSMutableDictionary *dictionary = order.AllOrder[indexPath.row];
+
+    paycheckcell.orderShopname.text = [dictionary objectForKey:@"ShopName"];
+    paycheckcell.serialNumber.text = [NSString stringWithFormat:@"店家編號:%@",[dictionary objectForKey:@"ShopID"]];
+    paycheckcell.orderFoodname.text = [dictionary objectForKey:@"FoodName"];
+    paycheckcell.orderFoodnumber.text = [NSString stringWithFormat:@"數量:%@",[dictionary objectForKey:@"amount"]];
+    paycheckcell.orderFoodprice.text = [NSString stringWithFormat:@"金額:%@",[dictionary objectForKey:@"FoodTotalPrice"]];
     
     return paycheckcell;
     
@@ -42,7 +56,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return self.orders.count;
+    return self.ordernumber.count;
     
 }
 

@@ -7,6 +7,9 @@
 //
 
 #import "FoodDetailViewController.h"
+#import "PayCheckViewController.h"
+#import "Order.h"
+#import "ViewController.h"
 
 @interface FoodDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *ShopName;
@@ -14,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *FoodName;
 @property (weak, nonatomic) IBOutlet UILabel *Price;
 @property (weak, nonatomic) IBOutlet UIImageView *FoodPhoto;
+@property (nonatomic) NSString *FoodID;
 
 @end
 
@@ -21,11 +25,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     self.ShopName.text = self.Foods.ShopName;
     self.ShopID.text = self.Foods.ShopID;
     self.FoodName.text = self.Foods.FoodName;
-    self.Price.text = [NSString stringWithFormat:@"%@元",self.Foods.Price];
-//    self.FoodPhoto.image = ;
+    self.Price.text = [NSString stringWithFormat:@"%@",self.Foods.Price];
+    self.FoodID = self.Foods.FoodID;
+
     NSString *food = self.Foods.FoodPhotoName;
     food = [food stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     NSString *urlstr = [NSString stringWithFormat:@"http://localhost:8888/OrderEasy/MenuPhoto/%@",food];
@@ -52,15 +58,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    
+//}
+
 - (IBAction)addToOrderBtnPressed:(id)sender {
     
     UIAlertController * alert = [UIAlertController
@@ -80,7 +84,29 @@
         UITextField *amountField = alert.textFields.firstObject;
         int amount;
         amount = [amountField.text intValue];
+        int foodTotalPrice = amount*[_Foods.Price intValue];
+        NSString *FoodTotalPrice = [NSString stringWithFormat:@"%d",foodTotalPrice];
+
+        NSString *shopid = [NSString stringWithFormat:@"%@",self.Foods.ShopID];
+        NSString *shopname = [NSString stringWithFormat:@"%@",self.Foods.ShopName];
+        NSString *foodid = [NSString stringWithFormat:@"%@",self.Foods.FoodID];
+        NSString *foodname = [NSString stringWithFormat:@"%@",self.Foods.FoodName];
+        NSString *price = [NSString stringWithFormat:@"%@",self.Foods.Price];
         
+        self.car = [NSMutableDictionary new];
+        
+        [self.car setObject:shopid forKeyedSubscript:@"ShopID"];
+        [self.car setObject:shopname forKeyedSubscript:@"ShopName"];
+        [self.car setObject:foodid forKeyedSubscript:@"FoodID"];
+        [self.car setObject:foodname forKeyedSubscript:@"FoodName"];
+        [self.car setObject:price forKey:@"Price"];
+        [self.car setObject:amountField.text forKey:@"amount"];
+        [self.car setObject:FoodTotalPrice forKey:@"FoodTotalPrice"];
+        
+        Order *order = [Order sharedInstance];
+        [order.AllOrder addObject:self.car];
+        NSLog(@"AllOrder=%ld",order.AllOrder.count);
+
     }];
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
