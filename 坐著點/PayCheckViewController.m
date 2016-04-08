@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *totalprice;
 @property NSMutableArray *ordernumber;
+@property int AllPrice;
 
 @end
 
@@ -28,7 +29,16 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-//    self.totalprice.text = [NSString stringWithFormat:@"總金額:%@",order.AllOrder[1]];
+    
+    for (int i=0; i<order.AllOrder.count; i++) {
+        
+        NSDictionary *total = order.AllOrder[i];
+        int Total = [[total objectForKey:@"FoodTotalPrice"]intValue];
+        self.AllPrice = self.AllPrice + Total;
+        
+    }
+    
+    self.totalprice.text = [NSString stringWithFormat:@"總金額:%d元",self.AllPrice];
     
 }
 
@@ -48,7 +58,7 @@
     paycheckcell.serialNumber.text = [NSString stringWithFormat:@"店家編號:%@",[dictionary objectForKey:@"ShopID"]];
     paycheckcell.orderFoodname.text = [dictionary objectForKey:@"FoodName"];
     paycheckcell.orderFoodnumber.text = [NSString stringWithFormat:@"數量:%@",[dictionary objectForKey:@"amount"]];
-    paycheckcell.orderFoodprice.text = [NSString stringWithFormat:@"金額:%@",[dictionary objectForKey:@"FoodTotalPrice"]];
+    paycheckcell.orderFoodprice.text = [NSString stringWithFormat:@"金額:%@元",[dictionary objectForKey:@"FoodTotalPrice"]];
     
     return paycheckcell;
     

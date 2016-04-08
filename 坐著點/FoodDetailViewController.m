@@ -85,27 +85,40 @@
         int amount;
         amount = [amountField.text intValue];
         int foodTotalPrice = amount*[_Foods.Price intValue];
-        NSString *FoodTotalPrice = [NSString stringWithFormat:@"%d",foodTotalPrice];
 
-        NSString *shopid = [NSString stringWithFormat:@"%@",self.Foods.ShopID];
-        NSString *shopname = [NSString stringWithFormat:@"%@",self.Foods.ShopName];
-        NSString *foodid = [NSString stringWithFormat:@"%@",self.Foods.FoodID];
-        NSString *foodname = [NSString stringWithFormat:@"%@",self.Foods.FoodName];
-        NSString *price = [NSString stringWithFormat:@"%@",self.Foods.Price];
-        
-        self.car = [NSMutableDictionary new];
-        
-        [self.car setObject:shopid forKeyedSubscript:@"ShopID"];
-        [self.car setObject:shopname forKeyedSubscript:@"ShopName"];
-        [self.car setObject:foodid forKeyedSubscript:@"FoodID"];
-        [self.car setObject:foodname forKeyedSubscript:@"FoodName"];
-        [self.car setObject:price forKey:@"Price"];
-        [self.car setObject:amountField.text forKey:@"amount"];
-        [self.car setObject:FoodTotalPrice forKey:@"FoodTotalPrice"];
-        
-        Order *order = [Order sharedInstance];
-        [order.AllOrder addObject:self.car];
-        NSLog(@"AllOrder=%ld",order.AllOrder.count);
+        if (amount != 0) {
+            NSString *FoodTotalPrice = [NSString stringWithFormat:@"%d",foodTotalPrice];
+            NSString *shopid = [NSString stringWithFormat:@"%@",self.Foods.ShopID];
+            NSString *shopname = [NSString stringWithFormat:@"%@",self.Foods.ShopName];
+            NSString *foodid = [NSString stringWithFormat:@"%@",self.Foods.FoodID];
+            NSString *foodname = [NSString stringWithFormat:@"%@",self.Foods.FoodName];
+            NSString *price = [NSString stringWithFormat:@"%@",self.Foods.Price];
+            
+            self.car = [NSMutableDictionary new];
+            [self.car setObject:shopid forKeyedSubscript:@"ShopID"];
+            [self.car setObject:shopname forKeyedSubscript:@"ShopName"];
+            [self.car setObject:foodid forKeyedSubscript:@"FoodID"];
+            [self.car setObject:foodname forKeyedSubscript:@"FoodName"];
+            [self.car setObject:price forKey:@"Price"];
+            [self.car setObject:amountField.text forKey:@"amount"];
+            [self.car setObject:FoodTotalPrice forKey:@"FoodTotalPrice"];
+            
+            Order *order = [Order sharedInstance];
+            [order.AllOrder addObject:self.car];
+            NSLog(@"AllOrder=%ld",order.AllOrder.count);
+        } else {
+            UIAlertController *alert = [UIAlertController
+                                        alertControllerWithTitle:@"錯誤"
+                                        message:@"訂購數量不得為 0"
+                                        preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *alertAction = [UIAlertAction
+                                          actionWithTitle:@"OK!"
+                                          style:UIAlertActionStyleDefault
+                                          handler:nil];
+            [alert addAction:alertAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
 
     }];
     

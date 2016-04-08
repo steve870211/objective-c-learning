@@ -18,8 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    Order *order = [Order sharedInstance];
-    order.AllOrder = [NSMutableArray new];
+
     return YES;
 }
 

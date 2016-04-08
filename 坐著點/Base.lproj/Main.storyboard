@@ -309,6 +309,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" red="0.85659358638743455" green="0.52640513900824271" blue="0.22211128858310619" alpha="1" colorSpace="calibratedRGB"/>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="deleteBtn" destination="xzx-wj-YHt" id="Gcm-wp-RC8"/>
@@ -350,7 +351,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="0.85102832253385019" blue="0.48729503546774267" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="XTo-at-Rxo" firstAttribute="leading" secondItem="ykg-9K-DEx" secondAttribute="leading" id="2xn-DB-odm"/>
                             <constraint firstAttribute="trailing" secondItem="uSv-Z6-04U" secondAttribute="trailing" constant="20" id="5ni-ZX-K9o"/>
