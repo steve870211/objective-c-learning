@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *Price;
 @property (weak, nonatomic) IBOutlet UIImageView *FoodPhoto;
 @property (nonatomic) NSString *FoodID;
+@property (nonatomic) BOOL all_or_amount;
 
 @end
 
@@ -79,14 +80,36 @@
         
     }];
     
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
     UIAlertAction *addtoOrder = [UIAlertAction actionWithTitle:@"加入訂單" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         UITextField *amountField = alert.textFields.firstObject;
         int amount;
         amount = [amountField.text intValue];
         int foodTotalPrice = amount*[_Foods.Price intValue];
+        NSString *foodid = self.Foods.FoodID;
+        Order *order = [Order sharedInstance];
+        self.all_or_amount = false;
 
-        if (amount != 0) {
+        if (amount == 0) {
+            
+            UIAlertController *alert = [UIAlertController
+                                        alertControllerWithTitle:@"錯誤"
+                                        message:@"訂購數量不得為 0"
+                                        preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *alertAction = [UIAlertAction
+                                          actionWithTitle:@"OK!"
+                                          style:UIAlertActionStyleDefault
+                                          handler:nil];
+            [alert addAction:alertAction];
+            [self presentViewController:alert animated:YES completion:nil];
+            
+        } else {
+            
             NSString *FoodTotalPrice = [NSString stringWithFormat:@"%d",foodTotalPrice];
             NSString *shopid = [NSString stringWithFormat:@"%@",self.Foods.ShopID];
             NSString *shopname = [NSString stringWithFormat:@"%@",self.Foods.ShopName];
@@ -102,28 +125,36 @@
             [self.car setObject:price forKey:@"Price"];
             [self.car setObject:amountField.text forKey:@"amount"];
             [self.car setObject:FoodTotalPrice forKey:@"FoodTotalPrice"];
-            
-            Order *order = [Order sharedInstance];
-            [order.AllOrder addObject:self.car];
-            NSLog(@"AllOrder=%ld",order.AllOrder.count);
-        } else {
-            UIAlertController *alert = [UIAlertController
-                                        alertControllerWithTitle:@"錯誤"
-                                        message:@"訂購數量不得為 0"
-                                        preferredStyle:UIAlertControllerStyleAlert];
-            
-            UIAlertAction *alertAction = [UIAlertAction
-                                          actionWithTitle:@"OK!"
-                                          style:UIAlertActionStyleDefault
-                                          handler:nil];
-            [alert addAction:alertAction];
-            [self presentViewController:alert animated:YES completion:nil];
-        }
 
-    }];
-    
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
+            if (order.AllOrder.count != 0) {
+                
+                for (int i=0; i<order.AllOrder.count; i++) {
+                    
+                    NSDictionary *dictionary = order.AllOrder[i];
+                    
+                    if ([[dictionary objectForKey:@"FoodID"] isEqualToString:foodid]) {
+                        
+                        int number = [[dictionary objectForKey:@"amount"]intValue];
+                        number = amount+number;
+                        [dictionary setValue:[NSString stringWithFormat:@"%d",number] forKey:@"amount"];
+                        [dictionary setValue:[NSString stringWithFormat:@"%d",number * [self.Price.text intValue]] forKey:@"FoodTotalPrice"];
+                        self.all_or_amount = true;
+                        break;
+                        
+                    }
+                }
+                if (self.all_or_amount == false) {
+                    
+                    [order.AllOrder addObject:self.car];
+                    self.all_or_amount = true;
+                    
+                }
+            } else if(self.all_or_amount == false){
+                
+                [order.AllOrder addObject:self.car];
+                
+            }
+        }
     }];
     
     [alert addAction:addtoOrder];
@@ -132,6 +163,8 @@
     [self presentViewController:alert animated:YES completion:nil];
     
 }
+
+
 
 @end
 
