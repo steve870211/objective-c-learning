@@ -412,7 +412,7 @@
                     <navigationItem key="navigationItem" id="scR-fz-HmK">
                         <barButtonItem key="rightBarButtonItem" title="送出訂單" id="w43-Ye-eGX">
                             <connections>
-                                <segue destination="TIE-FR-oQK" kind="push" id="hGs-LF-geZ"/>
+                                <action selector="addToOrder:" destination="FBz-Oe-LNM" id="Egh-gG-ZJc"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

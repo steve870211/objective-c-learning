@@ -20,6 +20,16 @@
 @property (weak, nonatomic) IBOutlet UITextField *CustomerPhoneNumber;
 @property (nonatomic) UITextField * editingTextField;
 @property (nonatomic) int keyboardHeight;
+
+// addToOrder
+@property NSString *orderID;
+@property int shopID;
+@property int foodID;
+@property int orderNumber;
+@property int total;
+@property NSString *thecustomerName;
+@property NSString *thecellphoneNumber;
+
 @end
 
 @implementation PayCheckViewController
@@ -151,12 +161,6 @@
     paycheckcell.orderFoodnumber.text = [NSString stringWithFormat:@"數量:%@",[dictionary objectForKey:@"amount"]];
     paycheckcell.orderFoodprice.text = [NSString stringWithFormat:@"金額:%@元",[dictionary objectForKey:@"FoodTotalPrice"]];
     
-    int orderid = arc4random()%1000000;
-    NSDateFormatter *dateFormatter =[[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"YYYYMMDDAAAAAAAA"];
-    NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
-    NSLog(@"%@-%d",dateString,orderid);
-    
     return paycheckcell;
     
 }
@@ -167,7 +171,58 @@
     
 }
 
+// add order to MAMP
+- (IBAction)addToOrder:(id)sender {
+    
+    Order *order = [Order sharedInstance];
+    // 如果姓名和電話有填
+    if (self.CustomerName.text != nil && self.CustomerPhoneNumber.text != nil) {
+        int idnumber = arc4random()%1000000;
+        NSDateFormatter *dateFormatter =[[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"YYYYMMDDAAAAAAAA"];
+        NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
+        self.orderID = [NSString stringWithFormat:@"%@%d",dateString,idnumber];
+        self.thecustomerName = self.CustomerName.text;
+        self.thecellphoneNumber = self.CustomerPhoneNumber.text;
+    
+        for (int i=0; i<order.AllOrder.count; i++) {
+            NSDictionary *dictionary = order.AllOrder[i];
+            self.shopID = [[dictionary objectForKey:@"ShopID"]intValue];
+            self.foodID = [[dictionary objectForKey:@"FoodID"]intValue];
+            self.orderNumber = [[dictionary objectForKey:@"amount"]intValue];
+            self.total = [[dictionary objectForKey:@"FoodTotalPrice"]intValue];
+            [self addOrderDetail];
+        }
+    } else if(self.CustomerName == nil){
+        NSLog(@"Name can't be nil!");
+    } else if(self.CustomerPhoneNumber == nil){
+        NSLog(@"PhoneNumber must type!");
+    }
+}
 
+-(void) addOrderDetail{
+    
+    NSURL *url=[NSURL URLWithString:@"http://localhost:8888/OrderEasy/orderadd.php"];
+    NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:url];
+    request.HTTPMethod=@"POST";
+
+    NSString *parameter=[NSString stringWithFormat:@"orderID=%@&shopID=%d&foodID=%d&orderNumber=%d&total=%d&customerName=%@&cellphoneNumber=%@",self.orderID,self.shopID,self.foodID,self.orderNumber,self.total,self.thecustomerName,self.thecellphoneNumber];
+    
+    NSData *body=[parameter dataUsingEncoding:NSUTF8StringEncoding];
+    request.HTTPBody=body;
+    
+    NSURLSession *session=[NSURLSession sharedSession];
+    NSURLSessionTask *task=[session dataTaskWithRequest:request completionHandler:^(NSData *  data, NSURLResponse *  response, NSError *  error) {
+        if (error){
+            NSLog(@"error %@",error);
+            
+        }
+        
+    }];
+    [task resume];
+    
+    
+}
 
 @end
 
