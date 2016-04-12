@@ -36,10 +36,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     Order *order = [Order sharedInstance];
     self.ordernumber = [[NSMutableArray alloc]initWithArray:order.AllOrder];
-//    NSLog(@"order.count=%ld",order.AllOrder.count);
+    //    NSLog(@"order.count=%ld",order.AllOrder.count);
     
     self.CustomerName.delegate = self;
     self.CustomerPhoneNumber.delegate = self;
@@ -66,7 +66,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-
+    
 }
 
 //加入觀察，view自動往上code開始
@@ -154,7 +154,7 @@
     
     Order *order = [Order sharedInstance];
     NSMutableDictionary *dictionary = order.AllOrder[indexPath.row];
-
+    
     paycheckcell.orderShopname.text = [dictionary objectForKey:@"ShopName"];
     paycheckcell.serialNumber.text = [NSString stringWithFormat:@"店家編號:%@",[dictionary objectForKey:@"ShopID"]];
     paycheckcell.orderFoodname.text = [dictionary objectForKey:@"FoodName"];
@@ -175,37 +175,60 @@
 - (IBAction)addToOrder:(id)sender {
     
     Order *order = [Order sharedInstance];
-    // 如果姓名和電話有填
-    if (self.CustomerName.text != nil && self.CustomerPhoneNumber.text != nil) {
-        int idnumber = arc4random()%1000000;
-        NSDateFormatter *dateFormatter =[[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"YYYYMMDDAAAAAAAA"];
-        NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
-        self.orderID = [NSString stringWithFormat:@"%@%d",dateString,idnumber];
-        self.thecustomerName = self.CustomerName.text;
-        self.thecellphoneNumber = self.CustomerPhoneNumber.text;
-    
-        for (int i=0; i<order.AllOrder.count; i++) {
-            NSDictionary *dictionary = order.AllOrder[i];
-            self.shopID = [[dictionary objectForKey:@"ShopID"]intValue];
-            self.foodID = [[dictionary objectForKey:@"FoodID"]intValue];
-            self.orderNumber = [[dictionary objectForKey:@"amount"]intValue];
-            self.total = [[dictionary objectForKey:@"FoodTotalPrice"]intValue];
-            [self addOrderDetail];
-        }
-    } else if(self.CustomerName == nil){
-        NSLog(@"Name can't be nil!");
-    } else if(self.CustomerPhoneNumber == nil){
-        NSLog(@"PhoneNumber must type!");
+    if (order.AllOrder.count == 0) {
+        UIAlertController *ordernothing = [UIAlertController alertControllerWithTitle:@"Error!" message:@"You have not ordered anything yet." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Go shopping" style:UIAlertActionStyleCancel handler:nil];
+        [ordernothing addAction:ok];
+        [self presentViewController:ordernothing animated:YES completion:nil];
+    } else if ([self.CustomerName.text isEqualToString:@""]) {
+        UIAlertController *noName = [UIAlertController alertControllerWithTitle:@"Error!" message:@"You must type your name before you send the order." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+        [noName addAction:ok];
+        [self presentViewController:noName animated:YES completion:nil];
+    } else if([self.CustomerPhoneNumber.text isEqualToString:@""]){
+        UIAlertController *noPhoneNumber = [UIAlertController alertControllerWithTitle:@"Error!" message:@"You must type your cell phone number before you send the order." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+        [noPhoneNumber addAction:ok];
+        [self presentViewController:noPhoneNumber animated:YES completion:nil];
+    } else {
+        // 確認是否送出訂單
+        UIAlertController *check = [UIAlertController alertControllerWithTitle:@"Check" message:@"Do you want to order these foods?" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *yes = [UIAlertAction actionWithTitle:@"YES!" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            int idnumber = arc4random()%1000000;
+            NSDateFormatter *dateFormatter =[[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"YYYYMMDDAAAAAAAA"];
+            NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
+            self.orderID = [NSString stringWithFormat:@"%@%d",dateString,idnumber];
+            self.thecustomerName = self.CustomerName.text;
+            self.thecellphoneNumber = self.CustomerPhoneNumber.text;
+            
+            for (int i=0; i<order.AllOrder.count; i++) {
+                NSDictionary *dictionary = order.AllOrder[i];
+                self.shopID = [[dictionary objectForKey:@"ShopID"]intValue];
+                self.foodID = [[dictionary objectForKey:@"FoodID"]intValue];
+                self.orderNumber = [[dictionary objectForKey:@"amount"]intValue];
+                self.total = [[dictionary objectForKey:@"FoodTotalPrice"]intValue];
+                [self addOrderDetail];
+            }
+            // 成功送出訂單
+            UIAlertController *done = [UIAlertController alertControllerWithTitle:@"Success!" message:@"Thanks for your ordered. We will present the foods as soon as posible." preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+            [done addAction:ok];
+            [self presentViewController:done animated:YES completion:nil];
+        }];
+        UIAlertAction *no = [UIAlertAction actionWithTitle:@"NO!" style:UIAlertActionStyleCancel handler:nil];
+        [check addAction:yes];
+        [check addAction:no];
+        [self presentViewController:check animated:yes completion:nil];
     }
 }
 
--(void) addOrderDetail{
+- (void)addOrderDetail{
     
     NSURL *url=[NSURL URLWithString:@"http://localhost:8888/OrderEasy/orderadd.php"];
     NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod=@"POST";
-
+    
     NSString *parameter=[NSString stringWithFormat:@"orderID=%@&shopID=%d&foodID=%d&orderNumber=%d&total=%d&customerName=%@&cellphoneNumber=%@",self.orderID,self.shopID,self.foodID,self.orderNumber,self.total,self.thecustomerName,self.thecellphoneNumber];
     
     NSData *body=[parameter dataUsingEncoding:NSUTF8StringEncoding];
