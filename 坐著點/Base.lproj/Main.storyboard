@@ -195,7 +195,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ang-vf-cIa">
-                                <rect key="frame" x="290" y="233" width="20" height="20"/>
+                                <rect key="frame" x="290" y="393" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.80781432480212234" blue="0.46444198575442519" alpha="1" colorSpace="calibratedRGB"/>
@@ -223,7 +223,7 @@
                             <constraint firstItem="ueU-R5-oRx" firstAttribute="top" secondItem="6iE-Ic-d7c" secondAttribute="bottom" id="gLy-ZQ-aFh"/>
                             <constraint firstItem="uj9-Ul-JpE" firstAttribute="leading" secondItem="KMP-39-QZN" secondAttribute="leading" id="gi6-YG-jY4"/>
                             <constraint firstItem="6iE-Ic-d7c" firstAttribute="trailing" secondItem="ueU-R5-oRx" secondAttribute="trailing" id="lO5-qG-RQp"/>
-                            <constraint firstItem="ang-vf-cIa" firstAttribute="top" secondItem="fBC-hY-CFz" secondAttribute="bottom" constant="8" symbolic="YES" id="p2R-WO-OZP"/>
+                            <constraint firstItem="ang-vf-cIa" firstAttribute="top" secondItem="fBC-hY-CFz" secondAttribute="bottom" constant="168" id="p2R-WO-OZP"/>
                             <constraint firstItem="nig-bR-xSF" firstAttribute="baseline" secondItem="fBC-hY-CFz" secondAttribute="baseline" id="tEr-R4-Qse"/>
                             <constraint firstAttribute="trailingMargin" secondItem="uj9-Ul-JpE" secondAttribute="trailing" constant="4" id="taP-vF-Jm6"/>
                             <constraint firstItem="KMP-39-QZN" firstAttribute="top" secondItem="tmN-6P-zVo" secondAttribute="bottom" constant="15" id="u7j-VT-zeT"/>
@@ -257,10 +257,10 @@
             </objects>
             <point key="canvasLocation" x="2010" y="311.61971830985914"/>
         </scene>
-        <!--View Controller-->
+        <!--Order Detail View Controller-->
         <scene sceneID="Gkj-W9-LSH">
             <objects>
-                <viewController id="TIE-FR-oQK" sceneMemberID="viewController">
+                <viewController id="TIE-FR-oQK" customClass="OrderDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QIa-Ff-22S"/>
                         <viewControllerLayoutGuide type="bottom" id="Lsf-PJ-GrT"/>
@@ -524,16 +524,11 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fPp-l3-m1E">
-                                <rect key="frame" x="290" y="290" width="20" height="20"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="s9i-Dp-RA1" secondAttribute="trailing" id="IPS-ae-Cej"/>
                             <constraint firstItem="s9i-Dp-RA1" firstAttribute="leading" secondItem="Vnl-z4-YEg" secondAttribute="leading" id="Jw3-yh-dR3"/>
-                            <constraint firstItem="fPp-l3-m1E" firstAttribute="centerY" secondItem="s9i-Dp-RA1" secondAttribute="centerY" id="QLV-Zz-kKl"/>
-                            <constraint firstItem="fPp-l3-m1E" firstAttribute="centerX" secondItem="s9i-Dp-RA1" secondAttribute="centerX" id="en7-xt-LWh"/>
                             <constraint firstItem="s9i-Dp-RA1" firstAttribute="bottom" secondItem="tyx-xP-j9p" secondAttribute="top" id="oMh-z0-aRo"/>
                             <constraint firstItem="s9i-Dp-RA1" firstAttribute="top" secondItem="Vnl-z4-YEg" secondAttribute="top" id="yqb-DL-x7n"/>
                         </constraints>
@@ -552,7 +547,6 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="LoadingActivity" destination="fPp-l3-m1E" id="gK0-fr-NlH"/>
                         <outlet property="tableView" destination="s9i-Dp-RA1" id="rip-0z-7iT"/>
                     </connections>
                 </viewController>
@@ -604,6 +598,6 @@
         <image name="shopping-cart.png" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XQc-NZ-qg9"/>
+        <segue reference="eTm-g2-gni"/>
     </inferredMetricsTieBreakers>
 </document>

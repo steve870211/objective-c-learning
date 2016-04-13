@@ -85,9 +85,11 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-坐著點/AFNetworking.framework"
+  install_framework "Pods-坐著點/DGActivityIndicatorView.framework"
   install_framework "Pods-坐著點/MMNumberKeyboard.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-坐著點/AFNetworking.framework"
+  install_framework "Pods-坐著點/DGActivityIndicatorView.framework"
   install_framework "Pods-坐著點/MMNumberKeyboard.framework"
 fi

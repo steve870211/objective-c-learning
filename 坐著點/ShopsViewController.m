@@ -9,13 +9,15 @@
 #import "ShopsViewController.h"
 #import "ShopsTableViewCell.h"
 #import "ViewController.h"
-
+@import DGActivityIndicatorView;
 
 @interface ShopsViewController () <UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) NSMutableArray *ShopsList;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *LoadingActivity;
 @property (nonatomic) NSMutableArray *the_arr;
+@property DGActivityIndicatorView *dgActivity;
+
 @end
 
 @implementation ShopsViewController
@@ -27,7 +29,10 @@
     self.tableView.dataSource = self;
     _ShopsList = [[NSMutableArray alloc]initWithObjects:_the_arr, nil];
     
-    [self.LoadingActivity startAnimating];
+    self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeCookieTerminator tintColor:[UIColor redColor] size:100.0f];
+    self.dgActivity.center = self.view.center;
+    [self.view addSubview:self.dgActivity];
+    [self.dgActivity startAnimating];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,7 +67,8 @@
         }
     }];
     [task resume];
-    [self.LoadingActivity stopAnimating];
+    [self.dgActivity removeFromSuperview];
+    [self.dgActivity stopAnimating];
     return cell;
 }
 

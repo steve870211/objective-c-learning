@@ -4,4 +4,5 @@ use_frameworks!
 target '坐著點’ do
   pod 'AFNetworking', '~> 2.6'
   pod 'MMNumberKeyboard'
+  pod 'DGActivityIndicatorView'
 end

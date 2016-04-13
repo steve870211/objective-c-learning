@@ -14,6 +14,7 @@
 		AAABC2A71CBE1CB5006788C1 /* purchase_order.png in Resources */ = {isa = PBXBuildFile; fileRef = AAABC2A61CBE1CB5006788C1 /* purchase_order.png */; };
 		AAABC2AF1CBE1E2C006788C1 /* add_cart.png in Resources */ = {isa = PBXBuildFile; fileRef = AAABC2AE1CBE1E2C006788C1 /* add_cart.png */; };
 		AAABC2B11CBE1ED4006788C1 /* add_cart2.png in Resources */ = {isa = PBXBuildFile; fileRef = AAABC2B01CBE1ED4006788C1 /* add_cart2.png */; };
+		AAABC2B31CBE2FB0006788C1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAABC2B21CBE2FB0006788C1 /* QuartzCore.framework */; };
 		AACE400D1C918BFD006DAC44 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = AACE400C1C918BFD006DAC44 /* Note.m */; };
 		AAD6DB541CAD582900EA06CE /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD6DB531CAD582900EA06CE /* Order.m */; };
 		AAE7FABC1CA3C6E700578B19 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE7FABB1CA3C6E700578B19 /* loading.png */; };
@@ -64,6 +65,7 @@
 		AAABC2A61CBE1CB5006788C1 /* purchase_order.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purchase_order.png; sourceTree = "<group>"; };
 		AAABC2AE1CBE1E2C006788C1 /* add_cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_cart.png; sourceTree = "<group>"; };
 		AAABC2B01CBE1ED4006788C1 /* add_cart2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_cart2.png; sourceTree = "<group>"; };
+		AAABC2B21CBE2FB0006788C1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AACE400B1C918BFD006DAC44 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
 		AACE400C1C918BFD006DAC44 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
 		AAD6DB521CAD582900EA06CE /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAABC2B31CBE2FB0006788C1 /* QuartzCore.framework in Frameworks */,
 				DE18376D529C2E315EF47316 /* Pods____.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -127,6 +130,7 @@
 		41B89E2746D226BB9011E396 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AAABC2B21CBE2FB0006788C1 /* QuartzCore.framework */,
 				CAF0314E5453C79A75EB446E /* Pods____.framework */,
 			);
 			name = Frameworks;

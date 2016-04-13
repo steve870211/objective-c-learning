@@ -20,14 +20,17 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - DGActivityIndicatorView (2.0)
   - MMNumberKeyboard (0.1.5)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6)
+  - DGActivityIndicatorView
   - MMNumberKeyboard
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  DGActivityIndicatorView: 52875b025a6ccf6a431a905285c12e2bb95eb559
   MMNumberKeyboard: 12da79571d08aca21566534a74726c5469aed29a
 
 COCOAPODS: 0.39.0

@@ -28,14 +28,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [self.LoadingActivity startAnimating]; // 轉轉轉開始！
     self.ShopName.text = self.Foods.ShopName;
     self.ShopID.text = self.Foods.ShopID;
     self.FoodName.text = self.Foods.FoodName;
     self.Price.text = [NSString stringWithFormat:@"%@",self.Foods.Price];
     self.FoodID = self.Foods.FoodID;
     
-    [self.LoadingActivity startAnimating];
-
     NSString *food = self.Foods.FoodPhotoName;
     food = [food stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     NSString *urlstr = [NSString stringWithFormat:@"http://scu-ordereasy.rhcloud.com/MenuPhoto/%@",food];
@@ -49,9 +48,9 @@
             dispatch_async(dispatch_get_main_queue(),^{
                 UIImage *image = [UIImage imageWithData:data];
                 self.FoodPhoto.image = image;
+                [self.LoadingActivity stopAnimating]; // 轉轉轉結束！
             });
         }
-        [self.LoadingActivity stopAnimating];
     }];
     [task resume];
 
