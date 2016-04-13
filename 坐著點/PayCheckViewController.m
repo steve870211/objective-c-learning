@@ -249,22 +249,24 @@
         
         self.TrueParameter = [self.TrueParameter stringByAppendingString:[NSString stringWithFormat:@"&shopID%d=%d&foodID%d=%d&orderNumber%d=%d&total%d=%d", i, self.shopID, i, self.foodID, i, self.orderNumber, i, self.total]]  ;
     }
-    NSLog(@"TrueParameter=%@",self.TrueParameter);
+//    NSLog(@"TrueParameter=%@",self.TrueParameter);
     
     NSData *body=[self.TrueParameter dataUsingEncoding:NSUTF8StringEncoding];
     request.HTTPBody=body;
     
     NSURLSession *session=[NSURLSession sharedSession];
     NSURLSessionTask *task=[session dataTaskWithRequest:request completionHandler:^(NSData *  data, NSURLResponse *  response, NSError *  error) {
-        if (error != nil){
+        
+        NSString *returndata = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+        if (![returndata  isEqual: @""]){
             
             dispatch_async(dispatch_get_main_queue(),^{
                 UIAlertController *Error = [UIAlertController alertControllerWithTitle:@"Error!" message:@"訂單傳送失敗，請確認您的網路狀況是否正常。" preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
                 [Error addAction:cancel];
+                [self presentViewController:Error animated:YES completion:nil];
             });
         } else {
-            NSString *returndata = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
             NSLog(@"%@",returndata);
         }
     }];

@@ -1,0 +1,6 @@
+framework module ASCFlatUIColor {
+  umbrella header "ASCFlatUIColor-umbrella.h"
+
+  export *
+  module * { export * }
+}

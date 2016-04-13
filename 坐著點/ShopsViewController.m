@@ -10,13 +10,14 @@
 #import "ShopsTableViewCell.h"
 #import "ViewController.h"
 @import DGActivityIndicatorView;
+@import ASCFlatUIColor;
 
 @interface ShopsViewController () <UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) NSMutableArray *ShopsList;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *LoadingActivity;
 @property (nonatomic) NSMutableArray *the_arr;
 @property DGActivityIndicatorView *dgActivity;
+@property NSArray *colors;
 
 @end
 
@@ -24,12 +25,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
     [self the_reload_model];
     self.tableView.dataSource = self;
     _ShopsList = [[NSMutableArray alloc]initWithObjects:_the_arr, nil];
     
-    self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeCookieTerminator tintColor:[UIColor redColor] size:100.0f];
+    UIColor *alizarinColor = [ASCFlatUIColor alizarinColor];
+    UIColor *cloudsColor = [ASCFlatUIColor cloudsColor];
+    UIColor *sunFlowerColor = [ASCFlatUIColor sunFlowerColor];
+    UIColor *carrotColor = [ASCFlatUIColor carrotColor];
+    UIColor *orangeColor = [ASCFlatUIColor orangeColor];
+    UIColor *silverColor = [ASCFlatUIColor silverColor];
+    UIColor *emeraldColor = [ASCFlatUIColor emeraldColor];
+    UIColor *pumpkinColor = [ASCFlatUIColor pumpkinColor];
+    UIColor *concreteColor = [ASCFlatUIColor concreteColor];
+    UIColor *asbestosColor = [ASCFlatUIColor asbestosColor];
+    UIColor *amethystColor = [ASCFlatUIColor amethystColor];
+    UIColor *peterriver = [ASCFlatUIColor peterRiverColor];
+    
+    self.tableView.backgroundColor = [UIColor brownColor];
+    
+    self.colors = [NSArray arrayWithObjects:cloudsColor,alizarinColor,sunFlowerColor,peterriver,carrotColor,orangeColor,silverColor,emeraldColor,pumpkinColor,concreteColor,asbestosColor,amethystColor, nil]; // 隨機色彩
+    
+    // 讀取動畫
+    self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeLineScaleParty tintColor:alizarinColor size:60.0f];
     self.dgActivity.center = self.view.center;
     [self.view addSubview:self.dgActivity];
     [self.dgActivity startAnimating];
@@ -50,6 +69,10 @@
     cell.ShopName.text = note.ShopName;
     cell.ShopID.text = note.ShopID;
     cell.ShopsImage.image = [UIImage imageNamed:@"loading.png"];
+    
+    int anycolor = arc4random()%self.colors.count;
+    cell.backgroundColor = self.colors[anycolor];
+    
     NSString *shop = note.ShopLogoName;
     shop = [shop stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     NSString *urlstr = [NSString stringWithFormat:@"http://scu-ordereasy.rhcloud.com/MenuPhoto/%@",shop];
@@ -67,8 +90,8 @@
         }
     }];
     [task resume];
-    [self.dgActivity removeFromSuperview];
     [self.dgActivity stopAnimating];
+    [self.dgActivity removeFromSuperview];
     return cell;
 }
 

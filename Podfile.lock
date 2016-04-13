@@ -20,16 +20,19 @@ PODS:
   - AFNetworking/UIKit (2.6.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - ASCFlatUIColor (0.1.0)
   - DGActivityIndicatorView (2.0)
   - MMNumberKeyboard (0.1.5)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6)
+  - ASCFlatUIColor
   - DGActivityIndicatorView
   - MMNumberKeyboard
 
 SPEC CHECKSUMS:
   AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  ASCFlatUIColor: 4219ca860d305a88f5240b9cd380e002d0e0b672
   DGActivityIndicatorView: 52875b025a6ccf6a431a905285c12e2bb95eb559
   MMNumberKeyboard: 12da79571d08aca21566534a74726c5469aed29a
 

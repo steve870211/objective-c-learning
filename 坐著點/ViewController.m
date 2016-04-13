@@ -10,6 +10,8 @@
 #import "Note.h"
 #import "TheTableViewCell.h"
 #import "FoodDetailViewController.h"
+@import DGActivityIndicatorView;
+@import ASCFlatUIColor;
 
 @interface ViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -19,8 +21,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) NSMutableArray *Menus;
 @property (nonatomic) NSMutableArray *the_arr;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *LoadingActivity;
-
+@property DGActivityIndicatorView *dgActivity;
+@property NSArray *colors;
 @end
 
 @implementation ViewController
@@ -40,7 +42,31 @@
     [self the_reload_model];
     _Menus = [[NSMutableArray alloc]initWithObjects:_the_arr, nil];
     
-    [self.LoadingActivity startAnimating];
+    UIColor *color = [ASCFlatUIColor alizarinColor];
+    self.tableView.backgroundColor = [UIColor brownColor];
+    
+    UIColor *alizarinColor = [ASCFlatUIColor alizarinColor];
+    UIColor *cloudsColor = [ASCFlatUIColor cloudsColor];
+    UIColor *sunFlowerColor = [ASCFlatUIColor sunFlowerColor];
+    UIColor *carrotColor = [ASCFlatUIColor carrotColor];
+    UIColor *orangeColor = [ASCFlatUIColor orangeColor];
+    UIColor *silverColor = [ASCFlatUIColor silverColor];
+    UIColor *emeraldColor = [ASCFlatUIColor emeraldColor];
+    UIColor *pumpkinColor = [ASCFlatUIColor pumpkinColor];
+    UIColor *concreteColor = [ASCFlatUIColor concreteColor];
+    UIColor *asbestosColor = [ASCFlatUIColor asbestosColor];
+    UIColor *amethystColor = [ASCFlatUIColor amethystColor];
+    UIColor *peterriver = [ASCFlatUIColor peterRiverColor];
+    
+    self.tableView.backgroundColor = [UIColor brownColor];
+    
+    self.colors = [NSArray arrayWithObjects:cloudsColor,alizarinColor,sunFlowerColor,peterriver,carrotColor,orangeColor,silverColor,emeraldColor,pumpkinColor,concreteColor,asbestosColor,amethystColor, nil]; // 隨機色彩
+    
+    // 讀取動畫
+    self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeLineScaleParty tintColor:color size:60.0f];
+    self.dgActivity.center = self.view.center;
+    [self.view addSubview:self.dgActivity];
+    [self.dgActivity startAnimating]; // 轉轉轉開始！
     
 }
 
@@ -86,6 +112,9 @@
     cell.foodphoto.image = [UIImage imageNamed:@"loading.png"];
     cell.note = note;
     
+    int anycolor = arc4random()%self.colors.count;
+    cell.backgroundColor = self.colors[anycolor];
+    
 //    圖片下載並顯示
     NSString *food = note.FoodPhotoName;
     food = [food stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
@@ -104,7 +133,10 @@
         }
     }];
     [task resume];
-    [self.LoadingActivity stopAnimating];
+    
+    [self.dgActivity stopAnimating];
+    [self.dgActivity removeFromSuperview];
+    
     return cell;
     
 }

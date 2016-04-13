@@ -10,6 +10,8 @@
 #import "PayCheckViewController.h"
 #import "Order.h"
 #import "ViewController.h"
+@import DGActivityIndicatorView;
+@import ASCFlatUIColor;
 
 @interface FoodDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *ShopName;
@@ -19,8 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *FoodPhoto;
 @property (nonatomic) NSString *FoodID;
 @property (nonatomic) BOOL all_or_amount;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *LoadingActivity;
-
+@property DGActivityIndicatorView *dgActivity;
 @end
 
 @implementation FoodDetailViewController
@@ -28,7 +29,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self.LoadingActivity startAnimating]; // 轉轉轉開始！
+    UIColor *color = [ASCFlatUIColor alizarinColor];
+    
+    // 讀取動畫
+    self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeLineScaleParty tintColor:color size:60.0f];
+    self.dgActivity.center = self.view.center;
+    [self.view addSubview:self.dgActivity];
+    [self.dgActivity startAnimating]; // 轉轉轉開始！
+    
     self.ShopName.text = self.Foods.ShopName;
     self.ShopID.text = self.Foods.ShopID;
     self.FoodName.text = self.Foods.FoodName;
@@ -48,7 +56,8 @@
             dispatch_async(dispatch_get_main_queue(),^{
                 UIImage *image = [UIImage imageWithData:data];
                 self.FoodPhoto.image = image;
-                [self.LoadingActivity stopAnimating]; // 轉轉轉結束！
+                [self.dgActivity stopAnimating]; // 轉轉轉結束！
+                [self.dgActivity removeFromSuperview];
             });
         }
     }];
