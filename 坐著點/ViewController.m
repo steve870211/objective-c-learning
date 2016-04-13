@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) NSMutableArray *Menus;
 @property (nonatomic) NSMutableArray *the_arr;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *LoadingActivity;
 
 @end
 
@@ -38,6 +39,8 @@
     self.tableView.delegate = self;
     [self the_reload_model];
     _Menus = [[NSMutableArray alloc]initWithObjects:_the_arr, nil];
+    
+    [self.LoadingActivity startAnimating];
     
 }
 
@@ -86,7 +89,7 @@
 //    圖片下載並顯示
     NSString *food = note.FoodPhotoName;
     food = [food stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    NSString *urlstr = [NSString stringWithFormat:@"http://localhost:8888/OrderEasy/MenuPhoto/%@",food];
+    NSString *urlstr = [NSString stringWithFormat:@"http://scu-ordereasy.rhcloud.com/MenuPhoto/%@",food];
     NSURL *url = [NSURL URLWithString:urlstr];
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionTask *task = [session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -101,7 +104,7 @@
         }
     }];
     [task resume];
-    
+    [self.LoadingActivity stopAnimating];
     return cell;
     
 }
@@ -109,7 +112,7 @@
 // 與伺服器溝通
 -(void)the_reload_model{
     
-    NSURL *url = [NSURL URLWithString:@"http://localhost:8888/OrderEasy/Menus.php"];
+    NSURL *url = [NSURL URLWithString:@"http://scu-ordereasy.rhcloud.com/Menus.php"];
     NSMutableURLRequest *request;
     request = [NSMutableURLRequest requestWithURL:url];
     NSURLSession *session = [NSURLSession sharedSession] ;

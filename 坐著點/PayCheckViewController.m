@@ -22,6 +22,9 @@
 @property (nonatomic) int keyboardHeight;
 
 // addToOrder
+@property NSString *parameter;
+@property NSString *TrueParameter;
+@property int i;
 @property NSString *orderID;
 @property int shopID;
 @property int foodID;
@@ -202,49 +205,70 @@
             self.thecustomerName = self.CustomerName.text;
             self.thecellphoneNumber = self.CustomerPhoneNumber.text;
             
-            for (int i=0; i<order.AllOrder.count; i++) {
-                NSDictionary *dictionary = order.AllOrder[i];
-                self.shopID = [[dictionary objectForKey:@"ShopID"]intValue];
-                self.foodID = [[dictionary objectForKey:@"FoodID"]intValue];
-                self.orderNumber = [[dictionary objectForKey:@"amount"]intValue];
-                self.total = [[dictionary objectForKey:@"FoodTotalPrice"]intValue];
-                [self addOrderDetail];
-            }
+//            for (int i=0; i<order.AllOrder.count; i++) {
+//                NSDictionary *dictionary = order.AllOrder[i];
+//                self.shopID = [[dictionary objectForKey:@"ShopID"]intValue];
+//                self.foodID = [[dictionary objectForKey:@"FoodID"]intValue];
+//                self.orderNumber = [[dictionary objectForKey:@"amount"]intValue];
+//                self.total = [[dictionary objectForKey:@"FoodTotalPrice"]intValue];
+//                
+//                self.parameter = [NSString stringWithFormat:@"orderID%d=%@&shopID%d=%d&foodID%d=%d&orderNumber%d=%d&total%d=%d&customerName%d=%@&cellphoneNumber%d=%@",i,self.orderID,i,self.shopID,i,self.foodID,i,self.orderNumber,i,self.total,i,self.thecustomerName,i,self.thecellphoneNumber];
+//                
+//                [self addOrderDetail];
+//            }
+            
+            [self addOrderDetail];
             // 成功送出訂單
-            UIAlertController *done = [UIAlertController alertControllerWithTitle:@"Success!" message:@"Thanks for your ordered. We will present the foods as soon as posible." preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
-            [done addAction:ok];
-            [self presentViewController:done animated:YES completion:nil];
+//            UIAlertController *done = [UIAlertController alertControllerWithTitle:@"Success!" message:@"Thanks for your ordered. We will present the foods as soon as posible." preferredStyle:UIAlertControllerStyleAlert];
+//            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+//            [done addAction:ok];
+//            [self presentViewController:done animated:YES completion:nil];
         }];
         UIAlertAction *no = [UIAlertAction actionWithTitle:@"NO!" style:UIAlertActionStyleCancel handler:nil];
         [check addAction:yes];
         [check addAction:no];
-        [self presentViewController:check animated:yes completion:nil];
+        [self presentViewController:check animated:YES completion:nil];
     }
 }
 
 - (void)addOrderDetail{
     
-    NSURL *url=[NSURL URLWithString:@"http://localhost:8888/OrderEasy/orderadd.php"];
+    Order *order = [Order sharedInstance];
+    NSURL *url=[NSURL URLWithString:@"http://scu-ordereasy.rhcloud.com/orderadd.php"];
+//    NSURL *url=[NSURL URLWithString:@"http://localhost:8888/OrderEasy/orderadd.php"];
     NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod=@"POST";
+    self.TrueParameter = [NSString stringWithFormat:@"count=%lu&orderID=%@&customerName=%@&cellphoneNumber=%@",order.AllOrder.count, self.orderID, self.thecustomerName,self.thecellphoneNumber];
     
-    NSString *parameter=[NSString stringWithFormat:@"orderID=%@&shopID=%d&foodID=%d&orderNumber=%d&total=%d&customerName=%@&cellphoneNumber=%@",self.orderID,self.shopID,self.foodID,self.orderNumber,self.total,self.thecustomerName,self.thecellphoneNumber];
+    for (int i = 0; i < order.AllOrder.count; i++) {
+        NSDictionary *dictionary = order.AllOrder[i];
+        self.shopID = [[dictionary objectForKey:@"ShopID"]intValue];
+        self.foodID = [[dictionary objectForKey:@"FoodID"]intValue];
+        self.orderNumber = [[dictionary objectForKey:@"amount"]intValue];
+        self.total = [[dictionary objectForKey:@"FoodTotalPrice"]intValue];
+        
+        self.TrueParameter = [self.TrueParameter stringByAppendingString:[NSString stringWithFormat:@"&shopID%d=%d&foodID%d=%d&orderNumber%d=%d&total%d=%d", i, self.shopID, i, self.foodID, i, self.orderNumber, i, self.total]]  ;
+    }
+    NSLog(@"TrueParameter=%@",self.TrueParameter);
     
-    NSData *body=[parameter dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *body=[self.TrueParameter dataUsingEncoding:NSUTF8StringEncoding];
     request.HTTPBody=body;
     
     NSURLSession *session=[NSURLSession sharedSession];
     NSURLSessionTask *task=[session dataTaskWithRequest:request completionHandler:^(NSData *  data, NSURLResponse *  response, NSError *  error) {
-        if (error){
-            NSLog(@"error %@",error);
+        if (error != nil){
             
+            dispatch_async(dispatch_get_main_queue(),^{
+                UIAlertController *Error = [UIAlertController alertControllerWithTitle:@"Error!" message:@"訂單傳送失敗，請確認您的網路狀況是否正常。" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+                [Error addAction:cancel];
+            });
+        } else {
+            NSString *returndata = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+            NSLog(@"%@",returndata);
         }
-        
     }];
     [task resume];
-    
-    
 }
 
 @end

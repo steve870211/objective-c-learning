@@ -14,6 +14,7 @@
 @interface ShopsViewController () <UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) NSMutableArray *ShopsList;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *LoadingActivity;
 @property (nonatomic) NSMutableArray *the_arr;
 @end
 
@@ -25,6 +26,8 @@
     [self the_reload_model];
     self.tableView.dataSource = self;
     _ShopsList = [[NSMutableArray alloc]initWithObjects:_the_arr, nil];
+    
+    [self.LoadingActivity startAnimating];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,7 +47,7 @@
     cell.ShopsImage.image = [UIImage imageNamed:@"loading.png"];
     NSString *shop = note.ShopLogoName;
     shop = [shop stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    NSString *urlstr = [NSString stringWithFormat:@"http://localhost:8888/OrderEasy/MenuPhoto/%@",shop];
+    NSString *urlstr = [NSString stringWithFormat:@"http://scu-ordereasy.rhcloud.com/MenuPhoto/%@",shop];
     NSURL *url = [NSURL URLWithString:urlstr];
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionTask *task = [session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -59,12 +62,13 @@
         }
     }];
     [task resume];
+    [self.LoadingActivity stopAnimating];
     return cell;
 }
 
 -(void)the_reload_model {
     
-    NSURL *url = [NSURL URLWithString:@"http://localhost:8888/OrderEasy/Shops.php"];
+    NSURL *url = [NSURL URLWithString:@"http://scu-ordereasy.rhcloud.com/Shops.php"];
     NSMutableURLRequest *request;
     request = [NSMutableURLRequest requestWithURL:url];
     NSURLSessionConfiguration *config;
@@ -85,7 +89,7 @@
             
         } else {
             
-            NSString *con = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//            NSString *con = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             
 //            NSLog(@"josn=%@", con);
             

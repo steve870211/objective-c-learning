@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *FoodPhoto;
 @property (nonatomic) NSString *FoodID;
 @property (nonatomic) BOOL all_or_amount;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *LoadingActivity;
 
 @end
 
@@ -32,10 +33,12 @@
     self.FoodName.text = self.Foods.FoodName;
     self.Price.text = [NSString stringWithFormat:@"%@",self.Foods.Price];
     self.FoodID = self.Foods.FoodID;
+    
+    [self.LoadingActivity startAnimating];
 
     NSString *food = self.Foods.FoodPhotoName;
     food = [food stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    NSString *urlstr = [NSString stringWithFormat:@"http://localhost:8888/OrderEasy/MenuPhoto/%@",food];
+    NSString *urlstr = [NSString stringWithFormat:@"http://scu-ordereasy.rhcloud.com/MenuPhoto/%@",food];
     NSURL *url = [NSURL URLWithString:urlstr];
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionTask *task = [session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -48,6 +51,7 @@
                 self.FoodPhoto.image = image;
             });
         }
+        [self.LoadingActivity stopAnimating];
     }];
     [task resume];
 
@@ -90,7 +94,7 @@
         int amount;
         amount = [amountField.text intValue];
         int foodTotalPrice = amount*[_Foods.Price intValue];
-        NSString *foodid = self.Foods.FoodID;
+//        NSString *foodid = self.Foods.FoodID;
         Order *order = [Order sharedInstance];
         self.all_or_amount = false;
 
@@ -125,7 +129,7 @@
             [self.car setObject:price forKey:@"Price"];
             [self.car setObject:amountField.text forKey:@"amount"];
             [self.car setObject:FoodTotalPrice forKey:@"FoodTotalPrice"];
-
+            
             if (order.AllOrder.count != 0) {
                 
                 for (int i=0; i<order.AllOrder.count; i++) {
@@ -154,6 +158,7 @@
                 [order.AllOrder addObject:self.car];
                 
             }
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }];
     
@@ -163,6 +168,7 @@
     [self presentViewController:alert animated:YES completion:nil];
     
 }
+
 
 
 
