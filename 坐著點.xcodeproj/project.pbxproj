@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AA51647E1CBCD557006EF2D5 /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA51647D1CBCD557006EF2D5 /* OrderDetailViewController.m */; };
+		AA52541F1CBF4A2200BE6999 /* OrderDetailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA52541E1CBF4A2200BE6999 /* OrderDetailCollectionViewCell.m */; };
 		AA59E4D21C97B3FA003EA63B /* PayCheckTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59E4D11C97B3FA003EA63B /* PayCheckTableViewCell.m */; };
 		AA59E4D51C97B890003EA63B /* PayCheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59E4D41C97B890003EA63B /* PayCheckViewController.m */; };
 		AAABC2A51CBE1BAA006788C1 /* shopping-cart.png in Resources */ = {isa = PBXBuildFile; fileRef = AAABC2A41CBE1BAA006788C1 /* shopping-cart.png */; };
@@ -57,6 +58,8 @@
 		7D563B562CBA8ABE6C052E9A /* Pods-坐著點.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-坐著點.release.xcconfig"; path = "Pods/Target Support Files/Pods-坐著點/Pods-坐著點.release.xcconfig"; sourceTree = "<group>"; };
 		AA51647C1CBCD557006EF2D5 /* OrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailViewController.h; sourceTree = "<group>"; };
 		AA51647D1CBCD557006EF2D5 /* OrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailViewController.m; sourceTree = "<group>"; };
+		AA52541D1CBF4A2200BE6999 /* OrderDetailCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderDetailCollectionViewCell.h; path = ../OrderDetailCollectionViewCell.h; sourceTree = "<group>"; };
+		AA52541E1CBF4A2200BE6999 /* OrderDetailCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderDetailCollectionViewCell.m; path = ../OrderDetailCollectionViewCell.m; sourceTree = "<group>"; };
 		AA59E4D01C97B3FA003EA63B /* PayCheckTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayCheckTableViewCell.h; sourceTree = "<group>"; };
 		AA59E4D11C97B3FA003EA63B /* PayCheckTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayCheckTableViewCell.m; sourceTree = "<group>"; };
 		AA59E4D31C97B890003EA63B /* PayCheckViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayCheckViewController.h; sourceTree = "<group>"; };
@@ -183,6 +186,8 @@
 				AA59E4D11C97B3FA003EA63B /* PayCheckTableViewCell.m */,
 				AA59E4D31C97B890003EA63B /* PayCheckViewController.h */,
 				AA59E4D41C97B890003EA63B /* PayCheckViewController.m */,
+				AA52541D1CBF4A2200BE6999 /* OrderDetailCollectionViewCell.h */,
+				AA52541E1CBF4A2200BE6999 /* OrderDetailCollectionViewCell.m */,
 				AA51647C1CBCD557006EF2D5 /* OrderDetailViewController.h */,
 				AA51647D1CBCD557006EF2D5 /* OrderDetailViewController.m */,
 				AAF9D61B1C8EE9E6003397DD /* Assets.xcassets */,
@@ -444,6 +449,7 @@
 				AAF231031CA28ADC0087C072 /* ShopsTableViewCell.m in Sources */,
 				AA59E4D51C97B890003EA63B /* PayCheckViewController.m in Sources */,
 				AAD6DB541CAD582900EA06CE /* Order.m in Sources */,
+				AA52541F1CBF4A2200BE6999 /* OrderDetailCollectionViewCell.m in Sources */,
 				AACE400D1C918BFD006DAC44 /* Note.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

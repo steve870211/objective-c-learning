@@ -13,7 +13,11 @@
 @import DGActivityIndicatorView;
 @import ASCFlatUIColor;
 
-@interface ViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface ViewController ()
+<
+UITableViewDataSource,
+UITableViewDelegate
+>
 {
 
 }
@@ -112,8 +116,13 @@
     cell.foodphoto.image = [UIImage imageNamed:@"loading.png"];
     cell.note = note;
     
-    int anycolor = arc4random()%self.colors.count;
-    cell.backgroundColor = self.colors[anycolor];
+    CGFloat comps[3];
+    for (int i = 0; i < 3; i++)
+        comps[i] = (CGFloat)arc4random_uniform(256)/255.f;
+    cell.backgroundColor = [UIColor colorWithRed:comps[0] green:comps[1] blue:comps[2] alpha:1.0];
+
+//    int anycolor = arc4random()%self.colors.count;
+//    cell.backgroundColor = self.colors[anycolor];
     
 //    圖片下載並顯示
     NSString *food = note.FoodPhotoName;

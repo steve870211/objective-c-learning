@@ -11,7 +11,14 @@
 #import "Order.h"
 @import MMNumberKeyboard;
 
-@interface PayCheckViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,MMNumberKeyboardDelegate>
+@interface PayCheckViewController ()
+<
+UITableViewDataSource,
+UITableViewDelegate,
+UITextFieldDelegate,
+MMNumberKeyboardDelegate
+>
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *totalprice;
 @property NSMutableArray *ordernumber;
@@ -257,18 +264,38 @@
     NSURLSession *session=[NSURLSession sharedSession];
     NSURLSessionTask *task=[session dataTaskWithRequest:request completionHandler:^(NSData *  data, NSURLResponse *  response, NSError *  error) {
         
-        NSString *returndata = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-        if (![returndata  isEqual: @""]){
-            
+        // 如果收到PHP回傳的物件
+        if (data != nil) {
+        NSDictionary * dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        NSString *returndata = [dic objectForKey:@"status"];
+            // 如果字串顯示傳送成功
+            if ([returndata  isEqual: @"Success!"]){
+                
+                dispatch_async(dispatch_get_main_queue(),^{
+                    UIAlertController *Error = [UIAlertController alertControllerWithTitle:@"訂餐成功" message:@"感謝您的訂餐！" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+                    [Error addAction:cancel];
+                    [self presentViewController:Error animated:YES completion:nil];
+                    });
+                // 如果字串顯示傳送失敗
+            } else {
+                dispatch_async(dispatch_get_main_queue(),^{
+                    UIAlertController *Error = [UIAlertController alertControllerWithTitle:@"訂單傳送失敗" message:@"請確認您的網路狀況是否正常。" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+                    [Error addAction:cancel];
+                    [self presentViewController:Error animated:YES completion:nil];
+                });
+            }
+            // 如果沒有收到PHP回傳的物件
+        } else {
             dispatch_async(dispatch_get_main_queue(),^{
-                UIAlertController *Error = [UIAlertController alertControllerWithTitle:@"Error!" message:@"訂單傳送失敗，請確認您的網路狀況是否正常。" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *Error = [UIAlertController alertControllerWithTitle:@"訂單傳送失敗" message:@"請確認您的網路狀況是否正常。" preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
                 [Error addAction:cancel];
                 [self presentViewController:Error animated:YES completion:nil];
             });
-        } else {
-            NSLog(@"%@",returndata);
         }
+        
     }];
     [task resume];
 }

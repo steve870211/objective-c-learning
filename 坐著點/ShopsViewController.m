@@ -12,7 +12,11 @@
 @import DGActivityIndicatorView;
 @import ASCFlatUIColor;
 
-@interface ShopsViewController () <UITableViewDelegate,UITableViewDataSource>
+@interface ShopsViewController ()
+<
+UITableViewDelegate,
+UITableViewDataSource
+>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) NSMutableArray *ShopsList;
 @property (nonatomic) NSMutableArray *the_arr;
@@ -70,8 +74,13 @@
     cell.ShopID.text = note.ShopID;
     cell.ShopsImage.image = [UIImage imageNamed:@"loading.png"];
     
-    int anycolor = arc4random()%self.colors.count;
-    cell.backgroundColor = self.colors[anycolor];
+    CGFloat comps[3];
+    for (int i = 0; i < 3; i++)
+        comps[i] = (CGFloat)arc4random_uniform(256)/255.f;
+    cell.backgroundColor = [UIColor colorWithRed:comps[0] green:comps[1] blue:comps[2] alpha:1.0];
+    
+//    int anycolor = arc4random()%self.colors.count;
+//    cell.backgroundColor = self.colors[anycolor];
     
     NSString *shop = note.ShopLogoName;
     shop = [shop stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
