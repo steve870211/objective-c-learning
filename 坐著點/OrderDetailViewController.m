@@ -8,7 +8,9 @@
 
 #import "OrderDetailViewController.h"
 #import "OrderDetailCollectionViewCell.h"
-#import "Note.h"
+#import "OrderDetail.h"
+#import "Order.h"
+@import DGActivityIndicatorView;
 
 @interface OrderDetailViewController ()
 <
@@ -17,10 +19,13 @@ UICollectionViewDelegate,
 UICollectionViewDelegateFlowLayout
 >
 {
-    NSMutableArray *the_arr;
+    
 }
 
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (nonatomic) NSMutableArray *myarr;
+@property (nonatomic) NSMutableArray *orderarr;
+@property DGActivityIndicatorView *dgActivity;
 
 @end
 
@@ -29,8 +34,18 @@ UICollectionViewDelegateFlowLayout
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     self.collectionView.backgroundColor = [UIColor whiteColor];
+    [self the_reload_model];
+    _orderarr = [NSMutableArray arrayWithArray:_myarr];
+    _collectionView.delegate = self;
+    _collectionView.dataSource = self;
+    _orderarr = [[NSMutableArray alloc]init];
+    
+    // 讀取動畫開始
+    self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeNineDots tintColor:[UIColor brownColor] size:60.0f];
+    self.dgActivity.center = self.view.center;
+    [self.view addSubview:self.dgActivity];
+    [self.dgActivity startAnimating];
 
 }
 
@@ -48,15 +63,21 @@ UICollectionViewDelegateFlowLayout
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return [the_arr count];
+    return self.orderarr.count;
     
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     OrderDetailCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    OrderDetail *order = _orderarr[indexPath.row];
     
-    cell.ShopName.text = [the_arr objectAtIndex:indexPath.row];
+    cell.ShopName.text = [NSString stringWithFormat:@"店家：%@",order.shopname];
+    cell.FoodName.text = [NSString stringWithFormat:@"品項：%@",order.foodname];
+    cell.Number.text = [NSString stringWithFormat:@"數量：%@",order.number];
+    cell.TotalPrice.text = [NSString stringWithFormat:@"金額：%@元",order.totalprice];
+    cell.OrderID.text = [NSString stringWithFormat:@"訂單編號：%@",order.orderID];
+    cell.ordertime.text = [NSString stringWithFormat:@"訂餐時間：%@",order.ordertime];
     
     return cell;
     
@@ -68,67 +89,89 @@ UICollectionViewDelegateFlowLayout
 
 // 與伺服器溝通
 -(void)the_reload_model{
-    
-    NSURL *url = [NSURL URLWithString:@"http://scu-ordereasy.rhcloud.com/Orders.php"];
+        
+    NSURL *url = [NSURL URLWithString:@"http://scu-ordereasy.rhcloud.com/Order.php"];
     NSMutableURLRequest *request;
     request = [NSMutableURLRequest requestWithURL:url];
     NSURLSession *session = [NSURLSession sharedSession] ;
     NSURLSessionDataTask *dataTask;
     dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
-        if (error != nil) {
-            
-            UIAlertController *alert;
-            alert = [UIAlertController new];
-            UIAlertAction * alertAct;
-            alertAct = [UIAlertAction actionWithTitle:@"連不上" style:UIAlertActionStyleDefault handler:nil];
-            [alert addAction:alertAct];
-            [self presentViewController:alert animated:true completion:nil];
-            [self dismissViewControllerAnimated:true completion:nil];
-        } else {
-            
-            //            NSString *con = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            
-            //            NSLog(@"josn=%@", con);
+        if (error == nil) {
             
             NSArray * arr = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             
-            the_arr = [NSMutableArray arrayWithArray:arr];
-            
-            for (int i=0; i<the_arr.count; i++) {
+            _myarr = [NSMutableArray arrayWithArray:arr];
                 
-                NSDictionary *book = the_arr[i];
-                Note* note = [Note new];
-                note.ShopName = book[@"shopName"];
-                note.FoodName = book[@"foodName"];
-                note.Price = book[@"price"];
-                note.ShopID = book[@"shopID"];
-                note.FoodID = book[@"foodID"];
+            for (int i=0; i<_myarr.count; i++) {
                 
-                if ([note.ShopID isEqualToString:_Shops.ShopID]) {
-                    [self.Menus addObject:note];
+                NSDictionary *book = _myarr[i];
+                OrderDetail *orderdetail = [OrderDetail new];
+                orderdetail.shopname = [NSString stringWithFormat:@"%@",book[@"shopName"]];
+                orderdetail.foodname = [NSString stringWithFormat:@"%@",book[@"foodName"]];
+                orderdetail.number = [NSString stringWithFormat:@"%@",book[@"orderNumber"]];
+                orderdetail.totalprice = [NSString stringWithFormat:@"%@",book[@"total"]];
+                orderdetail.orderID = [NSString stringWithFormat:@"%@",book[@"orderID"]];
+                orderdetail.ordertime = [NSString stringWithFormat:@"%@",book[@"ordertime"]];
+                
+                Order *order = [Order sharedInstance];
+                
+                if ([order.orderID isEqualToString:orderdetail.orderID]) {
+                    [_orderarr addObject:orderdetail];
                 }
             }
-            
-            if (the_arr) {
-                dispatch_async(dispatch_get_main_queue(), ^{
+            if (_orderarr.count != 0) {
+                
+                // 讀取動畫結束
+                dispatch_async(dispatch_get_main_queue(),^{
+                    [self.dgActivity stopAnimating];
+                    [self.dgActivity removeFromSuperview];
                     [_collectionView reloadData];
                 });
+                
             } else {
                 
                 UIAlertController *alert;
-                alert = [UIAlertController new];
+                alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您沒有任何未出餐的訂單喔！" preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction * alertAct;
-                alertAct = [UIAlertAction actionWithTitle:@"伺服器失效" style:UIAlertActionStyleDefault handler:nil];
+                alertAct = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    [self.navigationController popViewControllerAnimated:YES];
+                }];
                 [alert addAction:alertAct];
-                [self presentViewController:alert animated:true completion:nil];
-                [self dismissViewControllerAnimated:true completion:nil];
                 
+                // 讀取動畫結束
+                dispatch_async(dispatch_get_main_queue(),^{
+                    [self.dgActivity stopAnimating];
+                    [self.dgActivity removeFromSuperview];
+                    [self presentViewController:alert animated:YES completion:nil];
+                });
+                
+                
+
             }
-            //            NSLog(@"連上囉");
+            
+        } else {
+
+            UIAlertController *alert;
+            alert = [UIAlertController new];
+            UIAlertAction * alertAct;
+            alertAct = [UIAlertAction actionWithTitle:@"請檢查網路狀況" style:UIAlertActionStyleDefault handler:nil];
+            [alert addAction:alertAct];
+            
+            dispatch_async(dispatch_get_main_queue(),^{    
+            //讀取動畫結束
+            [self.dgActivity stopAnimating];
+            [self.dgActivity removeFromSuperview];
+            
+            [self presentViewController:alert animated:true completion:nil];
+            [self dismissViewControllerAnimated:true completion:nil];
+            });
+
         }
     }];
+    
     [dataTask resume];
+
 }
 
 

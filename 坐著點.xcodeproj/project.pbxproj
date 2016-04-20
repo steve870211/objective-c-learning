@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA2B0F401CC733620001A1F3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA2B0F3F1CC733620001A1F3 /* LoginViewController.m */; };
 		AA51647E1CBCD557006EF2D5 /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA51647D1CBCD557006EF2D5 /* OrderDetailViewController.m */; };
 		AA52541F1CBF4A2200BE6999 /* OrderDetailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA52541E1CBF4A2200BE6999 /* OrderDetailCollectionViewCell.m */; };
 		AA59E4D21C97B3FA003EA63B /* PayCheckTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59E4D11C97B3FA003EA63B /* PayCheckTableViewCell.m */; };
@@ -16,8 +17,10 @@
 		AAABC2AF1CBE1E2C006788C1 /* add_cart.png in Resources */ = {isa = PBXBuildFile; fileRef = AAABC2AE1CBE1E2C006788C1 /* add_cart.png */; };
 		AAABC2B11CBE1ED4006788C1 /* add_cart2.png in Resources */ = {isa = PBXBuildFile; fileRef = AAABC2B01CBE1ED4006788C1 /* add_cart2.png */; };
 		AAABC2B31CBE2FB0006788C1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAABC2B21CBE2FB0006788C1 /* QuartzCore.framework */; };
+		AACB87071CC4721E00A4F750 /* OrderSave.plist in Resources */ = {isa = PBXBuildFile; fileRef = AACB87061CC4721E00A4F750 /* OrderSave.plist */; };
 		AACE400D1C918BFD006DAC44 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = AACE400C1C918BFD006DAC44 /* Note.m */; };
 		AAD6DB541CAD582900EA06CE /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD6DB531CAD582900EA06CE /* Order.m */; };
+		AAD76ADF1CC0D5D30087927C /* OrderDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD76ADE1CC0D5D30087927C /* OrderDetail.m */; };
 		AAE7FABC1CA3C6E700578B19 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE7FABB1CA3C6E700578B19 /* loading.png */; };
 		AAE7FABF1CA4005200578B19 /* FoodDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE7FABE1CA4005200578B19 /* FoodDetailViewController.m */; };
 		AAF231031CA28ADC0087C072 /* ShopsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF231021CA28ADC0087C072 /* ShopsTableViewCell.m */; };
@@ -56,6 +59,8 @@
 /* Begin PBXFileReference section */
 		6B8CAEB2660A16476B332741 /* Pods-坐著點.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-坐著點.debug.xcconfig"; path = "Pods/Target Support Files/Pods-坐著點/Pods-坐著點.debug.xcconfig"; sourceTree = "<group>"; };
 		7D563B562CBA8ABE6C052E9A /* Pods-坐著點.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-坐著點.release.xcconfig"; path = "Pods/Target Support Files/Pods-坐著點/Pods-坐著點.release.xcconfig"; sourceTree = "<group>"; };
+		AA2B0F3E1CC733620001A1F3 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		AA2B0F3F1CC733620001A1F3 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		AA51647C1CBCD557006EF2D5 /* OrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailViewController.h; sourceTree = "<group>"; };
 		AA51647D1CBCD557006EF2D5 /* OrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailViewController.m; sourceTree = "<group>"; };
 		AA52541D1CBF4A2200BE6999 /* OrderDetailCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderDetailCollectionViewCell.h; path = ../OrderDetailCollectionViewCell.h; sourceTree = "<group>"; };
@@ -69,10 +74,13 @@
 		AAABC2AE1CBE1E2C006788C1 /* add_cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_cart.png; sourceTree = "<group>"; };
 		AAABC2B01CBE1ED4006788C1 /* add_cart2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_cart2.png; sourceTree = "<group>"; };
 		AAABC2B21CBE2FB0006788C1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		AACB87061CC4721E00A4F750 /* OrderSave.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = OrderSave.plist; path = ../OrderSave.plist; sourceTree = "<group>"; };
 		AACE400B1C918BFD006DAC44 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
 		AACE400C1C918BFD006DAC44 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
 		AAD6DB521CAD582900EA06CE /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		AAD6DB531CAD582900EA06CE /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
+		AAD76ADD1CC0D5D30087927C /* OrderDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderDetail.h; path = ../OrderDetail.h; sourceTree = "<group>"; };
+		AAD76ADE1CC0D5D30087927C /* OrderDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderDetail.m; path = ../OrderDetail.m; sourceTree = "<group>"; };
 		AAE7FABB1CA3C6E700578B19 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
 		AAE7FABD1CA4005200578B19 /* FoodDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodDetailViewController.h; sourceTree = "<group>"; };
 		AAE7FABE1CA4005200578B19 /* FoodDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodDetailViewController.m; sourceTree = "<group>"; };
@@ -139,9 +147,72 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AA2B0F3D1CC733460001A1F3 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				AA2B0F3E1CC733620001A1F3 /* LoginViewController.h */,
+				AA2B0F3F1CC733620001A1F3 /* LoginViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		AAD76AD51CC07BFC0087927C /* shop */ = {
+			isa = PBXGroup;
+			children = (
+				AAF231011CA28ADC0087C072 /* ShopsTableViewCell.h */,
+				AAF231021CA28ADC0087C072 /* ShopsTableViewCell.m */,
+				AAF4C0C01CA24A1F00AB0FAC /* ShopsViewController.h */,
+				AAF4C0C11CA24A1F00AB0FAC /* ShopsViewController.m */,
+			);
+			name = shop;
+			sourceTree = "<group>";
+		};
+		AAD76AD61CC07C1F0087927C /* menu */ = {
+			isa = PBXGroup;
+			children = (
+				AAF9D6791C968B4300DF29B1 /* TheTableViewCell.h */,
+				AAF9D67A1C968B4300DF29B1 /* TheTableViewCell.m */,
+				AAF9D6151C8EE9E6003397DD /* ViewController.h */,
+				AAF9D6161C8EE9E6003397DD /* ViewController.m */,
+			);
+			name = menu;
+			sourceTree = "<group>";
+		};
+		AAD76AD71CC07C3C0087927C /* foodDetail */ = {
+			isa = PBXGroup;
+			children = (
+				AAE7FABD1CA4005200578B19 /* FoodDetailViewController.h */,
+				AAE7FABE1CA4005200578B19 /* FoodDetailViewController.m */,
+			);
+			name = foodDetail;
+			sourceTree = "<group>";
+		};
+		AAD76AD81CC07C520087927C /* paycheck */ = {
+			isa = PBXGroup;
+			children = (
+				AA59E4D01C97B3FA003EA63B /* PayCheckTableViewCell.h */,
+				AA59E4D11C97B3FA003EA63B /* PayCheckTableViewCell.m */,
+				AA59E4D31C97B890003EA63B /* PayCheckViewController.h */,
+				AA59E4D41C97B890003EA63B /* PayCheckViewController.m */,
+			);
+			name = paycheck;
+			sourceTree = "<group>";
+		};
+		AAD76AD91CC07C600087927C /* orderdetail */ = {
+			isa = PBXGroup;
+			children = (
+				AA52541D1CBF4A2200BE6999 /* OrderDetailCollectionViewCell.h */,
+				AA52541E1CBF4A2200BE6999 /* OrderDetailCollectionViewCell.m */,
+				AA51647C1CBCD557006EF2D5 /* OrderDetailViewController.h */,
+				AA51647D1CBCD557006EF2D5 /* OrderDetailViewController.m */,
+			);
+			name = orderdetail;
+			sourceTree = "<group>";
+		};
 		AAF9D6031C8EE9E5003397DD = {
 			isa = PBXGroup;
 			children = (
+				AA2B0F3D1CC733460001A1F3 /* Login */,
 				AAF9D67C1C96942000DF29B1 /* image */,
 				AAF9D60E1C8EE9E6003397DD /* 坐著點 */,
 				AAF9D6281C8EE9E6003397DD /* 坐著點Tests */,
@@ -165,6 +236,11 @@
 		AAF9D60E1C8EE9E6003397DD /* 坐著點 */ = {
 			isa = PBXGroup;
 			children = (
+				AAD76AD51CC07BFC0087927C /* shop */,
+				AAD76AD61CC07C1F0087927C /* menu */,
+				AAD76AD71CC07C3C0087927C /* foodDetail */,
+				AAD76AD81CC07C520087927C /* paycheck */,
+				AAD76AD91CC07C600087927C /* orderdetail */,
 				AAF9D6181C8EE9E6003397DD /* Main.storyboard */,
 				AAF9D6121C8EE9E6003397DD /* AppDelegate.h */,
 				AAF9D6131C8EE9E6003397DD /* AppDelegate.m */,
@@ -172,27 +248,12 @@
 				AACE400C1C918BFD006DAC44 /* Note.m */,
 				AAD6DB521CAD582900EA06CE /* Order.h */,
 				AAD6DB531CAD582900EA06CE /* Order.m */,
-				AAF231011CA28ADC0087C072 /* ShopsTableViewCell.h */,
-				AAF231021CA28ADC0087C072 /* ShopsTableViewCell.m */,
-				AAF4C0C01CA24A1F00AB0FAC /* ShopsViewController.h */,
-				AAF4C0C11CA24A1F00AB0FAC /* ShopsViewController.m */,
-				AAF9D6791C968B4300DF29B1 /* TheTableViewCell.h */,
-				AAF9D67A1C968B4300DF29B1 /* TheTableViewCell.m */,
-				AAF9D6151C8EE9E6003397DD /* ViewController.h */,
-				AAF9D6161C8EE9E6003397DD /* ViewController.m */,
-				AAE7FABD1CA4005200578B19 /* FoodDetailViewController.h */,
-				AAE7FABE1CA4005200578B19 /* FoodDetailViewController.m */,
-				AA59E4D01C97B3FA003EA63B /* PayCheckTableViewCell.h */,
-				AA59E4D11C97B3FA003EA63B /* PayCheckTableViewCell.m */,
-				AA59E4D31C97B890003EA63B /* PayCheckViewController.h */,
-				AA59E4D41C97B890003EA63B /* PayCheckViewController.m */,
-				AA52541D1CBF4A2200BE6999 /* OrderDetailCollectionViewCell.h */,
-				AA52541E1CBF4A2200BE6999 /* OrderDetailCollectionViewCell.m */,
-				AA51647C1CBCD557006EF2D5 /* OrderDetailViewController.h */,
-				AA51647D1CBCD557006EF2D5 /* OrderDetailViewController.m */,
+				AAD76ADD1CC0D5D30087927C /* OrderDetail.h */,
+				AAD76ADE1CC0D5D30087927C /* OrderDetail.m */,
 				AAF9D61B1C8EE9E6003397DD /* Assets.xcassets */,
 				AAF9D61D1C8EE9E6003397DD /* LaunchScreen.storyboard */,
 				AAF9D6201C8EE9E6003397DD /* Info.plist */,
+				AACB87061CC4721E00A4F750 /* OrderSave.plist */,
 				AAF9D60F1C8EE9E6003397DD /* Supporting Files */,
 			);
 			path = "坐著點";
@@ -359,6 +420,7 @@
 				AAABC2B11CBE1ED4006788C1 /* add_cart2.png in Resources */,
 				AAF9D67F1C9694AB00DF29B1 /* plus-57604.png in Resources */,
 				AAABC2AF1CBE1E2C006788C1 /* add_cart.png in Resources */,
+				AACB87071CC4721E00A4F750 /* OrderSave.plist in Resources */,
 				AAABC2A51CBE1BAA006788C1 /* shopping-cart.png in Resources */,
 				AAF9D61F1C8EE9E6003397DD /* LaunchScreen.storyboard in Resources */,
 				AAABC2A71CBE1CB5006788C1 /* purchase_order.png in Resources */,
@@ -447,10 +509,12 @@
 				AAE7FABF1CA4005200578B19 /* FoodDetailViewController.m in Sources */,
 				AAF9D67B1C968B4300DF29B1 /* TheTableViewCell.m in Sources */,
 				AAF231031CA28ADC0087C072 /* ShopsTableViewCell.m in Sources */,
+				AAD76ADF1CC0D5D30087927C /* OrderDetail.m in Sources */,
 				AA59E4D51C97B890003EA63B /* PayCheckViewController.m in Sources */,
 				AAD6DB541CAD582900EA06CE /* Order.m in Sources */,
 				AA52541F1CBF4A2200BE6999 /* OrderDetailCollectionViewCell.m in Sources */,
 				AACE400D1C918BFD006DAC44 /* Note.m in Sources */,
+				AA2B0F401CC733620001A1F3 /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,7 +661,7 @@
 				INFOPLIST_FILE = "坐著點/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.steve980.www;
+				PRODUCT_BUNDLE_IDENTIFIER = com.steve870211.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -613,7 +677,7 @@
 				INFOPLIST_FILE = "坐著點/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.steve980.www;
+				PRODUCT_BUNDLE_IDENTIFIER = com.steve870211.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

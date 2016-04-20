@@ -99,6 +99,8 @@ UITableViewDataSource
         }
     }];
     [task resume];
+    
+    // 讀取動畫結束
     [self.dgActivity stopAnimating];
     [self.dgActivity removeFromSuperview];
     return cell;

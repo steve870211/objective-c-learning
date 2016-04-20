@@ -7,11 +7,24 @@
 //
 
 #import "PayCheckTableViewCell.h"
+@import MMNumberKeyboard;
+
+@interface PayCheckTableViewCell()
+<
+UITextFieldDelegate,
+MMNumberKeyboardDelegate
+>
+
+@end
 
 @implementation PayCheckTableViewCell
 
 - (void)awakeFromNib {
     // Initialization code
+    MMNumberKeyboard *keyboard = [[MMNumberKeyboard alloc] initWithFrame:CGRectZero];
+    keyboard.allowsDecimalPoint = YES;
+    keyboard.delegate = self;
+    self.orderNumberTextField.inputView = keyboard;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -19,5 +32,20 @@
 
     // Configure the view for the selected state
 }
+
+#pragma mark - textField Delegate
+// 鍵盤按下return自動收起
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    self.orderNumberTextField = textField;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [textField resignFirstResponder];
+} // view自動往上code結束
 
 @end

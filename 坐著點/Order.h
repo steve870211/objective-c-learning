@@ -13,6 +13,7 @@
     
 }
 @property NSMutableArray *AllOrder;
+@property NSString *orderID;
 +(Order*)sharedInstance;
 -(NSMutableArray*)setAllOrder;
 @end

@@ -12,8 +12,13 @@
 #import "ViewController.h"
 @import DGActivityIndicatorView;
 @import ASCFlatUIColor;
+@import MMNumberKeyboard;
 
 @interface FoodDetailViewController ()
+<
+UITextFieldDelegate,
+MMNumberKeyboardDelegate
+>
 @property (weak, nonatomic) IBOutlet UILabel *ShopName;
 @property (weak, nonatomic) IBOutlet UILabel *ShopID;
 @property (weak, nonatomic) IBOutlet UILabel *FoodName;
@@ -40,7 +45,7 @@
     self.ShopName.text = self.Foods.ShopName;
     self.ShopID.text = self.Foods.ShopID;
     self.FoodName.text = self.Foods.FoodName;
-    self.Price.text = [NSString stringWithFormat:@"%@",self.Foods.Price];
+    self.Price.text = [NSString stringWithFormat:@"%@元",self.Foods.Price];
     self.FoodID = self.Foods.FoodID;
     
     NSString *food = self.Foods.FoodPhotoName;
@@ -86,8 +91,11 @@
                                   preferredStyle:UIAlertControllerStyleAlert];
     
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-       
-        textField.keyboardType = UIKeyboardTypeNumberPad;
+
+        MMNumberKeyboard *keyboard = [[MMNumberKeyboard alloc] initWithFrame:CGRectZero];
+        keyboard.allowsDecimalPoint = YES;
+        keyboard.delegate = self;
+        textField.inputView = keyboard;
         textField.placeholder = @"訂餐數量";
         
     }];
@@ -99,6 +107,7 @@
     UIAlertAction *addtoOrder = [UIAlertAction actionWithTitle:@"加入訂單" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         UITextField *amountField = alert.textFields.firstObject;
+        
         int amount;
         amount = [amountField.text intValue];
         int foodTotalPrice = amount*[_Foods.Price intValue];
