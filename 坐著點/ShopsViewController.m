@@ -30,9 +30,19 @@ UITableViewDataSource
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // 讀取動畫
+    self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeLineScaleParty tintColor:[UIColor whiteColor] size:45.0f];
+    self.dgActivity.center = self.view.center;
+    [self.view addSubview:self.dgActivity];
+    [self.dgActivity startAnimating];
+    
     [self the_reload_model];
     self.tableView.dataSource = self;
     _ShopsList = [[NSMutableArray alloc]initWithObjects:_the_arr, nil];
+    
+    
+    
+    self.tableView.backgroundColor = [UIColor brownColor];
     
     UIColor *alizarinColor = [ASCFlatUIColor alizarinColor];
     UIColor *cloudsColor = [ASCFlatUIColor cloudsColor];
@@ -46,16 +56,9 @@ UITableViewDataSource
     UIColor *asbestosColor = [ASCFlatUIColor asbestosColor];
     UIColor *amethystColor = [ASCFlatUIColor amethystColor];
     UIColor *peterriver = [ASCFlatUIColor peterRiverColor];
-    
-    self.tableView.backgroundColor = [UIColor brownColor];
-    
     self.colors = [NSArray arrayWithObjects:cloudsColor,alizarinColor,sunFlowerColor,peterriver,carrotColor,orangeColor,silverColor,emeraldColor,pumpkinColor,concreteColor,asbestosColor,amethystColor, nil]; // 隨機色彩
     
-    // 讀取動畫
-    self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeLineScaleParty tintColor:alizarinColor size:60.0f];
-    self.dgActivity.center = self.view.center;
-    [self.view addSubview:self.dgActivity];
-    [self.dgActivity startAnimating];
+    
 }
 
 - (void)didReceiveMemoryWarning {

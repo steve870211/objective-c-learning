@@ -57,6 +57,7 @@ MMNumberKeyboardDelegate
     
     self.CustomerName.delegate = self;
     self.CustomerPhoneNumber.delegate = self;
+    
     MMNumberKeyboard *keyboard = [[MMNumberKeyboard alloc] initWithFrame:CGRectZero];
     keyboard.allowsDecimalPoint = YES;
     keyboard.delegate = self;
@@ -173,7 +174,6 @@ MMNumberKeyboardDelegate
     paycheckcell.serialNumber.text = [NSString stringWithFormat:@"店家編號:%@",[dictionary objectForKey:@"ShopID"]];
     paycheckcell.orderFoodname.text = [dictionary objectForKey:@"FoodName"];
     paycheckcell.orderFoodnumber.text = [NSString stringWithFormat:@"數量:%@",[dictionary objectForKey:@"amount"]];
-//    paycheckcell.orderNumberTextField.text = [NSString stringWithFormat:@"%@",[dictionary objectForKey:@"amount"]];
     paycheckcell.orderFoodprice.text = [NSString stringWithFormat:@"金額:%@元",[dictionary objectForKey:@"FoodTotalPrice"]];
     
     return paycheckcell;

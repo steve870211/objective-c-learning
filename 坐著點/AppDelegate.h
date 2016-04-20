@@ -12,7 +12,9 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-
+-(BOOL) isLogined;
+-(void) login;
+-(void) logout;
 
 @end
 

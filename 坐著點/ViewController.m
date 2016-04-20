@@ -46,7 +46,7 @@ UITableViewDelegate
     [self the_reload_model];
     _Menus = [[NSMutableArray alloc]initWithObjects:_the_arr, nil];
     
-    UIColor *color = [ASCFlatUIColor alizarinColor];
+//    UIColor *color = [ASCFlatUIColor alizarinColor];
     self.tableView.backgroundColor = [UIColor brownColor];
     
     UIColor *alizarinColor = [ASCFlatUIColor alizarinColor];
@@ -67,7 +67,7 @@ UITableViewDelegate
     self.colors = [NSArray arrayWithObjects:cloudsColor,alizarinColor,sunFlowerColor,peterriver,carrotColor,orangeColor,silverColor,emeraldColor,pumpkinColor,concreteColor,asbestosColor,amethystColor, nil]; // 隨機色彩
     
     // 讀取動畫
-    self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeLineScaleParty tintColor:color size:60.0f];
+    self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeLineScaleParty tintColor:[UIColor whiteColor] size:45.0f];
     self.dgActivity.center = self.view.center;
     [self.view addSubview:self.dgActivity];
     [self.dgActivity startAnimating]; // 轉轉轉開始！

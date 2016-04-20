@@ -34,7 +34,7 @@ UICollectionViewDelegateFlowLayout
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.collectionView.backgroundColor = [UIColor brownColor];
     [self the_reload_model];
     _orderarr = [NSMutableArray arrayWithArray:_myarr];
     _collectionView.delegate = self;
@@ -42,7 +42,7 @@ UICollectionViewDelegateFlowLayout
     _orderarr = [[NSMutableArray alloc]init];
     
     // 讀取動畫開始
-    self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeNineDots tintColor:[UIColor brownColor] size:60.0f];
+    self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeNineDots tintColor:[UIColor whiteColor] size:45.0f];
     self.dgActivity.center = self.view.center;
     [self.view addSubview:self.dgActivity];
     [self.dgActivity startAnimating];
