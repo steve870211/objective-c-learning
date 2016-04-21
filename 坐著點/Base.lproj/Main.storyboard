@@ -108,10 +108,12 @@
                                     <segue destination="TIE-FR-oQK" kind="show" id="itP-lI-oVW"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="Item" id="Bbv-rb-kln"/>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="lq2-aK-sgv" id="bHR-K2-XZO"/>
+                        <outlet property="userName" destination="Bbv-rb-kln" id="S2g-Pl-ps8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -231,6 +233,7 @@
                                     <segue destination="TIE-FR-oQK" kind="show" id="hXG-iY-wPF"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="Item" id="nEr-zd-gAT"/>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
@@ -239,6 +242,7 @@
                         <outlet property="Price" destination="fBC-hY-CFz" id="BPX-Hc-m91"/>
                         <outlet property="ShopID" destination="tmN-6P-zVo" id="R8B-2J-ucR"/>
                         <outlet property="ShopName" destination="uj9-Ul-JpE" id="yDb-vf-I1q"/>
+                        <outlet property="userName" destination="nEr-zd-gAT" id="Btl-66-UTf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kq5-Mh-Qpo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -398,9 +402,12 @@
                             <constraint firstItem="7Z8-Ao-dMY" firstAttribute="leading" secondItem="O1S-QZ-2nD" secondAttribute="leading" id="wFv-VY-h33"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="GdY-36-UgU"/>
+                    <navigationItem key="navigationItem" id="GdY-36-UgU">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="FV9-ZG-E4Q"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="7Z8-Ao-dMY" id="8zz-BU-q8f"/>
+                        <outlet property="userName" destination="FV9-ZG-E4Q" id="GHc-mM-ut1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kzO-Lj-W8X" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -428,7 +435,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="1461152075_food_in_blue.png" translatesAutoresizingMaskIntoConstraints="NO" id="ffQ-vq-gJv">
                                 <rect key="frame" x="20" y="20" width="560" height="207"/>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U6Y-dN-q0C">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="U6Y-dN-q0C">
                                 <rect key="frame" x="-25" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -464,10 +471,10 @@
                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="UJi-n4-nvh" kind="show" id="zIL-Zv-zYa"/>
+                                    <action selector="toRegister:" destination="t9t-HR-ep0" eventType="touchUpInside" id="ZMn-Yq-sV8"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mFD-Uf-wnu">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Account number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mFD-Uf-wnu">
                                 <rect key="frame" x="-25" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -478,7 +485,9 @@
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xlh-Lc-Vt0">
                                 <rect key="frame" x="160" y="363" width="30" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="登入"/>
+                                <state key="normal" title="登入">
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="checkIdentity:" destination="t9t-HR-ep0" eventType="touchUpInside" id="1Uu-xB-0Dq"/>
                                 </connections>
@@ -719,7 +728,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cEJ-jc-P62">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cEJ-jc-P62">
                                 <rect key="frame" x="-25" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -727,7 +736,7 @@
                                     <action selector="doEditFieldDone:" destination="YqF-UM-iu9" eventType="editingDidEndOnExit" id="Mwu-2Z-ON0"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fnd-B0-7bB">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Account number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fnd-B0-7bB">
                                 <rect key="frame" x="-25" y="-30" width="97" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="172" id="jim-en-4Ri"/>
@@ -748,7 +757,7 @@
                                     <action selector="doEditFieldDone:" destination="YqF-UM-iu9" eventType="editingDidEndOnExit" id="sye-nC-VDD"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ejd-oi-r1W">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ejd-oi-r1W">
                                 <rect key="frame" x="-25" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -756,7 +765,7 @@
                                     <action selector="doEditFieldDone:" destination="YqF-UM-iu9" eventType="editingDidEndOnExit" id="ZBh-Rk-tTb"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pdo-fQ-maI">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="User name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pdo-fQ-maI">
                                 <rect key="frame" x="-25" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -764,7 +773,7 @@
                                     <action selector="doEditFieldDone:" destination="YqF-UM-iu9" eventType="editingDidEndOnExit" id="vd7-YT-POc"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ykF-fL-Y8p">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Cellphone number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ykF-fL-Y8p">
                                 <rect key="frame" x="-25" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -774,7 +783,9 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PEP-pX-Jzw">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="送出"/>
+                                <state key="normal" title="送出">
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="commit:" destination="YqF-UM-iu9" eventType="touchUpInside" id="iu9-Dm-BeL"/>
                                 </connections>
@@ -915,6 +926,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="註冊" id="749-Df-1oq">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="AuN-7U-ggN">
+                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="backBtn:" destination="YqF-UM-iu9" id="seB-NQ-eCw"/>
                             </connections>
@@ -922,6 +934,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="account" destination="Fnd-B0-7bB" id="dVY-Vg-9wI"/>
+                        <outlet property="commitBtn" destination="PEP-pX-Jzw" id="xzX-O5-pak"/>
                         <outlet property="message" destination="qtb-Qe-aWc" id="zLL-zj-jmA"/>
                         <outlet property="password" destination="Ejd-oi-r1W" id="OyY-jr-g5n"/>
                         <outlet property="userEmail" destination="cEJ-jc-P62" id="Fip-Ih-OYl"/>
@@ -962,17 +975,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Steve Williams" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nrc-dQ-Fu2">
-                                <rect key="frame" x="79" y="512" width="501" height="30"/>
-                                <accessibility key="accessibilityConfiguration" identifier="mailTf"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0912345678" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uSv-Z6-04U">
-                                <rect key="frame" x="79" y="550" width="501" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="姓名：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tg2-E0-On9">
                                 <rect key="frame" x="20" y="521" width="51" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1073,49 +1075,121 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="信箱：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epc-QF-BLc">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="MXJ-Jg-bQA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="MXJ-Jg-bQA"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="MXJ-Jg-bQA"/>
+                                    </mask>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.85102832253385019" blue="0.48729503546774267" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="U3E-JC-097" firstAttribute="leading" secondItem="ykg-9K-DEx" secondAttribute="leading" constant="20" id="16S-5l-SrE"/>
-                            <constraint firstAttribute="trailing" secondItem="nrc-dQ-Fu2" secondAttribute="trailing" constant="20" id="2DI-vH-7Cb"/>
-                            <constraint firstItem="k7J-y7-oU2" firstAttribute="top" secondItem="uSv-Z6-04U" secondAttribute="bottom" constant="20" id="6Dg-8m-2UK"/>
-                            <constraint firstItem="uSv-Z6-04U" firstAttribute="leading" secondItem="U3E-JC-097" secondAttribute="trailing" constant="8" id="Azz-eN-k1w"/>
-                            <constraint firstItem="uSv-Z6-04U" firstAttribute="top" secondItem="nrc-dQ-Fu2" secondAttribute="bottom" constant="8" id="BwN-tv-DyZ"/>
-                            <constraint firstAttribute="trailing" secondItem="uSv-Z6-04U" secondAttribute="trailing" constant="20" id="HWc-sL-JfE"/>
-                            <constraint firstItem="nrc-dQ-Fu2" firstAttribute="top" secondItem="2D3-af-6ot" secondAttribute="bottom" constant="8" id="KIZ-Mc-icH"/>
+                            <constraint firstItem="2D3-af-6ot" firstAttribute="leading" secondItem="tg2-E0-On9" secondAttribute="leading" id="69Z-0f-DMp"/>
+                            <constraint firstItem="U3E-JC-097" firstAttribute="top" secondItem="tg2-E0-On9" secondAttribute="bottom" constant="8" symbolic="YES" id="8WT-Qo-gBq"/>
+                            <constraint firstItem="2D3-af-6ot" firstAttribute="leading" secondItem="ykg-9K-DEx" secondAttribute="leadingMargin" id="BLF-VE-x4i"/>
                             <constraint firstItem="XTo-at-Rxo" firstAttribute="leading" secondItem="ykg-9K-DEx" secondAttribute="leading" id="LSW-FD-b8W"/>
-                            <constraint firstItem="tg2-E0-On9" firstAttribute="top" secondItem="2D3-af-6ot" secondAttribute="bottom" constant="17" id="Yf4-ee-CVu"/>
-                            <constraint firstItem="k7J-y7-oU2" firstAttribute="top" secondItem="U3E-JC-097" secondAttribute="bottom" constant="20" id="lqH-LR-i5M"/>
-                            <constraint firstItem="nrc-dQ-Fu2" firstAttribute="leading" secondItem="tg2-E0-On9" secondAttribute="trailing" constant="8" id="maj-DF-gCG"/>
+                            <constraint firstAttribute="bottom" secondItem="epc-QF-BLc" secondAttribute="bottom" constant="20" symbolic="YES" id="Mye-rr-0N5"/>
+                            <constraint firstItem="tg2-E0-On9" firstAttribute="top" secondItem="2D3-af-6ot" secondAttribute="bottom" constant="8" symbolic="YES" id="V4T-QS-FIg"/>
+                            <constraint firstItem="tg2-E0-On9" firstAttribute="top" secondItem="2D3-af-6ot" secondAttribute="bottom" constant="17" id="Yf4-ee-CVu">
+                                <variation key="widthClass=compact" constant="8"/>
+                            </constraint>
+                            <constraint firstItem="2D3-af-6ot" firstAttribute="centerX" secondItem="XTo-at-Rxo" secondAttribute="centerX" id="Zgf-4Q-RKu"/>
+                            <constraint firstItem="epc-QF-BLc" firstAttribute="top" secondItem="U3E-JC-097" secondAttribute="bottom" constant="8" symbolic="YES" id="g42-pt-6Dh"/>
                             <constraint firstItem="2D3-af-6ot" firstAttribute="leading" secondItem="ykg-9K-DEx" secondAttribute="leading" constant="20" id="ngR-52-if6"/>
+                            <constraint firstItem="tg2-E0-On9" firstAttribute="leading" secondItem="U3E-JC-097" secondAttribute="leading" id="o0u-zz-Vd1"/>
                             <constraint firstItem="tg2-E0-On9" firstAttribute="leading" secondItem="ykg-9K-DEx" secondAttribute="leading" constant="20" id="oa5-BC-jkC"/>
+                            <constraint firstItem="U3E-JC-097" firstAttribute="leading" secondItem="epc-QF-BLc" secondAttribute="leading" id="qFs-RB-Kfc"/>
                             <constraint firstAttribute="trailing" secondItem="XTo-at-Rxo" secondAttribute="trailing" id="sLV-BF-n4C"/>
-                            <constraint firstItem="U3E-JC-097" firstAttribute="top" secondItem="tg2-E0-On9" secondAttribute="bottom" constant="17" id="uH8-DT-TjE"/>
-                            <constraint firstItem="2D3-af-6ot" firstAttribute="top" secondItem="XTo-at-Rxo" secondAttribute="bottom" constant="27" id="v6r-Uo-Ax4"/>
+                            <constraint firstItem="U3E-JC-097" firstAttribute="top" secondItem="tg2-E0-On9" secondAttribute="bottom" constant="17" id="uH8-DT-TjE">
+                                <variation key="widthClass=compact" constant="8"/>
+                            </constraint>
+                            <constraint firstItem="2D3-af-6ot" firstAttribute="top" secondItem="XTo-at-Rxo" secondAttribute="bottom" constant="27" id="v6r-Uo-Ax4">
+                                <variation key="widthClass=compact" constant="15"/>
+                            </constraint>
                             <constraint firstItem="XTo-at-Rxo" firstAttribute="top" secondItem="Qag-DZ-9hS" secondAttribute="bottom" id="wSv-yN-kwP"/>
+                            <constraint firstItem="2D3-af-6ot" firstAttribute="top" secondItem="XTo-at-Rxo" secondAttribute="bottom" constant="15" id="z7B-1e-MO8"/>
                             <constraint firstAttribute="trailing" secondItem="2D3-af-6ot" secondAttribute="trailing" constant="20" id="zFY-rG-pBT"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="epc-QF-BLc"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="69Z-0f-DMp"/>
+                                <exclude reference="BLF-VE-x4i"/>
+                                <exclude reference="Zgf-4Q-RKu"/>
+                                <exclude reference="z7B-1e-MO8"/>
+                                <exclude reference="V4T-QS-FIg"/>
+                                <exclude reference="o0u-zz-Vd1"/>
+                                <exclude reference="8WT-Qo-gBq"/>
+                                <exclude reference="qFs-RB-Kfc"/>
+                                <exclude reference="Mye-rr-0N5"/>
+                                <exclude reference="g42-pt-6Dh"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="epc-QF-BLc"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="69Z-0f-DMp"/>
+                                <include reference="BLF-VE-x4i"/>
+                                <include reference="Zgf-4Q-RKu"/>
+                                <exclude reference="ngR-52-if6"/>
+                                <exclude reference="v6r-Uo-Ax4"/>
+                                <include reference="z7B-1e-MO8"/>
+                                <exclude reference="zFY-rG-pBT"/>
+                                <include reference="V4T-QS-FIg"/>
+                                <exclude reference="Yf4-ee-CVu"/>
+                                <include reference="o0u-zz-Vd1"/>
+                                <exclude reference="oa5-BC-jkC"/>
+                                <exclude reference="16S-5l-SrE"/>
+                                <include reference="8WT-Qo-gBq"/>
+                                <include reference="qFs-RB-Kfc"/>
+                                <exclude reference="uH8-DT-TjE"/>
+                                <include reference="Mye-rr-0N5"/>
+                                <include reference="g42-pt-6Dh"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="scR-fz-HmK">
                         <rightBarButtonItems>
                             <barButtonItem title="送出訂單" id="w43-Ye-eGX">
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="addToOrder:" destination="FBz-Oe-LNM" id="Egh-gG-ZJc"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="訂單查詢" id="FrX-tn-bfJ">
-                                <color key="tintColor" red="1" green="0.03079350443" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.1022875992" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <segue destination="TIE-FR-oQK" kind="show" id="D8p-6i-cEe"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="Item" id="U9W-Vx-03M"/>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="CustomerName" destination="nrc-dQ-Fu2" id="9Tc-yx-9CD"/>
-                        <outlet property="CustomerPhoneNumber" destination="uSv-Z6-04U" id="upz-j8-OsG"/>
+                        <outlet property="orderuserEmail" destination="epc-QF-BLc" id="KUt-HU-Usz"/>
+                        <outlet property="orderuserName" destination="tg2-E0-On9" id="dml-Fs-kVL"/>
+                        <outlet property="orderuserPhone" destination="U3E-JC-097" id="LLs-28-58q"/>
                         <outlet property="tableView" destination="XTo-at-Rxo" id="gn7-f4-c9l"/>
                         <outlet property="totalprice" destination="2D3-af-6ot" id="pF4-eP-RSc"/>
+                        <outlet property="userName" destination="U9W-Vx-03M" id="OZC-gs-I1j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jAI-u1-XOb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1218,10 +1292,12 @@
                                     <segue destination="TIE-FR-oQK" kind="show" id="rkT-RC-fFv"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="Item" id="p1a-j3-1zm"/>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="s9i-Dp-RA1" id="rip-0z-7iT"/>
+                        <outlet property="userName" destination="p1a-j3-1zm" id="xNr-Bu-dEP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="deO-tp-0cI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1268,7 +1344,7 @@
         <!--Navigation Controller-->
         <scene sceneID="gUc-yb-Ofv">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UJi-n4-nvh" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="RegisterVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="UJi-n4-nvh" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gmh-bK-frf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1291,6 +1367,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="eTm-g2-gni"/>
-        <segue reference="rkT-RC-fFv"/>
+        <segue reference="D8p-6i-cEe"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>

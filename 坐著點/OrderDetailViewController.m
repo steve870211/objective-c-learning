@@ -10,6 +10,7 @@
 #import "OrderDetailCollectionViewCell.h"
 #import "OrderDetail.h"
 #import "Order.h"
+#import "AppDelegate.h"
 @import DGActivityIndicatorView;
 
 @interface OrderDetailViewController ()
@@ -26,6 +27,7 @@ UICollectionViewDelegateFlowLayout
 @property (nonatomic) NSMutableArray *myarr;
 @property (nonatomic) NSMutableArray *orderarr;
 @property DGActivityIndicatorView *dgActivity;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *userName;
 
 @end
 
@@ -34,6 +36,10 @@ UICollectionViewDelegateFlowLayout
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    self.userName.title = [NSString stringWithFormat:@"Hello %@",appDelegate.userName];
+    
     self.collectionView.backgroundColor = [UIColor brownColor];
     [self the_reload_model];
     _orderarr = [NSMutableArray arrayWithArray:_myarr];

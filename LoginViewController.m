@@ -34,7 +34,6 @@ UITextFieldDelegate
     // Do any additional setup after loading the view.
     self.account.keyboardType = UIKeyboardTypeDefault;
     self.passwd.keyboardType = UIKeyboardTypeDefault;
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,7 +58,7 @@ UITextFieldDelegate
     dispatch_async(dispatch_get_main_queue(),^{
         [self.LoginBtn setEnabled:false];
         self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallScaleRippleMultiple tintColor:[UIColor whiteColor] size:45.0f];
-        self.dgActivity.center = CGPointMake(150, 430);
+        self.dgActivity.center = CGPointMake([[UIScreen mainScreen]bounds].size.width/2, [[UIScreen mainScreen]bounds].size.height-150);
         [self.view addSubview:self.dgActivity];
         [self.dgActivity startAnimating]; // 轉轉轉開始！
     });
@@ -95,6 +94,7 @@ UITextFieldDelegate
                     [self.dgActivity stopAnimating];
                     [self.dgActivity removeFromSuperview];
                     
+                    [self.message setTextColor:[UIColor redColor]];
                     self.message.text = [[NSString alloc]initWithFormat:@"帳號或密碼錯誤！"];
                     [self.LoginBtn setEnabled:true];
                 });
@@ -112,9 +112,10 @@ UITextFieldDelegate
 //                NSLog(@"user:%@,phone:%@,email:%@,type:%@",appDelegate.userName,appDelegate.userPhone,appDelegate.userEmail,appDelegate.userType);
                 
                 dispatch_async(dispatch_get_main_queue(),^{
+                    [self.message setTextColor:[UIColor whiteColor]];
                     self.message.text = [[NSString alloc]initWithFormat:@"登入成功！"];
                 });
-                [NSThread sleepForTimeInterval:1.0];
+                [NSThread sleepForTimeInterval:1.5];
                 dispatch_async(dispatch_get_main_queue(),^{
                     // 轉轉轉結束
                     [self.dgActivity stopAnimating];
@@ -131,6 +132,19 @@ UITextFieldDelegate
     }];
     [task resume];
 }
+
+- (IBAction)toRegister:(id)sender {
+    
+    dispatch_async(dispatch_get_main_queue(),^{
+        [self.message setText:@""];
+    });
+    
+    UIViewController *RegisterVC = [self.storyboard instantiateViewControllerWithIdentifier:@"RegisterVC"];
+    [self dismissViewControllerAnimated:true completion:nil];
+    [self presentViewController:RegisterVC animated:true completion:nil];
+    
+}
+
 
 /*
 #pragma mark - Navigation

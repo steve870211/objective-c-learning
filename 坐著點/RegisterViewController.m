@@ -8,6 +8,8 @@
 
 #import "RegisterViewController.h"
 #import "LoginViewController.h"
+@import DGActivityIndicatorView;
+@import MMNumberKeyboard;
 
 @interface RegisterViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *account;
@@ -18,6 +20,8 @@
 @property (weak, nonatomic) NSString *userType;
 @property (weak, nonatomic) NSString *dataGot;
 @property (weak, nonatomic) IBOutlet UILabel *message;
+@property DGActivityIndicatorView *dgActivity;
+@property (weak, nonatomic) IBOutlet UIButton *commitBtn;
 
 @end
 
@@ -26,6 +30,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    MMNumberKeyboard *Keyboard = [[MMNumberKeyboard alloc]initWithFrame:CGRectZero];
+    self.userPhone.inputView = Keyboard;
+    self.userEmail.keyboardType = UIKeyboardTypeEmailAddress;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,7 +56,7 @@
 }
 
 - (IBAction)commit:(id)sender {
-    
+
     if (self.account.text.length > 10 || self.account.text.length < 6) {
         self.message.text = [NSString stringWithFormat:@"帳號字數必須為6~10"];
     } else if(self.password.text.length > 8 || self.password.text.length < 4) {
@@ -57,7 +66,7 @@
     } else if(self.userPhone.text.length != 10) {
         self.message.text = [NSString stringWithFormat:@"請填入10碼手機號碼"];
     } else if(self.userEmail.text.length < 8) {
-        self.message.text = [NSString stringWithFormat:@"Email不得為空"];
+        self.message.text = [NSString stringWithFormat:@"請填寫正確的Email"];
     } else {
         [self Register];
     }
@@ -66,6 +75,19 @@
 
 -(void) Register {
     
+    // 讀取動畫
+    dispatch_async(dispatch_get_main_queue(),^{
+        
+        [self.commitBtn setEnabled:false];
+        
+        self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallScaleRippleMultiple tintColor:[UIColor whiteColor] size:45.0f];
+        
+        self.dgActivity.center = CGPointMake([[UIScreen mainScreen]bounds].size.width/2, [[UIScreen mainScreen]bounds].size.height-150);
+        [self.view addSubview:self.dgActivity];
+        [self.dgActivity startAnimating]; // 轉轉轉開始！
+    });
+    
+    // 聯繫PHP
     NSURL *url = [NSURL URLWithString:@"http://scu-ordereasy.rhcloud.com/Register.php"];
     NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod=@"POST";
@@ -89,8 +111,19 @@
                 });
             } else if([returndata isEqual: @"Success!"]) {
                 dispatch_async(dispatch_get_main_queue(),^{
-                    self.message.tintColor = [UIColor whiteColor];
+                    
+                    [self.message setTextColor:[UIColor whiteColor]];
                     self.message.text = [NSString stringWithFormat:@"註冊成功"];
+                    
+                });
+                
+                [NSThread sleepForTimeInterval:1.5];
+                
+                dispatch_async(dispatch_get_main_queue(),^{
+                    
+                    UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                    [self presentViewController:LoginVC animated:true completion:nil];
                 });
             }
         }

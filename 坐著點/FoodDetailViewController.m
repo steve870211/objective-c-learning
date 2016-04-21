@@ -10,6 +10,7 @@
 #import "PayCheckViewController.h"
 #import "Order.h"
 #import "ViewController.h"
+#import "AppDelegate.h"
 @import DGActivityIndicatorView;
 @import ASCFlatUIColor;
 @import MMNumberKeyboard;
@@ -27,12 +28,17 @@ MMNumberKeyboardDelegate
 @property (nonatomic) NSString *FoodID;
 @property (nonatomic) BOOL all_or_amount;
 @property DGActivityIndicatorView *dgActivity;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *userName;
+
 @end
 
 @implementation FoodDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    self.userName.title = [NSString stringWithFormat:@"Hello %@",appDelegate.userName];
 
     UIColor *color = [ASCFlatUIColor alizarinColor];
     
@@ -67,7 +73,6 @@ MMNumberKeyboardDelegate
         }
     }];
     [task resume];
-
     
 }
 

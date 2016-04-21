@@ -9,6 +9,7 @@
 #import "ShopsViewController.h"
 #import "ShopsTableViewCell.h"
 #import "ViewController.h"
+#import "AppDelegate.h"
 @import DGActivityIndicatorView;
 @import ASCFlatUIColor;
 
@@ -22,6 +23,7 @@ UITableViewDataSource
 @property (nonatomic) NSMutableArray *the_arr;
 @property DGActivityIndicatorView *dgActivity;
 @property NSArray *colors;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *userName;
 
 @end
 
@@ -29,6 +31,9 @@ UITableViewDataSource
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    self.userName.title = [NSString stringWithFormat:@"Hello %@",appDelegate.userName];
     
     // 讀取動畫
     self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeLineScaleParty tintColor:[UIColor whiteColor] size:45.0f];
@@ -57,7 +62,6 @@ UITableViewDataSource
     UIColor *amethystColor = [ASCFlatUIColor amethystColor];
     UIColor *peterriver = [ASCFlatUIColor peterRiverColor];
     self.colors = [NSArray arrayWithObjects:cloudsColor,alizarinColor,sunFlowerColor,peterriver,carrotColor,orangeColor,silverColor,emeraldColor,pumpkinColor,concreteColor,asbestosColor,amethystColor, nil]; // 隨機色彩
-    
     
 }
 

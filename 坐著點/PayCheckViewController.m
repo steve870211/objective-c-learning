@@ -10,6 +10,7 @@
 #import "PayCheckTableViewCell.h"
 #import "Order.h"
 #import "OrderDetail.h"
+#import "AppDelegate.h"
 @import MMNumberKeyboard;
 
 @interface PayCheckViewController ()
@@ -24,8 +25,8 @@ MMNumberKeyboardDelegate
 @property (weak, nonatomic) IBOutlet UILabel *totalprice;
 @property NSMutableArray *ordernumber;
 @property int AllPrice;
-@property (weak, nonatomic) IBOutlet UITextField *CustomerName;
-@property (weak, nonatomic) IBOutlet UITextField *CustomerPhoneNumber;
+//@property (weak, nonatomic) IBOutlet UITextField *CustomerName;
+//@property (weak, nonatomic) IBOutlet UITextField *CustomerPhoneNumber;
 @property (nonatomic) UITextField * editingTextField;
 @property (nonatomic) int keyboardHeight;
 
@@ -43,6 +44,13 @@ MMNumberKeyboardDelegate
 @property int total;
 @property NSString *thecustomerName;
 @property NSString *thecellphoneNumber;
+@property NSString *theEmail;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *userName;
+@property (weak, nonatomic) IBOutlet UILabel *orderuserName;
+@property (weak, nonatomic) IBOutlet UILabel *orderuserPhone;
+@property (weak, nonatomic) IBOutlet UILabel *orderuserEmail;
+
+
 
 @end
 
@@ -51,17 +59,23 @@ MMNumberKeyboardDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    self.userName.title = [NSString stringWithFormat:@"Hello %@",appDelegate.userName];
+    self.orderuserName.text = [NSString stringWithFormat:@"姓名：%@",appDelegate.userName];
+    self.orderuserPhone.text = [NSString stringWithFormat:@"電話：%@",appDelegate.userPhone];
+    self.orderuserEmail.text = [NSString stringWithFormat:@"信箱：%@",appDelegate.userEmail];
+    
     Order *order = [Order sharedInstance];
     self.ordernumber = [[NSMutableArray alloc]initWithArray:order.AllOrder];
     //    NSLog(@"order.count=%ld",order.AllOrder.count);
     
-    self.CustomerName.delegate = self;
-    self.CustomerPhoneNumber.delegate = self;
+//    self.CustomerName.delegate = self;
+//    self.CustomerPhoneNumber.delegate = self;
     
-    MMNumberKeyboard *keyboard = [[MMNumberKeyboard alloc] initWithFrame:CGRectZero];
-    keyboard.allowsDecimalPoint = YES;
-    keyboard.delegate = self;
-    self.CustomerPhoneNumber.inputView = keyboard;
+//    MMNumberKeyboard *keyboard = [[MMNumberKeyboard alloc] initWithFrame:CGRectZero];
+//    keyboard.allowsDecimalPoint = YES;
+//    keyboard.delegate = self;
+//    self.CustomerPhoneNumber.inputView = keyboard;
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -75,7 +89,7 @@ MMNumberKeyboardDelegate
     }
     
     self.totalprice.text = [NSString stringWithFormat:@"總金額:%d元",self.AllPrice];
-    self.keyboardHeight = 0;
+//    self.keyboardHeight = 0;
     
 }
 
@@ -85,83 +99,83 @@ MMNumberKeyboardDelegate
 }
 
 //加入觀察，view自動往上code開始
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    // register for keyboard notifications
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-}
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    // register for keyboard notifications
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardWillShow:)
+//                                                 name:UIKeyboardWillShowNotification
+//                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardWillHide:)
+//                                                 name:UIKeyboardWillHideNotification
+//                                               object:nil];
+//}
 //解除觀察
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    // unregister for keyboard notifications while not visible.
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIKeyboardWillShowNotification
-                                                  object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIKeyboardWillHideNotification
-                                                  object:nil];
-}
+//- (void)viewWillDisappear:(BOOL)animated
+//{
+//    [super viewWillDisappear:animated];
+//    // unregister for keyboard notifications while not visible.
+//    [[NSNotificationCenter defaultCenter] removeObserver:self
+//                                                    name:UIKeyboardWillShowNotification
+//                                                  object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self
+//                                                    name:UIKeyboardWillHideNotification
+//                                                  object:nil];
+//}
 
 //鍵盤出現/消失：調整view
-- (void)keyboardWillShow:(NSNotification *)notification {
-    
-    NSDictionary* info = [notification userInfo];
-    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    CGPoint itemOrigin = [self.editingTextField convertPoint:self.editingTextField.frame.origin toView:self.view];
-    CGFloat itemHeight = self.editingTextField.frame.size.height;
-    CGRect visibleRect = self.view.bounds;
-    visibleRect.size.height -= (keyboardSize.height+itemHeight);
-    //BOOL tmp =CGRectContainsPoint(visibleRect, itemOrigin);
-    
-    //move up view if keyboard hide the textfield
-    if (!CGRectContainsPoint(visibleRect, itemOrigin)){
-        
-        int iH = keyboardSize.height - self.keyboardHeight ;
-        
-        CGRect rect = self.view.frame;
-        rect.origin.y = rect.origin.y - iH;
-        [UIView animateWithDuration:1.0 animations:^{
-            self.view.frame = rect ;
-        }];
-    }
-    self.keyboardHeight = keyboardSize.height;
-}
-- (void)keyboardWillHide:(NSNotification *)notification {
-    
-    CGRect rect = self.view.frame;
-    rect.origin.y= 0;
-    [UIView animateWithDuration:1.0 animations:^{
-        self.view.frame = rect;
-    }];
-    
-    self.keyboardHeight = 0 ;
-    
-    
-}
-
-#pragma mark - textField Delegate
+//- (void)keyboardWillShow:(NSNotification *)notification {
+//    
+//    NSDictionary* info = [notification userInfo];
+//    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+//    CGPoint itemOrigin = [self.editingTextField convertPoint:self.editingTextField.frame.origin toView:self.view];
+//    CGFloat itemHeight = self.editingTextField.frame.size.height;
+//    CGRect visibleRect = self.view.bounds;
+//    visibleRect.size.height -= (keyboardSize.height+itemHeight);
+//    //BOOL tmp =CGRectContainsPoint(visibleRect, itemOrigin);
+//    
+//    //move up view if keyboard hide the textfield
+//    if (!CGRectContainsPoint(visibleRect, itemOrigin)){
+//        
+//        int iH = keyboardSize.height - self.keyboardHeight ;
+//        
+//        CGRect rect = self.view.frame;
+//        rect.origin.y = rect.origin.y - iH;
+//        [UIView animateWithDuration:1.0 animations:^{
+//            self.view.frame = rect ;
+//        }];
+//    }
+//    self.keyboardHeight = keyboardSize.height;
+//}
+//- (void)keyboardWillHide:(NSNotification *)notification {
+//    
+//    CGRect rect = self.view.frame;
+//    rect.origin.y= 0;
+//    [UIView animateWithDuration:1.0 animations:^{
+//        self.view.frame = rect;
+//    }];
+//    
+//    self.keyboardHeight = 0 ;
+//    
+//    
+//}
+//
+//#pragma mark - textField Delegate
 // 鍵盤按下return自動收起
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [textField resignFirstResponder];
-    return YES;
-}
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField{
-    self.editingTextField = textField;
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-    [textField resignFirstResponder];
-} // view自動往上code結束
+//- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+//    [textField resignFirstResponder];
+//    return YES;
+//}
+//
+//- (void)textFieldDidBeginEditing:(UITextField *)textField{
+//    self.editingTextField = textField;
+//}
+//
+//- (void)textFieldDidEndEditing:(UITextField *)textField {
+//    [textField resignFirstResponder];
+//} view自動往上code結束
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -189,23 +203,24 @@ MMNumberKeyboardDelegate
 // add order to MySQL
 - (IBAction)addToOrder:(id)sender {
     
-    Order *order = [Order sharedInstance];
-    if (order.AllOrder.count == 0) {
-        UIAlertController *ordernothing = [UIAlertController alertControllerWithTitle:@"Error!" message:@"您沒有訂購任何餐點" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Go shopping" style:UIAlertActionStyleCancel handler:nil];
-        [ordernothing addAction:ok];
-        [self presentViewController:ordernothing animated:YES completion:nil];
-    } else if ([self.CustomerName.text isEqualToString:@""]) {
-        UIAlertController *noName = [UIAlertController alertControllerWithTitle:@"Error!" message:@"請填入您的姓名" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
-        [noName addAction:ok];
-        [self presentViewController:noName animated:YES completion:nil];
-    } else if([self.CustomerPhoneNumber.text isEqualToString:@""]){
-        UIAlertController *noPhoneNumber = [UIAlertController alertControllerWithTitle:@"Error!" message:@"請填入您的手機號碼" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
-        [noPhoneNumber addAction:ok];
-        [self presentViewController:noPhoneNumber animated:YES completion:nil];
-    } else {
+//    Order *order = [Order sharedInstance];
+//    if (order.AllOrder.count == 0) {
+//        UIAlertController *ordernothing = [UIAlertController alertControllerWithTitle:@"Error!" message:@"您沒有訂購任何餐點" preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Go shopping" style:UIAlertActionStyleCancel handler:nil];
+//        [ordernothing addAction:ok];
+//        [self presentViewController:ordernothing animated:YES completion:nil];
+//    } else if ([self.CustomerName.text isEqualToString:@""]) {
+//        UIAlertController *noName = [UIAlertController alertControllerWithTitle:@"Error!" message:@"請填入您的姓名" preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+//        [noName addAction:ok];
+//        [self presentViewController:noName animated:YES completion:nil];
+//    } else if([self.CustomerPhoneNumber.text isEqualToString:@""]){
+//        UIAlertController *noPhoneNumber = [UIAlertController alertControllerWithTitle:@"Error!" message:@"請填入您的手機號碼" preferredStyle:UIAlertControllerStyleAlert];
+//        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+//        [noPhoneNumber addAction:ok];
+//        [self presentViewController:noPhoneNumber animated:YES completion:nil];
+//    } else {
+    
         // 確認是否送出訂單
         UIAlertController *check = [UIAlertController alertControllerWithTitle:@"Check" message:@"您確定要訂購這些餐點嗎？" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *yes = [UIAlertAction actionWithTitle:@"YES!" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -216,10 +231,13 @@ MMNumberKeyboardDelegate
             if (idnumber<0) {
                 idnumber = idnumber*-1;
             }
+            
+            AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
             self.orderID = [NSString stringWithFormat:@"%d",idnumber];
             self.ordertime = [NSString stringWithFormat:@"%@",dateString];
-            self.thecustomerName = self.CustomerName.text;
-            self.thecellphoneNumber = self.CustomerPhoneNumber.text;
+            self.thecustomerName = appDelegate.userName;
+            self.thecellphoneNumber = appDelegate.userPhone;
+            self.theEmail = appDelegate.userEmail;
             
             [self addOrderDetail];
         }];
@@ -227,7 +245,7 @@ MMNumberKeyboardDelegate
         [check addAction:yes];
         [check addAction:no];
         [self presentViewController:check animated:YES completion:nil];
-    }
+//    }
 }
 
 - (void)addOrderDetail{
@@ -237,7 +255,7 @@ MMNumberKeyboardDelegate
 //    NSURL *url=[NSURL URLWithString:@"http://localhost:8888/OrderEasy/orderadd.php"];
     NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod=@"POST";
-    self.TrueParameter = [NSString stringWithFormat:@"count=%lu&orderID=%@&customerName=%@&cellphoneNumber=%@&ordertime=%@",order.AllOrder.count, self.orderID, self.thecustomerName,self.thecellphoneNumber,self.ordertime];
+    self.TrueParameter = [NSString stringWithFormat:@"count=%lu&orderID=%@&customerName=%@&cellphoneNumber=%@&ordertime=%@&userEmail=%@",order.AllOrder.count, self.orderID, self.thecustomerName,self.thecellphoneNumber,self.ordertime,self.theEmail];
     
     for (int i = 0; i < order.AllOrder.count; i++) {
         NSDictionary *dictionary = order.AllOrder[i];

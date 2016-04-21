@@ -10,6 +10,7 @@
 #import "Note.h"
 #import "TheTableViewCell.h"
 #import "FoodDetailViewController.h"
+#import "AppDelegate.h"
 @import DGActivityIndicatorView;
 @import ASCFlatUIColor;
 
@@ -27,6 +28,10 @@ UITableViewDelegate
 @property (nonatomic) NSMutableArray *the_arr;
 @property DGActivityIndicatorView *dgActivity;
 @property NSArray *colors;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *userName;
+
+
+
 @end
 
 @implementation ViewController
@@ -41,6 +46,10 @@ UITableViewDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    self.userName.title = [NSString stringWithFormat:@"Hello %@",appDelegate.userName];
+    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self the_reload_model];
