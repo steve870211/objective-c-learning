@@ -186,7 +186,7 @@ MMNumberKeyboardDelegate
     
 }
 
-// add order to MAMP
+// add order to MySQL
 - (IBAction)addToOrder:(id)sender {
     
     Order *order = [Order sharedInstance];
@@ -296,12 +296,6 @@ MMNumberKeyboardDelegate
         
     }];
     [task resume];
-}
-
-- (IBAction)delete:(id)sender {
-    
-    
-    
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

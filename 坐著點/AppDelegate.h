@@ -12,6 +12,11 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property NSString * userName;
+@property NSString * userPhone;
+@property NSString * userEmail;
+@property NSString * userType;
+
 -(BOOL) isLogined;
 -(void) login;
 -(void) logout;

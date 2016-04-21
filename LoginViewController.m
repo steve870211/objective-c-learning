@@ -9,13 +9,21 @@
 #import "LoginViewController.h"
 #import "AppDelegate.h"
 #import "ShopsViewController.h"
+@import DGActivityIndicatorView;
 
 @interface LoginViewController ()
 <
 UITextFieldDelegate
 >
+{
+    NSString *accountID;
+    NSString *password;
+}
 @property (weak, nonatomic) IBOutlet UITextField *account;
 @property (weak, nonatomic) IBOutlet UITextField *passwd;
+@property (weak, nonatomic) IBOutlet UILabel *message;
+@property DGActivityIndicatorView *dgActivity;
+@property (weak, nonatomic) IBOutlet UIButton *LoginBtn;
 
 @end
 
@@ -35,40 +43,94 @@ UITextFieldDelegate
 }
 
 - (IBAction)doEditFieldDone:(id)sender {
-    
     //取消目前是第一回應者（鍵盤消失）
     [sender resignFirstResponder];
 }
 
 - (IBAction)checkIdentity:(id)sender {
     
-    NSString *account = self.account.text;
-    NSString *passwd = self.passwd.text;
-    BOOL accountOK = false;
-    BOOL passwdOK = false;
-    if ([account isEqualToString:@"abc"]) {
-        accountOK = true;
-    }
-    if ([passwd isEqualToString:@"123"]) {
-        passwdOK = true;
-    }
-    if (accountOK && passwdOK) {
-        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-        [appDelegate login];
-        UIViewController *shopsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"shopsVC"];
-        [self dismissViewControllerAnimated:YES completion:nil];
-        [self presentViewController:shopsVC animated:true completion:nil];
-        NSLog(@"login ok");
-    }
+    [self customerQuery];
     
 }
 
-- (IBAction)registerButton:(id)sender {
+- (void)customerQuery {
     
+    // 讀取動畫
+    dispatch_async(dispatch_get_main_queue(),^{
+        [self.LoginBtn setEnabled:false];
+        self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallScaleRippleMultiple tintColor:[UIColor whiteColor] size:45.0f];
+        self.dgActivity.center = CGPointMake(150, 430);
+        [self.view addSubview:self.dgActivity];
+        [self.dgActivity startAnimating]; // 轉轉轉開始！
+    });
     
+    accountID=self.account.text;
+    password=self.passwd.text;
     
+    NSURL *url=[NSURL URLWithString:@"http://scu-ordereasy.rhcloud.com/AccountList.php"];
+    NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:url];
+    request.HTTPMethod=@"POST";
+    
+    NSString *parameter=[NSString stringWithFormat:@"accountID=%@&password=%@",accountID,password];
+    NSData *body=[parameter dataUsingEncoding:NSUTF8StringEncoding];
+    request.HTTPBody=body;
+    
+    NSURLSession *session=[NSURLSession sharedSession];
+    NSURLSessionTask *task=[session dataTaskWithRequest:request completionHandler:^(NSData *  data, NSURLResponse *  response, NSError *  error){
+        if (error){
+            
+            NSLog(@"error %@",error);
+            
+        }else{
+            
+            AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+            
+            NSArray *datas=[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSLog(@"%lu",datas.count) ;
+            
+            if (datas.count==0){
+                
+                dispatch_async(dispatch_get_main_queue(),^{
+                    // 轉轉轉結束
+                    [self.dgActivity stopAnimating];
+                    [self.dgActivity removeFromSuperview];
+                    
+                    self.message.text = [[NSString alloc]initWithFormat:@"帳號或密碼錯誤！"];
+                    [self.LoginBtn setEnabled:true];
+                });
+                
+                
+            } else{
+                
+                [appDelegate login];
+                
+                NSDictionary *customerDict=datas[0];
+                appDelegate.userName=customerDict[@"userName"];
+                appDelegate.userPhone=customerDict[@"userPhone"];
+                appDelegate.userEmail=customerDict[@"userEmail"];
+                appDelegate.userType=customerDict[@"userType"];
+//                NSLog(@"user:%@,phone:%@,email:%@,type:%@",appDelegate.userName,appDelegate.userPhone,appDelegate.userEmail,appDelegate.userType);
+                
+                dispatch_async(dispatch_get_main_queue(),^{
+                    self.message.text = [[NSString alloc]initWithFormat:@"登入成功！"];
+                });
+                [NSThread sleepForTimeInterval:1.0];
+                dispatch_async(dispatch_get_main_queue(),^{
+                    // 轉轉轉結束
+                    [self.dgActivity stopAnimating];
+                    [self.dgActivity removeFromSuperview];
+                    
+                    UIViewController *shopsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"shopsVC"];
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                    [self.LoginBtn setEnabled:true];
+                    [self presentViewController:shopsVC animated:true completion:nil];
+                });
+            }
+            
+        }
+    }];
+    [task resume];
 }
-
 
 /*
 #pragma mark - Navigation

@@ -143,6 +143,7 @@ UITableViewDelegate
     }];
     [task resume];
     
+    // 轉轉轉結束
     [self.dgActivity stopAnimating];
     [self.dgActivity removeFromSuperview];
     
