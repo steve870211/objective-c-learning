@@ -24,6 +24,8 @@ UITextFieldDelegate
 @property (weak, nonatomic) IBOutlet UILabel *message;
 @property DGActivityIndicatorView *dgActivity;
 @property (weak, nonatomic) IBOutlet UIButton *LoginBtn;
+@property (weak, nonatomic) IBOutlet UIButton *RegisterBtn;
+@property (weak, nonatomic) IBOutlet UIButton *BackBtn;
 
 @end
 
@@ -33,7 +35,7 @@ UITextFieldDelegate
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.account.keyboardType = UIKeyboardTypeDefault;
-    self.passwd.keyboardType = UIKeyboardTypeDefault;
+    self.passwd.keyboardType = UIKeyboardTypeAlphabet;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,6 +59,8 @@ UITextFieldDelegate
     // 讀取動畫
     dispatch_async(dispatch_get_main_queue(),^{
         [self.LoginBtn setEnabled:false];
+        [self.RegisterBtn setEnabled:false];
+        [self.BackBtn setEnabled:false];
         self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallScaleRippleMultiple tintColor:[UIColor whiteColor] size:45.0f];
         self.dgActivity.center = CGPointMake([[UIScreen mainScreen]bounds].size.width/2, [[UIScreen mainScreen]bounds].size.height-150);
         [self.view addSubview:self.dgActivity];
@@ -85,7 +89,7 @@ UITextFieldDelegate
             AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
             
             NSArray *datas=[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            NSLog(@"%lu",datas.count) ;
+//            NSLog(@"%lu",datas.count) ;
             
             if (datas.count==0){
                 
@@ -97,6 +101,8 @@ UITextFieldDelegate
                     [self.message setTextColor:[UIColor redColor]];
                     self.message.text = [[NSString alloc]initWithFormat:@"帳號或密碼錯誤！"];
                     [self.LoginBtn setEnabled:true];
+                    [self.RegisterBtn setEnabled:true];
+                    [self.BackBtn setEnabled:true];
                 });
                 
                 
@@ -104,27 +110,30 @@ UITextFieldDelegate
                 
                 [appDelegate login];
                 
-                NSDictionary *customerDict=datas[0];
-                appDelegate.userName=customerDict[@"userName"];
-                appDelegate.userPhone=customerDict[@"userPhone"];
-                appDelegate.userEmail=customerDict[@"userEmail"];
-                appDelegate.userType=customerDict[@"userType"];
+                NSDictionary *customerDict = datas[0];
+                appDelegate.userName = customerDict[@"userName"];
+                appDelegate.userPhone = customerDict[@"userPhone"];
+                appDelegate.userEmail = customerDict[@"userEmail"];
+                appDelegate.userType = customerDict[@"userType"];
+                appDelegate.Account = customerDict[@"accountID"];
 //                NSLog(@"user:%@,phone:%@,email:%@,type:%@",appDelegate.userName,appDelegate.userPhone,appDelegate.userEmail,appDelegate.userType);
                 
                 dispatch_async(dispatch_get_main_queue(),^{
                     [self.message setTextColor:[UIColor whiteColor]];
                     self.message.text = [[NSString alloc]initWithFormat:@"登入成功！"];
                 });
-                [NSThread sleepForTimeInterval:1.5];
+                [NSThread sleepForTimeInterval:1.0];
                 dispatch_async(dispatch_get_main_queue(),^{
                     // 轉轉轉結束
                     [self.dgActivity stopAnimating];
                     [self.dgActivity removeFromSuperview];
                     
-                    UIViewController *shopsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"shopsVC"];
+//                    UIViewController *shopsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"shopsVC"];
                     [self dismissViewControllerAnimated:YES completion:nil];
                     [self.LoginBtn setEnabled:true];
-                    [self presentViewController:shopsVC animated:true completion:nil];
+                    [self.RegisterBtn setEnabled:true];
+                    [self.BackBtn setEnabled:true];
+//                    [self presentViewController:shopsVC animated:true completion:nil];
                 });
             }
             
@@ -138,13 +147,11 @@ UITextFieldDelegate
     dispatch_async(dispatch_get_main_queue(),^{
         [self.message setText:@""];
     });
-    
-    UIViewController *RegisterVC = [self.storyboard instantiateViewControllerWithIdentifier:@"RegisterVC"];
-    [self dismissViewControllerAnimated:true completion:nil];
-    [self presentViewController:RegisterVC animated:true completion:nil];
-    
 }
 
+- (IBAction)back:(id)sender {
+    [self dismissViewControllerAnimated:true completion:nil];
+}
 
 /*
 #pragma mark - Navigation

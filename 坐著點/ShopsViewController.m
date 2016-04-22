@@ -23,17 +23,23 @@ UITableViewDataSource
 @property (nonatomic) NSMutableArray *the_arr;
 @property DGActivityIndicatorView *dgActivity;
 @property NSArray *colors;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *userName;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *LoginBtn;
 
 @end
 
 @implementation ShopsViewController
 
+-(void)viewWillAppear:(BOOL)animated {
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    if (appDelegate.isLogined == true) {
+        self.LoginBtn.title = [NSString stringWithFormat:@"登出"];
+    } else {
+        self.LoginBtn.title = [NSString stringWithFormat:@"登入"];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    self.userName.title = [NSString stringWithFormat:@"Hello %@",appDelegate.userName];
     
     // 讀取動畫
     self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeLineScaleParty tintColor:[UIColor whiteColor] size:45.0f];
@@ -180,6 +186,22 @@ UITableViewDataSource
     [dataTask resume];
     
 }
+
+// Login/Logout
+- (IBAction)LoginBtnPressed:(id)sender {
+    
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    if (appDelegate.isLogined == false) {
+        UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+        [self presentViewController:LoginVC animated:true completion:nil];
+    } else {
+        [appDelegate logout];
+        appDelegate.Account = @"";
+        [self.LoginBtn setTitle:@"登入"];
+    }
+
+}
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     

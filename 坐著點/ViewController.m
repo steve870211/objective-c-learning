@@ -28,7 +28,7 @@ UITableViewDelegate
 @property (nonatomic) NSMutableArray *the_arr;
 @property DGActivityIndicatorView *dgActivity;
 @property NSArray *colors;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *userName;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *LoginBtn;
 
 
 
@@ -44,11 +44,20 @@ UITableViewDelegate
     return self;
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    if (appDelegate.isLogined == true) {
+        self.LoginBtn.title = [NSString stringWithFormat:@"登出"];
+    } else {
+        self.LoginBtn.title = [NSString stringWithFormat:@"登入"];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    self.userName.title = [NSString stringWithFormat:@"Hello %@",appDelegate.userName];
+    self.LoginBtn.title = [NSString stringWithFormat:@"Hello %@",appDelegate.userName];
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -177,8 +186,11 @@ UITableViewDelegate
             UIAlertAction * alertAct;
             alertAct = [UIAlertAction actionWithTitle:@"連不上" style:UIAlertActionStyleDefault handler:nil];
             [alert addAction:alertAct];
-            [self presentViewController:alert animated:true completion:nil];
-            [self dismissViewControllerAnimated:true completion:nil];
+            dispatch_async(dispatch_get_main_queue(),^{
+                
+                [self presentViewController:alert animated:true completion:nil];
+                [self dismissViewControllerAnimated:true completion:nil];
+            });
         } else {
             
 //            NSString *con = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -208,6 +220,17 @@ UITableViewDelegate
             if (_the_arr) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [_tableView reloadData];
+                // 菜單沒東西
+                if (self.Menus.count == 0) {
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"訊息" message:@"對不起，本店目前尚未開始營業。" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                        [self.dgActivity stopAnimating];
+                        [self.dgActivity removeFromSuperview];
+                        [self.navigationController popToRootViewControllerAnimated:true];
+                    }];
+                        [alert addAction:ok];
+                        [self presentViewController:alert animated:true completion:nil];
+                    }
                 });
             } else {
                 
@@ -223,6 +246,7 @@ UITableViewDelegate
 //            NSLog(@"連上囉");
         }
     }];
+    
     [dataTask resume];
 }
 
@@ -234,6 +258,20 @@ UITableViewDelegate
 //        NSLog(@"Foods = %@",FoodDetailViewController.Foods);
         [_tableView deselectRowAtIndexPath:indexPath animated:true];
     }
+}
+
+- (IBAction)LoginBtnPress:(id)sender {
+    
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    if (appDelegate.isLogined == false) {
+        UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+        [self presentViewController:LoginVC animated:true completion:nil];
+    } else {
+        [appDelegate logout];
+        appDelegate.Account = @"";
+        [self.LoginBtn setTitle:@"登入"];
+    }
+    
 }
 
 @end

@@ -16,6 +16,7 @@
 @property NSString * userPhone;
 @property NSString * userEmail;
 @property NSString * userType;
+@property NSString * Account;
 
 -(BOOL) isLogined;
 -(void) login;

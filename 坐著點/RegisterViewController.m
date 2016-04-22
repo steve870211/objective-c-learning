@@ -92,10 +92,8 @@
     NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod=@"POST";
     self.dataGot = [NSString stringWithFormat:@"accountID=%@&password=%@&userName=%@&userPhone=%@&userEmail=%@&userType=customer",self.account.text,self.password.text,self.userName.text,self.userPhone.text,self.userEmail.text];
-    
     NSData *body=[self.dataGot dataUsingEncoding:NSUTF8StringEncoding];
     request.HTTPBody=body;
-    
     NSURLSession *session=[NSURLSession sharedSession];
     NSURLSessionTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
@@ -120,7 +118,6 @@
                 [NSThread sleepForTimeInterval:1.5];
                 
                 dispatch_async(dispatch_get_main_queue(),^{
-                    
                     UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
                     [self dismissViewControllerAnimated:YES completion:nil];
                     [self presentViewController:LoginVC animated:true completion:nil];

@@ -28,17 +28,23 @@ MMNumberKeyboardDelegate
 @property (nonatomic) NSString *FoodID;
 @property (nonatomic) BOOL all_or_amount;
 @property DGActivityIndicatorView *dgActivity;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *userName;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *LoginBtn;
 
 @end
 
 @implementation FoodDetailViewController
 
+-(void)viewWillAppear:(BOOL)animated {
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    if (appDelegate.isLogined == true) {
+        self.LoginBtn.title = [NSString stringWithFormat:@"登出"];
+    } else {
+        self.LoginBtn.title = [NSString stringWithFormat:@"登入"];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    self.userName.title = [NSString stringWithFormat:@"Hello %@",appDelegate.userName];
 
     UIColor *color = [ASCFlatUIColor alizarinColor];
     
@@ -115,16 +121,17 @@ MMNumberKeyboardDelegate
         
         int amount;
         amount = [amountField.text intValue];
+        NSString *amountstr = [NSString stringWithFormat:@"%d",amount];
         int foodTotalPrice = amount*[_Foods.Price intValue];
 //        NSString *foodid = self.Foods.FoodID;
         Order *order = [Order sharedInstance];
         self.all_or_amount = false;
 
-        if (amount == 0) {
+        if (amount < 1 || amount > 1000) {
             
             UIAlertController *alert = [UIAlertController
                                         alertControllerWithTitle:@"錯誤"
-                                        message:@"訂購數量不得為 0"
+                                        message:@"訂購數量不得少於1或多餘1000"
                                         preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *alertAction = [UIAlertAction
@@ -149,7 +156,7 @@ MMNumberKeyboardDelegate
             [self.car setObject:foodid forKeyedSubscript:@"FoodID"];
             [self.car setObject:foodname forKeyedSubscript:@"FoodName"];
             [self.car setObject:price forKey:@"Price"];
-            [self.car setObject:amountField.text forKey:@"amount"];
+            [self.car setObject:amountstr forKey:@"amount"];
             [self.car setObject:FoodTotalPrice forKey:@"FoodTotalPrice"];
             
             if (order.AllOrder.count != 0) {
@@ -180,7 +187,12 @@ MMNumberKeyboardDelegate
                 [order.AllOrder addObject:self.car];
                 
             }
-            [self.navigationController popViewControllerAnimated:YES];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Success" message:[NSString stringWithFormat:@"完成，您已將%d個%@加入了購物車",amount,foodname] preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
+            [alert addAction:ok];
+            [self presentViewController:alert animated:true completion:nil];
         }
     }];
     
@@ -191,6 +203,19 @@ MMNumberKeyboardDelegate
     
 }
 
+- (IBAction)LoginBtnPress:(id)sender {
+    
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    if (appDelegate.isLogined == false) {
+        UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+        [self presentViewController:LoginVC animated:true completion:nil];
+    } else {
+        [appDelegate logout];
+        appDelegate.Account = @"";
+        [self.LoginBtn setTitle:@"登入"];
+    }
+    
+}
 
 
 

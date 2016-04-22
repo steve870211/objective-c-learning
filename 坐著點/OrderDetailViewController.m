@@ -27,18 +27,25 @@ UICollectionViewDelegateFlowLayout
 @property (nonatomic) NSMutableArray *myarr;
 @property (nonatomic) NSMutableArray *orderarr;
 @property DGActivityIndicatorView *dgActivity;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *userName;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *LoginBtn;
 
 @end
 
 @implementation OrderDetailViewController
 
+-(void)viewWillAppear:(BOOL)animated {
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    
+    if (appDelegate.isLogined == true) {
+        self.LoginBtn.title = [NSString stringWithFormat:@"登出"];
+    } else {
+        self.LoginBtn.title = [NSString stringWithFormat:@"登入"];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    self.userName.title = [NSString stringWithFormat:@"Hello %@",appDelegate.userName];
     
     self.collectionView.backgroundColor = [UIColor brownColor];
     [self the_reload_model];
@@ -85,6 +92,9 @@ UICollectionViewDelegateFlowLayout
     cell.OrderID.text = [NSString stringWithFormat:@"訂單編號：%@",order.orderID];
     cell.ordertime.text = [NSString stringWithFormat:@"訂餐時間：%@",order.ordertime];
     
+//    NSLog(@"orderID=%@",order.orderID);
+//    NSLog(@"ordertime=%@",order.ordertime);
+    
     return cell;
     
 }
@@ -118,11 +128,11 @@ UICollectionViewDelegateFlowLayout
                 orderdetail.number = [NSString stringWithFormat:@"%@",book[@"orderNumber"]];
                 orderdetail.totalprice = [NSString stringWithFormat:@"%@",book[@"total"]];
                 orderdetail.orderID = [NSString stringWithFormat:@"%@",book[@"orderID"]];
+                orderdetail.Account = [NSString stringWithFormat:@"%@",book[@"Account"]];
                 orderdetail.ordertime = [NSString stringWithFormat:@"%@",book[@"ordertime"]];
                 
-                Order *order = [Order sharedInstance];
-                
-                if ([order.orderID isEqualToString:orderdetail.orderID]) {
+                AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+                if ([appDelegate.Account isEqualToString:orderdetail.Account]) {
                     [_orderarr addObject:orderdetail];
                 }
             }
@@ -179,6 +189,21 @@ UICollectionViewDelegateFlowLayout
     [dataTask resume];
 
 }
+
+- (IBAction)LoginBtnPress:(id)sender {
+    
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    if (appDelegate.isLogined == false) {
+        UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+        [self presentViewController:LoginVC animated:true completion:nil];
+    } else {
+        [appDelegate logout];
+        appDelegate.Account = @"";
+        [self.LoginBtn setTitle:@"登入"];
+    }
+    
+}
+
 
 
 

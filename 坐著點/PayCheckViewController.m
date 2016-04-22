@@ -11,6 +11,8 @@
 #import "Order.h"
 #import "OrderDetail.h"
 #import "AppDelegate.h"
+#import "ShopsViewController.h"
+#import "OrderDetailViewController.h"
 @import MMNumberKeyboard;
 
 @interface PayCheckViewController ()
@@ -45,7 +47,7 @@ MMNumberKeyboardDelegate
 @property NSString *thecustomerName;
 @property NSString *thecellphoneNumber;
 @property NSString *theEmail;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *userName;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *LoginBtn;
 @property (weak, nonatomic) IBOutlet UILabel *orderuserName;
 @property (weak, nonatomic) IBOutlet UILabel *orderuserPhone;
 @property (weak, nonatomic) IBOutlet UILabel *orderuserEmail;
@@ -56,14 +58,25 @@ MMNumberKeyboardDelegate
 
 @implementation PayCheckViewController
 
+-(void)viewWillAppear:(BOOL)animated {
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    if (appDelegate.isLogined == true) {
+        self.LoginBtn.title = [NSString stringWithFormat:@"登出"];
+        [self.orderuserName setText:[NSString stringWithFormat:@"姓名：%@",appDelegate.userName]];
+        [self.orderuserPhone setText:[NSString stringWithFormat:@"電話：%@",appDelegate.userPhone]];
+        [self.orderuserEmail setText:[NSString stringWithFormat:@"信箱：%@",appDelegate.userEmail]];
+
+    } else {
+        self.LoginBtn.title = [NSString stringWithFormat:@"登入"];
+        [self.orderuserName setText:[NSString stringWithFormat:@""]];
+        [self.orderuserPhone setText:[NSString stringWithFormat:@""]];
+        [self.orderuserEmail setText:[NSString stringWithFormat:@""]];
+
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    self.userName.title = [NSString stringWithFormat:@"Hello %@",appDelegate.userName];
-    self.orderuserName.text = [NSString stringWithFormat:@"姓名：%@",appDelegate.userName];
-    self.orderuserPhone.text = [NSString stringWithFormat:@"電話：%@",appDelegate.userPhone];
-    self.orderuserEmail.text = [NSString stringWithFormat:@"信箱：%@",appDelegate.userEmail];
     
     Order *order = [Order sharedInstance];
     self.ordernumber = [[NSMutableArray alloc]initWithArray:order.AllOrder];
@@ -196,6 +209,8 @@ MMNumberKeyboardDelegate
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
+    Order *order = [Order sharedInstance];
+    self.ordernumber = [[NSMutableArray alloc]initWithArray:order.AllOrder];
     return self.ordernumber.count;
     
 }
@@ -203,24 +218,32 @@ MMNumberKeyboardDelegate
 // add order to MySQL
 - (IBAction)addToOrder:(id)sender {
     
-//    Order *order = [Order sharedInstance];
-//    if (order.AllOrder.count == 0) {
-//        UIAlertController *ordernothing = [UIAlertController alertControllerWithTitle:@"Error!" message:@"您沒有訂購任何餐點" preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Go shopping" style:UIAlertActionStyleCancel handler:nil];
-//        [ordernothing addAction:ok];
-//        [self presentViewController:ordernothing animated:YES completion:nil];
-//    } else if ([self.CustomerName.text isEqualToString:@""]) {
-//        UIAlertController *noName = [UIAlertController alertControllerWithTitle:@"Error!" message:@"請填入您的姓名" preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
-//        [noName addAction:ok];
-//        [self presentViewController:noName animated:YES completion:nil];
-//    } else if([self.CustomerPhoneNumber.text isEqualToString:@""]){
-//        UIAlertController *noPhoneNumber = [UIAlertController alertControllerWithTitle:@"Error!" message:@"請填入您的手機號碼" preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
-//        [noPhoneNumber addAction:ok];
-//        [self presentViewController:noPhoneNumber animated:YES completion:nil];
-//    } else {
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    Order *order = [Order sharedInstance];
     
+    // 購物車為空
+    if (order.AllOrder.count == 0) {
+        UIAlertController *ordernothing = [UIAlertController alertControllerWithTitle:@"Error!" message:@"您沒有訂購任何餐點" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Go shopping" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            dispatch_async(dispatch_get_main_queue(),^{
+                [self dismissViewControllerAnimated:true completion:nil];
+                //UIViewController *shopsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"shopsVC"];
+                //[self presentViewController:shopsVC animated:true completion:nil];
+                
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            });
+        }];
+        [ordernothing addAction:ok];
+        [self presentViewController:ordernothing animated:YES completion:nil];
+        
+    } else if (appDelegate.isLogined == false) {
+        dispatch_async(dispatch_get_main_queue(),^{
+            UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+            [self dismissViewControllerAnimated:YES completion:nil];
+            [self presentViewController:LoginVC animated:true completion:nil];
+        });
+        
+    } else {
         // 確認是否送出訂單
         UIAlertController *check = [UIAlertController alertControllerWithTitle:@"Check" message:@"您確定要訂購這些餐點嗎？" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *yes = [UIAlertAction actionWithTitle:@"YES!" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -245,17 +268,18 @@ MMNumberKeyboardDelegate
         [check addAction:yes];
         [check addAction:no];
         [self presentViewController:check animated:YES completion:nil];
-//    }
+    }
 }
 
 - (void)addOrderDetail{
     
     Order *order = [Order sharedInstance];
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     NSURL *url=[NSURL URLWithString:@"http://scu-ordereasy.rhcloud.com/orderadd.php"];
 //    NSURL *url=[NSURL URLWithString:@"http://localhost:8888/OrderEasy/orderadd.php"];
     NSMutableURLRequest *request=[NSMutableURLRequest requestWithURL:url];
     request.HTTPMethod=@"POST";
-    self.TrueParameter = [NSString stringWithFormat:@"count=%lu&orderID=%@&customerName=%@&cellphoneNumber=%@&ordertime=%@&userEmail=%@",order.AllOrder.count, self.orderID, self.thecustomerName,self.thecellphoneNumber,self.ordertime,self.theEmail];
+    self.TrueParameter = [NSString stringWithFormat:@"count=%lu&orderID=%@&customerName=%@&cellphoneNumber=%@&ordertime=%@&userEmail=%@&Account=%@",order.AllOrder.count, self.orderID, self.thecustomerName,self.thecellphoneNumber,self.ordertime,self.theEmail,appDelegate.Account];
     
     for (int i = 0; i < order.AllOrder.count; i++) {
         NSDictionary *dictionary = order.AllOrder[i];
@@ -285,14 +309,13 @@ MMNumberKeyboardDelegate
             if ([returndata  isEqual: @"Success!"]){
                 
                 dispatch_async(dispatch_get_main_queue(),^{
-                    UIAlertController *Error = [UIAlertController alertControllerWithTitle:@"訂餐成功" message:@"感謝您的訂餐！" preferredStyle:UIAlertControllerStyleAlert];
-                    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
-                    [Error addAction:cancel];
-                    [self presentViewController:Error animated:YES completion:nil];
-                    order.orderID = self.orderID;
-                    
+                    UIAlertController *success = [UIAlertController alertControllerWithTitle:@"訂餐成功" message:@"感謝您的訂餐！" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+                    [success addAction:ok];
+                    [self presentViewController:success animated:YES completion:nil];
+                    [order.AllOrder removeAllObjects];
+                    [self.tableView reloadData];
                     });
-                
                 // 如果字串顯示傳送失敗
             } else {
                 dispatch_async(dispatch_get_main_queue(),^{
@@ -319,6 +342,22 @@ MMNumberKeyboardDelegate
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
 }
+
+- (IBAction)LoginBtnPress:(id)sender {
+    
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    if (appDelegate.isLogined == false) {
+        UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+        [self presentViewController:LoginVC animated:true completion:nil];
+    } else {
+        [appDelegate logout];
+        appDelegate.Account = @"";
+        [self.LoginBtn setTitle:@"登入"];
+    }
+    
+}
+
+
 
 @end
 

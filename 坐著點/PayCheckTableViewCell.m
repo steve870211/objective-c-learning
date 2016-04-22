@@ -24,7 +24,7 @@ MMNumberKeyboardDelegate
     MMNumberKeyboard *keyboard = [[MMNumberKeyboard alloc] initWithFrame:CGRectZero];
     keyboard.allowsDecimalPoint = YES;
     keyboard.delegate = self;
-    self.orderNumberTextField.inputView = keyboard;
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -41,7 +41,7 @@ MMNumberKeyboardDelegate
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
-    self.orderNumberTextField = textField;
+    
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
