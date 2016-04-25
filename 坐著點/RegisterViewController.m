@@ -8,12 +8,15 @@
 
 #import "RegisterViewController.h"
 #import "LoginViewController.h"
+#import <AudioToolbox/AudioToolbox.h>
+#import "AppDelegate.h"
 @import DGActivityIndicatorView;
 @import MMNumberKeyboard;
 
 @interface RegisterViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *account;
 @property (weak, nonatomic) IBOutlet UITextField *password;
+@property (weak, nonatomic) IBOutlet UITextField *passwordCheck;
 @property (weak, nonatomic) IBOutlet UITextField *userName;
 @property (weak, nonatomic) IBOutlet UITextField *userPhone;
 @property (weak, nonatomic) IBOutlet UITextField *userEmail;
@@ -49,18 +52,24 @@
 
 - (IBAction)backBtn:(id)sender {
     
-    UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    [appDelegate prepareSound:@"click"];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
-    [self presentViewController:LoginVC animated:true completion:nil];
     
 }
 
 - (IBAction)commit:(id)sender {
-
+    
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    [appDelegate prepareSound:@"click"];
+    
     if (self.account.text.length > 10 || self.account.text.length < 6) {
-        self.message.text = [NSString stringWithFormat:@"帳號字數必須為6~10"];
+        self.message.text = [NSString stringWithFormat:@"帳號字數必須為6~10個字元"];
     } else if(self.password.text.length > 8 || self.password.text.length < 4) {
-        self.message.text = [NSString stringWithFormat:@"密碼字數必須為4~8"];
+        self.message.text = [NSString stringWithFormat:@"密碼字數必須為4~8個字元"];
+    } else if(self.passwordCheck.text != self.password.text) {
+        self.message.text = [NSString stringWithFormat:@"密碼檢查失敗，請確認您的密碼"];
     } else if(self.userName.text.length < 1) {
         self.message.text = [NSString stringWithFormat:@"姓名不得為空"];
     } else if(self.userPhone.text.length != 10) {
@@ -70,7 +79,6 @@
     } else {
         [self Register];
     }
-    
 }
 
 -(void) Register {
@@ -113,6 +121,10 @@
                     [self.message setTextColor:[UIColor whiteColor]];
                     self.message.text = [NSString stringWithFormat:@"註冊成功"];
                     
+                    SystemSoundID click;
+                    NSURL *sound = [[NSBundle mainBundle]URLForResource:@"guitar" withExtension:@"mp3"];
+                    AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(sound),&click);
+                    AudioServicesPlaySystemSound(click);
                 });
                 
                 [NSThread sleepForTimeInterval:1.5];

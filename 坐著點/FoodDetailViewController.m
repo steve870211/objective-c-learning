@@ -11,6 +11,7 @@
 #import "Order.h"
 #import "ViewController.h"
 #import "AppDelegate.h"
+#import <AudioToolbox/AudioToolbox.h>
 @import DGActivityIndicatorView;
 @import ASCFlatUIColor;
 @import MMNumberKeyboard;
@@ -90,14 +91,25 @@ MMNumberKeyboardDelegate
 
 #pragma mark - Navigation
 
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    
-//}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
+    if ([segue.identifier isEqualToString:@"foodtoorderdetail"]) {
+        
+        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+        [appDelegate prepareSound:@"burp1"];
+        
+    }
+    if ([segue.identifier isEqualToString:@"foodtopay"]) {
+        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+        [appDelegate prepareSound:@"click"];
+    }
+    
+}
 
 - (IBAction)addToOrderBtnPressed:(id)sender {
     
     UIAlertController * alert = [UIAlertController
-                                  alertControllerWithTitle:@"您要點幾份?"
+                                  alertControllerWithTitle:@"要幾個?"
                                   message:nil
                                   preferredStyle:UIAlertControllerStyleAlert];
     
@@ -115,7 +127,7 @@ MMNumberKeyboardDelegate
         
     }];
     
-    UIAlertAction *addtoOrder = [UIAlertAction actionWithTitle:@"加入訂單" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *addtoOrder = [UIAlertAction actionWithTitle:@"加入購物車" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         UITextField *amountField = alert.textFields.firstObject;
         
@@ -206,6 +218,9 @@ MMNumberKeyboardDelegate
 - (IBAction)LoginBtnPress:(id)sender {
     
     AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    
+    [appDelegate prepareSound:@"locking_a_wooden_door1"];
+    
     if (appDelegate.isLogined == false) {
         UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
         [self presentViewController:LoginVC animated:true completion:nil];
@@ -216,7 +231,6 @@ MMNumberKeyboardDelegate
     }
     
 }
-
 
 
 @end

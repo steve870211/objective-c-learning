@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "Order.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface AppDelegate ()
 
@@ -27,6 +28,13 @@
 
 -(void) logout {
     self.isLogined = false;
+}
+
+-(void)prepareSound:(NSString *)name {
+    SystemSoundID click;
+    NSURL *sound = [[NSBundle mainBundle]URLForResource:name withExtension:@"mp3"];
+    AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(sound),&click);
+    AudioServicesPlaySystemSound(click);
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

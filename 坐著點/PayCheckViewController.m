@@ -13,6 +13,7 @@
 #import "AppDelegate.h"
 #import "ShopsViewController.h"
 #import "OrderDetailViewController.h"
+#import <AudioToolbox/AudioToolbox.h>
 @import MMNumberKeyboard;
 
 @interface PayCheckViewController ()
@@ -190,6 +191,7 @@ MMNumberKeyboardDelegate
 //    [textField resignFirstResponder];
 //} view自動往上code結束
 
+#pragma mark tableview
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     PayCheckTableViewCell *paycheckcell = [tableView dequeueReusableCellWithIdentifier:@"paycheckcell"forIndexPath:indexPath];
@@ -215,12 +217,13 @@ MMNumberKeyboardDelegate
     
 }
 
+#pragma mark 送出訂單
 // add order to MySQL
 - (IBAction)addToOrder:(id)sender {
     
     AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     Order *order = [Order sharedInstance];
-    
+    [appDelegate prepareSound:@"click"];
     // 購物車為空
     if (order.AllOrder.count == 0) {
         UIAlertController *ordernothing = [UIAlertController alertControllerWithTitle:@"Error!" message:@"您沒有訂購任何餐點" preferredStyle:UIAlertControllerStyleAlert];
@@ -314,8 +317,15 @@ MMNumberKeyboardDelegate
                     [success addAction:ok];
                     [self presentViewController:success animated:YES completion:nil];
                     [order.AllOrder removeAllObjects];
+                    self.totalprice.text = [NSString stringWithFormat:@"總金額：0元"];
                     [self.tableView reloadData];
                     });
+                
+                SystemSoundID click;
+                NSURL *sound = [[NSBundle mainBundle]URLForResource:@"bicycle_bell" withExtension:@"mp3"];
+                AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(sound),&click);
+                AudioServicesPlaySystemSound(click);
+                
                 // 如果字串顯示傳送失敗
             } else {
                 dispatch_async(dispatch_get_main_queue(),^{
@@ -339,13 +349,30 @@ MMNumberKeyboardDelegate
     [task resume];
 }
 
+#pragma mark 刪除cell
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle ==UITableViewCellEditingStyleDelete) {//如果编辑样式为删除样式
+        Order *order = [Order sharedInstance];
+        if (indexPath.row<[order.AllOrder count]) {
+            [order.AllOrder removeObjectAtIndex:indexPath.row];//移除数据源的数据
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];//移除tableView中的数据
+            
+            SystemSoundID click;
+            NSURL *sound = [[NSBundle mainBundle]URLForResource:@"blip2" withExtension:@"mp3"];
+            AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(sound),&click);
+            AudioServicesPlaySystemSound(click);
+        }
+    }
     
 }
 
+#pragma mark 登入/登出
 - (IBAction)LoginBtnPress:(id)sender {
-    
     AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    
+    [appDelegate prepareSound:@"locking_a_wooden_door1"];
+    
     if (appDelegate.isLogined == false) {
         UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
         [self presentViewController:LoginVC animated:true completion:nil];
@@ -357,6 +384,13 @@ MMNumberKeyboardDelegate
     
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    if ([segue.identifier isEqualToString:@"paychecktoorderdetail"]) {
+        [appDelegate prepareSound:@"locking_a_wooden_door1"];
+    }
+    
+}
 
 
 @end

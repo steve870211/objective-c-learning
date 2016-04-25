@@ -21,6 +21,6 @@
 -(BOOL) isLogined;
 -(void) login;
 -(void) logout;
-
+-(void) prepareSound:(NSString*)name;
 @end
 

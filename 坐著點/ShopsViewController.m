@@ -10,6 +10,7 @@
 #import "ShopsTableViewCell.h"
 #import "ViewController.h"
 #import "AppDelegate.h"
+#import <AudioToolbox/AudioToolbox.h>
 @import DGActivityIndicatorView;
 @import ASCFlatUIColor;
 
@@ -36,6 +37,7 @@ UITableViewDataSource
     } else {
         self.LoginBtn.title = [NSString stringWithFormat:@"登入"];
     }
+    
 }
 
 - (void)viewDidLoad {
@@ -134,10 +136,25 @@ UITableViewDataSource
         if (error != nil) {
             
             UIAlertController *alert;
-            alert = [UIAlertController new];
-            UIAlertAction * alertAct;
-            alertAct = [UIAlertAction actionWithTitle:@"連線失敗" style:UIAlertActionStyleDefault handler:nil];
+            alert = [UIAlertController alertControllerWithTitle:@"網路問題" message:@"請檢查您的網路狀況" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction * alertAct = [UIAlertAction actionWithTitle:@"退出" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                AppDelegate *app = [UIApplication sharedApplication].delegate;
+                UIWindow *window = app.window;
+                
+                [UIView animateWithDuration:0.4f animations:^{
+                    window.alpha = 0;
+                    CGFloat y = window.bounds.size.height;
+                    CGFloat x = window.bounds.size.width / 2;
+                    window.frame = CGRectMake(x, y, 0, 0);
+                } completion:^(BOOL finished) {
+                    exit(0);
+                }];
+            }];
+            UIAlertAction *alertAgain = [UIAlertAction actionWithTitle:@"重新連線" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self the_reload_model];
+            }];
             [alert addAction:alertAct];
+            [alert addAction:alertAgain];
             [self presentViewController:alert animated:true completion:nil];
             
         } else {
@@ -191,6 +208,9 @@ UITableViewDataSource
 - (IBAction)LoginBtnPressed:(id)sender {
     
     AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    
+    [appDelegate prepareSound:@"locking_a_wooden_door1"];
+    
     if (appDelegate.isLogined == false) {
         UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
         [self presentViewController:LoginVC animated:true completion:nil];
@@ -202,25 +222,42 @@ UITableViewDataSource
 
 }
 
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.identifier isEqualToString:@"ToFoods"]) {
+        
+        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+        
+        [appDelegate prepareSound:@"click"];
+        
         ViewController *foodViewController = segue.destinationViewController;
         NSIndexPath * indexPath = self.tableView.indexPathForSelectedRow;
         foodViewController.Shops = self.ShopsList[indexPath.row];
         [_tableView deselectRowAtIndexPath:indexPath animated:true];
     }
+    
+    if ([segue.identifier isEqualToString:@"shoptocart"]) {
+        
+        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+        
+        [appDelegate prepareSound:@"click"];
+    }
+    
+    if ([segue.identifier isEqualToString:@"shoptoorderdetail"]) {
+        
+        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+        
+        [appDelegate prepareSound:@"burp1"];
+    }
+    
 }
 
-/*
-#pragma mark - Navigation
+
+//#pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//}
+
 
 @end

@@ -16,6 +16,12 @@
 		AA52541F1CBF4A2200BE6999 /* OrderDetailCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA52541E1CBF4A2200BE6999 /* OrderDetailCollectionViewCell.m */; };
 		AA59E4D21C97B3FA003EA63B /* PayCheckTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59E4D11C97B3FA003EA63B /* PayCheckTableViewCell.m */; };
 		AA59E4D51C97B890003EA63B /* PayCheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA59E4D41C97B890003EA63B /* PayCheckViewController.m */; };
+		AA940A501CCCFC9E000CBF8E /* burp1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AA940A4C1CCCFC9E000CBF8E /* burp1.mp3 */; };
+		AA940A511CCCFC9E000CBF8E /* click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AA940A4D1CCCFC9E000CBF8E /* click.mp3 */; };
+		AA940A521CCCFC9E000CBF8E /* guitar.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AA940A4E1CCCFC9E000CBF8E /* guitar.mp3 */; };
+		AA940A531CCCFC9E000CBF8E /* putting_a_pencil.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AA940A4F1CCCFC9E000CBF8E /* putting_a_pencil.mp3 */; };
+		AA940A551CCD00FB000CBF8E /* blip2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AA940A541CCD00FB000CBF8E /* blip2.mp3 */; };
+		AA940A571CCD016F000CBF8E /* bicycle_bell.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AA940A561CCD016F000CBF8E /* bicycle_bell.mp3 */; };
 		AAABC2A51CBE1BAA006788C1 /* shopping-cart.png in Resources */ = {isa = PBXBuildFile; fileRef = AAABC2A41CBE1BAA006788C1 /* shopping-cart.png */; };
 		AAABC2A71CBE1CB5006788C1 /* purchase_order.png in Resources */ = {isa = PBXBuildFile; fileRef = AAABC2A61CBE1CB5006788C1 /* purchase_order.png */; };
 		AAABC2AF1CBE1E2C006788C1 /* add_cart.png in Resources */ = {isa = PBXBuildFile; fileRef = AAABC2AE1CBE1E2C006788C1 /* add_cart.png */; };
@@ -27,6 +33,8 @@
 		AAD76ADF1CC0D5D30087927C /* OrderDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD76ADE1CC0D5D30087927C /* OrderDetail.m */; };
 		AAE7FABC1CA3C6E700578B19 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE7FABB1CA3C6E700578B19 /* loading.png */; };
 		AAE7FABF1CA4005200578B19 /* FoodDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE7FABE1CA4005200578B19 /* FoodDetailViewController.m */; };
+		AAF0553E1CCCF2FB00F88F34 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF0553D1CCCF2FB00F88F34 /* AudioToolbox.framework */; };
+		AAF055451CCCFA9A00F88F34 /* locking_a_wooden_door1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AAF055441CCCFA9A00F88F34 /* locking_a_wooden_door1.mp3 */; };
 		AAF231031CA28ADC0087C072 /* ShopsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF231021CA28ADC0087C072 /* ShopsTableViewCell.m */; };
 		AAF4C0C21CA24A1F00AB0FAC /* ShopsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF4C0C11CA24A1F00AB0FAC /* ShopsViewController.m */; };
 		AAF9D6111C8EE9E6003397DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAF9D6101C8EE9E6003397DD /* main.m */; };
@@ -77,6 +85,12 @@
 		AA59E4D11C97B3FA003EA63B /* PayCheckTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayCheckTableViewCell.m; sourceTree = "<group>"; };
 		AA59E4D31C97B890003EA63B /* PayCheckViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayCheckViewController.h; sourceTree = "<group>"; };
 		AA59E4D41C97B890003EA63B /* PayCheckViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayCheckViewController.m; sourceTree = "<group>"; };
+		AA940A4C1CCCFC9E000CBF8E /* burp1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = burp1.mp3; sourceTree = "<group>"; };
+		AA940A4D1CCCFC9E000CBF8E /* click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = click.mp3; sourceTree = "<group>"; };
+		AA940A4E1CCCFC9E000CBF8E /* guitar.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = guitar.mp3; sourceTree = "<group>"; };
+		AA940A4F1CCCFC9E000CBF8E /* putting_a_pencil.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = putting_a_pencil.mp3; sourceTree = "<group>"; };
+		AA940A541CCD00FB000CBF8E /* blip2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = blip2.mp3; sourceTree = "<group>"; };
+		AA940A561CCD016F000CBF8E /* bicycle_bell.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bicycle_bell.mp3; sourceTree = "<group>"; };
 		AAABC2A41CBE1BAA006788C1 /* shopping-cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping-cart.png"; sourceTree = "<group>"; };
 		AAABC2A61CBE1CB5006788C1 /* purchase_order.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purchase_order.png; sourceTree = "<group>"; };
 		AAABC2AE1CBE1E2C006788C1 /* add_cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_cart.png; sourceTree = "<group>"; };
@@ -92,6 +106,8 @@
 		AAE7FABB1CA3C6E700578B19 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
 		AAE7FABD1CA4005200578B19 /* FoodDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodDetailViewController.h; sourceTree = "<group>"; };
 		AAE7FABE1CA4005200578B19 /* FoodDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodDetailViewController.m; sourceTree = "<group>"; };
+		AAF0553D1CCCF2FB00F88F34 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		AAF055441CCCFA9A00F88F34 /* locking_a_wooden_door1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = locking_a_wooden_door1.mp3; sourceTree = "<group>"; };
 		AAF231011CA28ADC0087C072 /* ShopsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopsTableViewCell.h; sourceTree = "<group>"; };
 		AAF231021CA28ADC0087C072 /* ShopsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopsTableViewCell.m; sourceTree = "<group>"; };
 		AAF4C0C01CA24A1F00AB0FAC /* ShopsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopsViewController.h; sourceTree = "<group>"; };
@@ -123,6 +139,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAF0553E1CCCF2FB00F88F34 /* AudioToolbox.framework in Frameworks */,
 				AAABC2B31CBE2FB0006788C1 /* QuartzCore.framework in Frameworks */,
 				DE18376D529C2E315EF47316 /* Pods____.framework in Frameworks */,
 			);
@@ -148,6 +165,7 @@
 		41B89E2746D226BB9011E396 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AAF0553D1CCCF2FB00F88F34 /* AudioToolbox.framework */,
 				AAABC2B21CBE2FB0006788C1 /* QuartzCore.framework */,
 				CAF0314E5453C79A75EB446E /* Pods____.framework */,
 			);
@@ -251,6 +269,13 @@
 		AAF9D60E1C8EE9E6003397DD /* 坐著點 */ = {
 			isa = PBXGroup;
 			children = (
+				AAF055441CCCFA9A00F88F34 /* locking_a_wooden_door1.mp3 */,
+				AA940A4C1CCCFC9E000CBF8E /* burp1.mp3 */,
+				AA940A4D1CCCFC9E000CBF8E /* click.mp3 */,
+				AA940A4E1CCCFC9E000CBF8E /* guitar.mp3 */,
+				AA940A4F1CCCFC9E000CBF8E /* putting_a_pencil.mp3 */,
+				AA940A541CCD00FB000CBF8E /* blip2.mp3 */,
+				AA940A561CCD016F000CBF8E /* bicycle_bell.mp3 */,
 				AAF9D67C1C96942000DF29B1 /* image */,
 				AA2B0F3D1CC733460001A1F3 /* Login */,
 				AA2911251CC89CEE00AE37F0 /* Register */,
@@ -438,9 +463,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA940A511CCCFC9E000CBF8E /* click.mp3 in Resources */,
 				AA2B0F421CC751B60001A1F3 /* SCU.jpg in Resources */,
+				AA940A501CCCFC9E000CBF8E /* burp1.mp3 in Resources */,
+				AA940A571CCD016F000CBF8E /* bicycle_bell.mp3 in Resources */,
 				AA2B0F461CC768D40001A1F3 /* 1461152075_food_in_blue.png in Resources */,
 				AAABC2B11CBE1ED4006788C1 /* add_cart2.png in Resources */,
+				AAF055451CCCFA9A00F88F34 /* locking_a_wooden_door1.mp3 in Resources */,
 				AAF9D67F1C9694AB00DF29B1 /* plus-57604.png in Resources */,
 				AAABC2AF1CBE1E2C006788C1 /* add_cart.png in Resources */,
 				AACB87071CC4721E00A4F750 /* OrderSave.plist in Resources */,
@@ -448,7 +477,10 @@
 				AAF9D61F1C8EE9E6003397DD /* LaunchScreen.storyboard in Resources */,
 				AAABC2A71CBE1CB5006788C1 /* purchase_order.png in Resources */,
 				AAF9D6801C9694AB00DF29B1 /* remove-button-512.png in Resources */,
+				AA940A551CCD00FB000CBF8E /* blip2.mp3 in Resources */,
+				AA940A521CCCFC9E000CBF8E /* guitar.mp3 in Resources */,
 				AAF9D61A1C8EE9E6003397DD /* Main.storyboard in Resources */,
+				AA940A531CCCFC9E000CBF8E /* putting_a_pencil.mp3 in Resources */,
 				AA2B0F441CC75B1B0001A1F3 /* Assets.xcassets in Resources */,
 				AAE7FABC1CA3C6E700578B19 /* loading.png in Resources */,
 			);

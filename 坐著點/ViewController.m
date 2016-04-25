@@ -11,6 +11,7 @@
 #import "TheTableViewCell.h"
 #import "FoodDetailViewController.h"
 #import "AppDelegate.h"
+#import <AudioToolbox/AudioToolbox.h>
 @import DGActivityIndicatorView;
 @import ASCFlatUIColor;
 
@@ -252,15 +253,35 @@ UITableViewDelegate
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"MenuToDetail"]) {
+        
+        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+        [appDelegate prepareSound:@"bicycle_bell"];
+        
         FoodDetailViewController *FoodDetailViewController = segue.destinationViewController;
         NSIndexPath * indexPath = self.tableView.indexPathForSelectedRow;
         FoodDetailViewController.Foods = self.Menus[indexPath.row];
 //        NSLog(@"Foods = %@",FoodDetailViewController.Foods);
         [_tableView deselectRowAtIndexPath:indexPath animated:true];
     }
+    
+    if ([segue.identifier isEqualToString:@"menutocart"]) {
+        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+        [appDelegate prepareSound:@"click"];
+    }
+    
+    if ([segue.identifier isEqualToString:@"menutoorderdetail"]) {
+        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+        [appDelegate prepareSound:@"burp1"];
+    }
+    
 }
 
 - (IBAction)LoginBtnPress:(id)sender {
+    
+    SystemSoundID click;
+    NSURL *sound = [[NSBundle mainBundle]URLForResource:@"locking_a_wooden_door1" withExtension:@"mp3"];
+    AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(sound),&click);
+    AudioServicesPlaySystemSound(click);
     
     AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     if (appDelegate.isLogined == false) {
@@ -273,6 +294,7 @@ UITableViewDelegate
     }
     
 }
+
 
 @end
 

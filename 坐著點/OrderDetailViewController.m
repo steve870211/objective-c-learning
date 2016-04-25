@@ -11,6 +11,7 @@
 #import "OrderDetail.h"
 #import "Order.h"
 #import "AppDelegate.h"
+#import <AudioToolbox/AudioToolbox.h>
 @import DGActivityIndicatorView;
 
 @interface OrderDetailViewController ()
@@ -191,6 +192,11 @@ UICollectionViewDelegateFlowLayout
 }
 
 - (IBAction)LoginBtnPress:(id)sender {
+    
+    SystemSoundID click;
+    NSURL *sound = [[NSBundle mainBundle]URLForResource:@"locking_a_wooden_door1" withExtension:@"mp3"];
+    AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(sound),&click);
+    AudioServicesPlaySystemSound(click);
     
     AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     if (appDelegate.isLogined == false) {

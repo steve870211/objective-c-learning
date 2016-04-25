@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "AppDelegate.h"
 #import "ShopsViewController.h"
+#import <AudioToolbox/AudioToolbox.h>
 @import DGActivityIndicatorView;
 
 @interface LoginViewController ()
@@ -122,6 +123,12 @@ UITextFieldDelegate
                     [self.message setTextColor:[UIColor whiteColor]];
                     self.message.text = [[NSString alloc]initWithFormat:@"登入成功！"];
                 });
+                
+                SystemSoundID click;
+                NSURL *sound = [[NSBundle mainBundle]URLForResource:@"guitar" withExtension:@"mp3"];
+                AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(sound),&click);
+                AudioServicesPlaySystemSound(click);
+                
                 [NSThread sleepForTimeInterval:1.0];
                 dispatch_async(dispatch_get_main_queue(),^{
                     // 轉轉轉結束
@@ -144,12 +151,23 @@ UITextFieldDelegate
 
 - (IBAction)toRegister:(id)sender {
     
+    SystemSoundID click;
+    NSURL *sound = [[NSBundle mainBundle]URLForResource:@"click" withExtension:@"mp3"];
+    AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(sound),&click);
+    AudioServicesPlaySystemSound(click);
+    
     dispatch_async(dispatch_get_main_queue(),^{
         [self.message setText:@""];
     });
 }
 
 - (IBAction)back:(id)sender {
+    
+    SystemSoundID click;
+    NSURL *sound = [[NSBundle mainBundle]URLForResource:@"click" withExtension:@"mp3"];
+    AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(sound),&click);
+    AudioServicesPlaySystemSound(click);
+    
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
