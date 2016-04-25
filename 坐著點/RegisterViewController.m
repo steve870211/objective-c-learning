@@ -38,6 +38,8 @@
     self.userPhone.inputView = Keyboard;
     self.userEmail.keyboardType = UIKeyboardTypeEmailAddress;
     
+    self.navigationItem.title =@"註冊";
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,15 +50,6 @@
 - (IBAction)doEditFieldDone:(id)sender {
     //取消目前是第一回應者（鍵盤消失）
     [sender resignFirstResponder];
-}
-
-- (IBAction)backBtn:(id)sender {
-    
-    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-    [appDelegate prepareSound:@"click"];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
 }
 
 - (IBAction)commit:(id)sender {
@@ -130,9 +123,10 @@
                 [NSThread sleepForTimeInterval:1.5];
                 
                 dispatch_async(dispatch_get_main_queue(),^{
-                    UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
-                    [self dismissViewControllerAnimated:YES completion:nil];
-                    [self presentViewController:LoginVC animated:true completion:nil];
+//                    UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+//                    [self dismissViewControllerAnimated:YES completion:nil];
+//                    [self presentViewController:LoginVC animated:true completion:nil];
+                    [self.navigationController popViewControllerAnimated:YES];
                 });
             }
         }

@@ -387,7 +387,7 @@ MMNumberKeyboardDelegate
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     if ([segue.identifier isEqualToString:@"paychecktoorderdetail"]) {
-        [appDelegate prepareSound:@"locking_a_wooden_door1"];
+        [appDelegate prepareSound:@"burp1"];
     }
     
 }

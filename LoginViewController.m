@@ -63,7 +63,7 @@ UITextFieldDelegate
         [self.RegisterBtn setEnabled:false];
         [self.BackBtn setEnabled:false];
         self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallScaleRippleMultiple tintColor:[UIColor whiteColor] size:45.0f];
-        self.dgActivity.center = CGPointMake([[UIScreen mainScreen]bounds].size.width/2, [[UIScreen mainScreen]bounds].size.height-150);
+        self.dgActivity.center = CGPointMake([[UIScreen mainScreen]bounds].size.width/2, [[UIScreen mainScreen]bounds].size.height-130);
         [self.view addSubview:self.dgActivity];
         [self.dgActivity startAnimating]; // 轉轉轉開始！
     });
@@ -117,7 +117,6 @@ UITextFieldDelegate
                 appDelegate.userEmail = customerDict[@"userEmail"];
                 appDelegate.userType = customerDict[@"userType"];
                 appDelegate.Account = customerDict[@"accountID"];
-//                NSLog(@"user:%@,phone:%@,email:%@,type:%@",appDelegate.userName,appDelegate.userPhone,appDelegate.userEmail,appDelegate.userType);
                 
                 dispatch_async(dispatch_get_main_queue(),^{
                     [self.message setTextColor:[UIColor whiteColor]];
@@ -135,12 +134,18 @@ UITextFieldDelegate
                     [self.dgActivity stopAnimating];
                     [self.dgActivity removeFromSuperview];
                     
-//                    UIViewController *shopsVC = [self.storyboard instantiateViewControllerWithIdentifier:@"shopsVC"];
-                    [self dismissViewControllerAnimated:YES completion:nil];
                     [self.LoginBtn setEnabled:true];
                     [self.RegisterBtn setEnabled:true];
                     [self.BackBtn setEnabled:true];
-//                    [self presentViewController:shopsVC animated:true completion:nil];
+                    if ([appDelegate.userType isEqualToString:@"customer"]) {
+//                        [self dismissViewControllerAnimated:YES completion:nil];
+                        [self.navigationController popViewControllerAnimated:YES];
+                    } else if([appDelegate.userType isEqualToString:@"company"]) {
+//                        [self dismissViewControllerAnimated:YES completion:nil];
+                        UIViewController *companyVC = [self.storyboard instantiateViewControllerWithIdentifier:@"Company"];
+                        [self.navigationController pushViewController:companyVC animated:YES];
+                    }
+
                 });
             }
             
@@ -151,24 +156,12 @@ UITextFieldDelegate
 
 - (IBAction)toRegister:(id)sender {
     
-    SystemSoundID click;
-    NSURL *sound = [[NSBundle mainBundle]URLForResource:@"click" withExtension:@"mp3"];
-    AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(sound),&click);
-    AudioServicesPlaySystemSound(click);
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    [appDelegate prepareSound:@"click"];
     
     dispatch_async(dispatch_get_main_queue(),^{
         [self.message setText:@""];
     });
-}
-
-- (IBAction)back:(id)sender {
-    
-    SystemSoundID click;
-    NSURL *sound = [[NSBundle mainBundle]URLForResource:@"click" withExtension:@"mp3"];
-    AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(sound),&click);
-    AudioServicesPlaySystemSound(click);
-    
-    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 /*

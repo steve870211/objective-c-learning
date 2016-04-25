@@ -1,23 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>order1</key>
-	<dict>
-		<key>OrderID</key>
-		<integer>0</integer>
-		<key>shopID</key>
-		<integer>0</integer>
-		<key>shopName</key>
-		<string></string>
-		<key>foodID</key>
-		<integer>0</integer>
-		<key>foodName</key>
-		<string></string>
-		<key>amount</key>
-		<integer>0</integer>
-		<key>FoodTotalPrice</key>
-		<integer>0</integer>
-	</dict>
-</dict>
+<dict/>
 </plist>

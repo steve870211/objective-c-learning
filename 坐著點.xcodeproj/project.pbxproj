@@ -31,6 +31,8 @@
 		AACE400D1C918BFD006DAC44 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = AACE400C1C918BFD006DAC44 /* Note.m */; };
 		AAD6DB541CAD582900EA06CE /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD6DB531CAD582900EA06CE /* Order.m */; };
 		AAD76ADF1CC0D5D30087927C /* OrderDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD76ADE1CC0D5D30087927C /* OrderDetail.m */; };
+		AAE717671CCDE4CA00045D6A /* CompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE717661CCDE4CA00045D6A /* CompanyViewController.m */; };
+		AAE7176B1CCDE97900045D6A /* CompanyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE7176A1CCDE97900045D6A /* CompanyTableViewCell.m */; };
 		AAE7FABC1CA3C6E700578B19 /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE7FABB1CA3C6E700578B19 /* loading.png */; };
 		AAE7FABF1CA4005200578B19 /* FoodDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE7FABE1CA4005200578B19 /* FoodDetailViewController.m */; };
 		AAF0553E1CCCF2FB00F88F34 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF0553D1CCCF2FB00F88F34 /* AudioToolbox.framework */; };
@@ -103,6 +105,10 @@
 		AAD6DB531CAD582900EA06CE /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		AAD76ADD1CC0D5D30087927C /* OrderDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderDetail.h; path = ../OrderDetail.h; sourceTree = "<group>"; };
 		AAD76ADE1CC0D5D30087927C /* OrderDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderDetail.m; path = ../OrderDetail.m; sourceTree = "<group>"; };
+		AAE717651CCDE4CA00045D6A /* CompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyViewController.h; sourceTree = "<group>"; };
+		AAE717661CCDE4CA00045D6A /* CompanyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyViewController.m; sourceTree = "<group>"; };
+		AAE717691CCDE97900045D6A /* CompanyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyTableViewCell.h; sourceTree = "<group>"; };
+		AAE7176A1CCDE97900045D6A /* CompanyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyTableViewCell.m; sourceTree = "<group>"; };
 		AAE7FABB1CA3C6E700578B19 /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loading.png; sourceTree = "<group>"; };
 		AAE7FABD1CA4005200578B19 /* FoodDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodDetailViewController.h; sourceTree = "<group>"; };
 		AAE7FABE1CA4005200578B19 /* FoodDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodDetailViewController.m; sourceTree = "<group>"; };
@@ -244,6 +250,31 @@
 			name = orderdetail;
 			sourceTree = "<group>";
 		};
+		AAE717641CCDE44500045D6A /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				AAF055441CCCFA9A00F88F34 /* locking_a_wooden_door1.mp3 */,
+				AA940A4C1CCCFC9E000CBF8E /* burp1.mp3 */,
+				AA940A4D1CCCFC9E000CBF8E /* click.mp3 */,
+				AA940A4E1CCCFC9E000CBF8E /* guitar.mp3 */,
+				AA940A4F1CCCFC9E000CBF8E /* putting_a_pencil.mp3 */,
+				AA940A541CCD00FB000CBF8E /* blip2.mp3 */,
+				AA940A561CCD016F000CBF8E /* bicycle_bell.mp3 */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
+		AAE717681CCDE4CF00045D6A /* Companys */ = {
+			isa = PBXGroup;
+			children = (
+				AAE717691CCDE97900045D6A /* CompanyTableViewCell.h */,
+				AAE7176A1CCDE97900045D6A /* CompanyTableViewCell.m */,
+				AAE717651CCDE4CA00045D6A /* CompanyViewController.h */,
+				AAE717661CCDE4CA00045D6A /* CompanyViewController.m */,
+			);
+			name = Companys;
+			sourceTree = "<group>";
+		};
 		AAF9D6031C8EE9E5003397DD = {
 			isa = PBXGroup;
 			children = (
@@ -269,14 +300,9 @@
 		AAF9D60E1C8EE9E6003397DD /* 坐著點 */ = {
 			isa = PBXGroup;
 			children = (
-				AAF055441CCCFA9A00F88F34 /* locking_a_wooden_door1.mp3 */,
-				AA940A4C1CCCFC9E000CBF8E /* burp1.mp3 */,
-				AA940A4D1CCCFC9E000CBF8E /* click.mp3 */,
-				AA940A4E1CCCFC9E000CBF8E /* guitar.mp3 */,
-				AA940A4F1CCCFC9E000CBF8E /* putting_a_pencil.mp3 */,
-				AA940A541CCD00FB000CBF8E /* blip2.mp3 */,
-				AA940A561CCD016F000CBF8E /* bicycle_bell.mp3 */,
+				AAE717641CCDE44500045D6A /* Sounds */,
 				AAF9D67C1C96942000DF29B1 /* image */,
+				AAE717681CCDE4CF00045D6A /* Companys */,
 				AA2B0F3D1CC733460001A1F3 /* Login */,
 				AA2911251CC89CEE00AE37F0 /* Register */,
 				AAD76AD51CC07BFC0087927C /* shop */,
@@ -556,12 +582,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA51647E1CBCD557006EF2D5 /* OrderDetailViewController.m in Sources */,
+				AAE7176B1CCDE97900045D6A /* CompanyTableViewCell.m in Sources */,
 				AAF9D6171C8EE9E6003397DD /* ViewController.m in Sources */,
 				AAF9D6141C8EE9E6003397DD /* AppDelegate.m in Sources */,
 				AAF9D6111C8EE9E6003397DD /* main.m in Sources */,
 				AA59E4D21C97B3FA003EA63B /* PayCheckTableViewCell.m in Sources */,
 				AAF4C0C21CA24A1F00AB0FAC /* ShopsViewController.m in Sources */,
 				AAE7FABF1CA4005200578B19 /* FoodDetailViewController.m in Sources */,
+				AAE717671CCDE4CA00045D6A /* CompanyViewController.m in Sources */,
 				AA2911281CC89D0E00AE37F0 /* RegisterViewController.m in Sources */,
 				AAF9D67B1C968B4300DF29B1 /* TheTableViewCell.m in Sources */,
 				AAF231031CA28ADC0087C072 /* ShopsTableViewCell.m in Sources */,

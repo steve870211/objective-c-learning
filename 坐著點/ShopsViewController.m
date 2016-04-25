@@ -213,7 +213,7 @@ UITableViewDataSource
     
     if (appDelegate.isLogined == false) {
         UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
-        [self presentViewController:LoginVC animated:true completion:nil];
+        [self.navigationController pushViewController:LoginVC animated:YES];
     } else {
         [appDelegate logout];
         appDelegate.Account = @"";

@@ -39,8 +39,20 @@ UICollectionViewDelegateFlowLayout
     
     if (appDelegate.isLogined == true) {
         self.LoginBtn.title = [NSString stringWithFormat:@"登出"];
+        [self the_reload_model];
     } else {
         self.LoginBtn.title = [NSString stringWithFormat:@"登入"];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"請先登入您的帳號" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"登入" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+            [self.navigationController pushViewController:LoginVC animated:YES];
+        }];
+        UIAlertAction *back = [UIAlertAction actionWithTitle:@"上一頁" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController popViewControllerAnimated:true];
+        }];
+        [alert addAction:ok];
+        [alert addAction:back];
+        [self presentViewController:alert animated:true completion:nil];
     }
 }
 
@@ -49,7 +61,6 @@ UICollectionViewDelegateFlowLayout
     [super viewDidLoad];
     
     self.collectionView.backgroundColor = [UIColor brownColor];
-    [self the_reload_model];
     _orderarr = [NSMutableArray arrayWithArray:_myarr];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
@@ -93,9 +104,6 @@ UICollectionViewDelegateFlowLayout
     cell.OrderID.text = [NSString stringWithFormat:@"訂單編號：%@",order.orderID];
     cell.ordertime.text = [NSString stringWithFormat:@"訂餐時間：%@",order.ordertime];
     
-//    NSLog(@"orderID=%@",order.orderID);
-//    NSLog(@"ordertime=%@",order.ordertime);
-    
     return cell;
     
 }
@@ -106,7 +114,7 @@ UICollectionViewDelegateFlowLayout
 
 // 與伺服器溝通
 -(void)the_reload_model{
-        
+    
     NSURL *url = [NSURL URLWithString:@"http://scu-ordereasy.rhcloud.com/Order.php"];
     NSMutableURLRequest *request;
     request = [NSMutableURLRequest requestWithURL:url];
@@ -193,12 +201,10 @@ UICollectionViewDelegateFlowLayout
 
 - (IBAction)LoginBtnPress:(id)sender {
     
-    SystemSoundID click;
-    NSURL *sound = [[NSBundle mainBundle]URLForResource:@"locking_a_wooden_door1" withExtension:@"mp3"];
-    AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(sound),&click);
-    AudioServicesPlaySystemSound(click);
-    
     AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    
+    [appDelegate prepareSound:@"locking_a_wooden_door1"];
+    
     if (appDelegate.isLogined == false) {
         UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
         [self presentViewController:LoginVC animated:true completion:nil];
