@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *OrderID;
 @property (weak, nonatomic) IBOutlet UILabel *Price;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *Segment;
+@property (weak, nonatomic) NSString *situation;
 
 @end

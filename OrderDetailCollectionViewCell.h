@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *TotalPrice;
 @property (weak, nonatomic) IBOutlet UILabel *OrderID;
 @property (weak, nonatomic) IBOutlet UILabel *ordertime;
+@property (weak, nonatomic) IBOutlet UILabel *Situation;
 
 @end

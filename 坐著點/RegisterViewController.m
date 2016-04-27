@@ -107,25 +107,27 @@
             if ([returndata  isEqual: @"NO"]){
                 dispatch_async(dispatch_get_main_queue(),^{
                    self.message.text = [NSString stringWithFormat:@"帳號已存在，請重新輸入"];
+                    [self.dgActivity stopAnimating];
+                    [self.dgActivity removeFromSuperview];
+                    [self.commitBtn setEnabled:true];
+                    
                 });
+                
             } else if([returndata isEqual: @"Success!"]) {
                 dispatch_async(dispatch_get_main_queue(),^{
                     
                     [self.message setTextColor:[UIColor whiteColor]];
                     self.message.text = [NSString stringWithFormat:@"註冊成功"];
                     
-                    SystemSoundID click;
-                    NSURL *sound = [[NSBundle mainBundle]URLForResource:@"guitar" withExtension:@"mp3"];
-                    AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(sound),&click);
-                    AudioServicesPlaySystemSound(click);
+                    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+                    [appDelegate prepareSound:@"guitar"];
+                    [self.dgActivity stopAnimating];
+                    [self.dgActivity removeFromSuperview];
                 });
                 
                 [NSThread sleepForTimeInterval:1.5];
                 
                 dispatch_async(dispatch_get_main_queue(),^{
-//                    UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
-//                    [self dismissViewControllerAnimated:YES completion:nil];
-//                    [self presentViewController:LoginVC animated:true completion:nil];
                     [self.navigationController popViewControllerAnimated:YES];
                 });
             }

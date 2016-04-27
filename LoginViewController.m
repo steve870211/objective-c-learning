@@ -26,22 +26,77 @@ UITextFieldDelegate
 @property DGActivityIndicatorView *dgActivity;
 @property (weak, nonatomic) IBOutlet UIButton *LoginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *RegisterBtn;
-@property (weak, nonatomic) IBOutlet UIButton *BackBtn;
+@property (nonatomic) NSString *saveAccount;
+@property (weak, nonatomic) IBOutlet UISwitch *switchBtn;
+@property NSString *accountPath;
 
 @end
 
 @implementation LoginViewController
+
+-(void)viewWillAppear:(BOOL)animated {
+
+    // AccountSave根目錄
+    self.accountPath = [NSString stringWithFormat:@"%@/Documents/AccountSave.plist",NSHomeDirectory()];
+
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:self.accountPath];
+    self.saveAccount = [NSString stringWithFormat:@"%@",[data objectForKey:@"BOOL"]];
+
+    if ([self.saveAccount isEqualToString:@"1"]) {
+        self.switchBtn.on = true;
+    } else {
+        self.switchBtn.on = false;
+    }
+    if ([self.saveAccount isEqualToString:@"1"]) {
+
+        NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:self.accountPath];
+        NSString *Accountload = [data objectForKey:@"Account"];
+        NSString *Passwordload = [data objectForKey:@"Password"];
+        self.account.text = [NSString stringWithFormat:@"%@",Accountload];
+        self.passwd.text = [NSString stringWithFormat:@"%@",Passwordload];
+    }
+
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.account.keyboardType = UIKeyboardTypeDefault;
     self.passwd.keyboardType = UIKeyboardTypeAlphabet;
+    
+    if (self.switchBtn.on == true) {
+
+        NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:self.accountPath];
+        NSString *Accountload = [data objectForKey:@"Account"];
+        NSString *Passwordload = [data objectForKey:@"Password"];
+        self.account.text = [NSString stringWithFormat:@"%@",Accountload];
+        self.passwd.text = [NSString stringWithFormat:@"%@",Passwordload];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+// 是否要記錄帳號密碼
+- (IBAction)saveAccountBtn:(id)sender {
+    
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:self.accountPath];
+    
+    if (self.switchBtn.on == true) {
+        self.saveAccount = @"1";
+        [data setObject:@(YES) forKey:@"BOOL"];
+        [data writeToFile:self.accountPath atomically:true];
+    } else {
+        self.saveAccount = @"0";
+        [data setObject:@(NO) forKey:@"BOOL"];
+        [data setObject:@"" forKey:@"Account"];
+        [data setObject:@"" forKey:@"Password"];
+        [data writeToFile:self.accountPath atomically:true];
+    }
+    
 }
 
 - (IBAction)doEditFieldDone:(id)sender {
@@ -51,6 +106,8 @@ UITextFieldDelegate
 
 - (IBAction)checkIdentity:(id)sender {
     
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    [appDelegate prepareSound:@"click"];
     [self customerQuery];
     
 }
@@ -61,9 +118,8 @@ UITextFieldDelegate
     dispatch_async(dispatch_get_main_queue(),^{
         [self.LoginBtn setEnabled:false];
         [self.RegisterBtn setEnabled:false];
-        [self.BackBtn setEnabled:false];
-        self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallScaleRippleMultiple tintColor:[UIColor whiteColor] size:45.0f];
-        self.dgActivity.center = CGPointMake([[UIScreen mainScreen]bounds].size.width/2, [[UIScreen mainScreen]bounds].size.height-130);
+        self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallScaleRippleMultiple tintColor:[UIColor whiteColor] size:40.0f];
+        self.dgActivity.center = CGPointMake([[UIScreen mainScreen]bounds].size.width/2, [[UIScreen mainScreen]bounds].size.height-220);
         [self.view addSubview:self.dgActivity];
         [self.dgActivity startAnimating]; // 轉轉轉開始！
     });
@@ -103,7 +159,6 @@ UITextFieldDelegate
                     self.message.text = [[NSString alloc]initWithFormat:@"帳號或密碼錯誤！"];
                     [self.LoginBtn setEnabled:true];
                     [self.RegisterBtn setEnabled:true];
-                    [self.BackBtn setEnabled:true];
                 });
                 
                 
@@ -123,6 +178,15 @@ UITextFieldDelegate
                     self.message.text = [[NSString alloc]initWithFormat:@"登入成功！"];
                 });
                 
+                // 記錄帳號密碼
+                if ([self.saveAccount isEqualToString:@"1"]) {
+//                    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"AccountSave" ofType:@"plist"];
+                    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:self.accountPath];
+                    [data setValue:appDelegate.Account forKey:@"Account"];
+                    [data setValue:password forKey:@"Password"];
+                    [data writeToFile:self.accountPath atomically:true];
+                }
+                
                 SystemSoundID click;
                 NSURL *sound = [[NSBundle mainBundle]URLForResource:@"guitar" withExtension:@"mp3"];
                 AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(sound),&click);
@@ -136,7 +200,6 @@ UITextFieldDelegate
                     
                     [self.LoginBtn setEnabled:true];
                     [self.RegisterBtn setEnabled:true];
-                    [self.BackBtn setEnabled:true];
                     if ([appDelegate.userType isEqualToString:@"customer"]) {
 //                        [self dismissViewControllerAnimated:YES completion:nil];
                         [self.navigationController popViewControllerAnimated:YES];

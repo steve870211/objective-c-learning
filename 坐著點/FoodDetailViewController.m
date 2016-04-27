@@ -108,6 +108,9 @@ MMNumberKeyboardDelegate
 
 - (IBAction)addToOrderBtnPressed:(id)sender {
     
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    [appDelegate prepareSound:@"click"];
+    
     UIAlertController * alert = [UIAlertController
                                   alertControllerWithTitle:@"要幾個?"
                                   message:nil
@@ -139,11 +142,11 @@ MMNumberKeyboardDelegate
         Order *order = [Order sharedInstance];
         self.all_or_amount = false;
 
-        if (amount < 1 || amount > 1000) {
+        if (amount < 1 || amount > 99) {
             
             UIAlertController *alert = [UIAlertController
                                         alertControllerWithTitle:@"錯誤"
-                                        message:@"訂購數量不得少於1或多餘1000"
+                                        message:@"訂購數量不得少於1或多餘99"
                                         preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *alertAction = [UIAlertAction
@@ -223,7 +226,7 @@ MMNumberKeyboardDelegate
     
     if (appDelegate.isLogined == false) {
         UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
-        [self presentViewController:LoginVC animated:true completion:nil];
+        [self.navigationController pushViewController:LoginVC animated:true];
     } else {
         [appDelegate logout];
         appDelegate.Account = @"";

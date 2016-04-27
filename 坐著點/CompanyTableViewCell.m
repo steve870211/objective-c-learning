@@ -7,6 +7,8 @@
 //
 
 #import "CompanyTableViewCell.h"
+#import "AppDelegate.h"
+#import "CompanyViewController.h"
 
 @implementation CompanyTableViewCell
 
@@ -20,5 +22,31 @@
 
     // Configure the view for the selected state
 }
+
+- (IBAction)ValueChange:(id)sender {
+    
+    CompanyViewController *comVC = [[CompanyViewController alloc]init];
+    
+    switch (self.Segment.selectedSegmentIndex) {
+        case 0:
+            self.situation = [NSString stringWithFormat:@"Situation=準備中&%@&foodName=%@",_OrderID.text,_FoodName.text];
+            //            NSLog(@"%@",_situation);
+            [comVC OrderSituationChange:_situation];
+            break;
+        case 1:
+            self.situation = [NSString stringWithFormat:@"Situation=烹飪中&%@&foodName=%@",_OrderID.text,_FoodName.text];
+            [comVC OrderSituationChange:_situation];
+            break;
+        case 2:
+            self.situation = [NSString stringWithFormat:@"Situation=請取餐&%@&foodName=%@",_OrderID.text,_FoodName.text];
+//            NSLog(@"%@",_situation);
+            [comVC OrderSituationChange:_situation];
+        default:
+            break;
+    }
+    
+}
+
+
 
 @end

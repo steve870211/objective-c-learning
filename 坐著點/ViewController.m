@@ -286,7 +286,7 @@ UITableViewDelegate
     AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     if (appDelegate.isLogined == false) {
         UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
-        [self presentViewController:LoginVC animated:true completion:nil];
+        [self.navigationController pushViewController:LoginVC animated:true];
     } else {
         [appDelegate logout];
         appDelegate.Account = @"";

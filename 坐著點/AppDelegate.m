@@ -39,6 +39,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    NSFileManager *fm = [[NSFileManager alloc]init];
+    
+    // 取得AccountSave.plist的路徑
+    NSString *src = [[NSBundle mainBundle]pathForResource:@"AccountSave" ofType:@"plist"];
+    // 取得要複製到的位置
+    NSString *dst = [NSString stringWithFormat:@"%@/Documents/AccountSave.plist",NSHomeDirectory()];
+    // 檢查目的路徑的檔案是否存在，不存在則複製檔案
+    if (![fm fileExistsAtPath:dst]) {
+        [fm copyItemAtPath:src toPath:dst error:nil];
+    }
+    
     return YES;
 }
 

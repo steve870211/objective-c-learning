@@ -27,7 +27,7 @@
 		AAABC2AF1CBE1E2C006788C1 /* add_cart.png in Resources */ = {isa = PBXBuildFile; fileRef = AAABC2AE1CBE1E2C006788C1 /* add_cart.png */; };
 		AAABC2B11CBE1ED4006788C1 /* add_cart2.png in Resources */ = {isa = PBXBuildFile; fileRef = AAABC2B01CBE1ED4006788C1 /* add_cart2.png */; };
 		AAABC2B31CBE2FB0006788C1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAABC2B21CBE2FB0006788C1 /* QuartzCore.framework */; };
-		AACB87071CC4721E00A4F750 /* OrderSave.plist in Resources */ = {isa = PBXBuildFile; fileRef = AACB87061CC4721E00A4F750 /* OrderSave.plist */; };
+		AAC6BCD41CD03F3500CD9C1B /* AccountSave.plist in Resources */ = {isa = PBXBuildFile; fileRef = AAC6BCD31CD03F3500CD9C1B /* AccountSave.plist */; };
 		AACE400D1C918BFD006DAC44 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = AACE400C1C918BFD006DAC44 /* Note.m */; };
 		AAD6DB541CAD582900EA06CE /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD6DB531CAD582900EA06CE /* Order.m */; };
 		AAD76ADF1CC0D5D30087927C /* OrderDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = AAD76ADE1CC0D5D30087927C /* OrderDetail.m */; };
@@ -98,7 +98,7 @@
 		AAABC2AE1CBE1E2C006788C1 /* add_cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_cart.png; sourceTree = "<group>"; };
 		AAABC2B01CBE1ED4006788C1 /* add_cart2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_cart2.png; sourceTree = "<group>"; };
 		AAABC2B21CBE2FB0006788C1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		AACB87061CC4721E00A4F750 /* OrderSave.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = OrderSave.plist; path = ../OrderSave.plist; sourceTree = "<group>"; };
+		AAC6BCD31CD03F3500CD9C1B /* AccountSave.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AccountSave.plist; sourceTree = "<group>"; };
 		AACE400B1C918BFD006DAC44 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
 		AACE400C1C918BFD006DAC44 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
 		AAD6DB521CAD582900EA06CE /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
@@ -321,7 +321,7 @@
 				AAD76ADE1CC0D5D30087927C /* OrderDetail.m */,
 				AAF9D61D1C8EE9E6003397DD /* LaunchScreen.storyboard */,
 				AAF9D6201C8EE9E6003397DD /* Info.plist */,
-				AACB87061CC4721E00A4F750 /* OrderSave.plist */,
+				AAC6BCD31CD03F3500CD9C1B /* AccountSave.plist */,
 				AA2B0F431CC75B1B0001A1F3 /* Assets.xcassets */,
 				AAF9D60F1C8EE9E6003397DD /* Supporting Files */,
 			);
@@ -492,13 +492,13 @@
 				AA940A511CCCFC9E000CBF8E /* click.mp3 in Resources */,
 				AA2B0F421CC751B60001A1F3 /* SCU.jpg in Resources */,
 				AA940A501CCCFC9E000CBF8E /* burp1.mp3 in Resources */,
+				AAC6BCD41CD03F3500CD9C1B /* AccountSave.plist in Resources */,
 				AA940A571CCD016F000CBF8E /* bicycle_bell.mp3 in Resources */,
 				AA2B0F461CC768D40001A1F3 /* 1461152075_food_in_blue.png in Resources */,
 				AAABC2B11CBE1ED4006788C1 /* add_cart2.png in Resources */,
 				AAF055451CCCFA9A00F88F34 /* locking_a_wooden_door1.mp3 in Resources */,
 				AAF9D67F1C9694AB00DF29B1 /* plus-57604.png in Resources */,
 				AAABC2AF1CBE1E2C006788C1 /* add_cart.png in Resources */,
-				AACB87071CC4721E00A4F750 /* OrderSave.plist in Resources */,
 				AAABC2A51CBE1BAA006788C1 /* shopping-cart.png in Resources */,
 				AAF9D61F1C8EE9E6003397DD /* LaunchScreen.storyboard in Resources */,
 				AAABC2A71CBE1CB5006788C1 /* purchase_order.png in Resources */,

@@ -10,4 +10,6 @@
 
 @interface CompanyViewController : UIViewController
 
+-(void)OrderSituationChange:(NSString *)situation;
+
 @end

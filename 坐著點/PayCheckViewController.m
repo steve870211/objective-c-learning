@@ -242,8 +242,8 @@ MMNumberKeyboardDelegate
     } else if (appDelegate.isLogined == false) {
         dispatch_async(dispatch_get_main_queue(),^{
             UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
-            [self dismissViewControllerAnimated:YES completion:nil];
-            [self presentViewController:LoginVC animated:true completion:nil];
+//            [self dismissViewControllerAnimated:YES completion:nil];
+            [self.navigationController pushViewController:LoginVC animated:true];
         });
         
     } else {
@@ -252,7 +252,7 @@ MMNumberKeyboardDelegate
         UIAlertAction *yes = [UIAlertAction actionWithTitle:@"YES!" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             int idnumber = arc4random()%10000000000;
             NSDateFormatter *dateFormatter =[[NSDateFormatter alloc] init];
-            [dateFormatter setDateFormat:@"YYYY/MM/dd_HH:mm:ss"];
+            [dateFormatter setDateFormat:@"MM/dd HH:mm:ss"];
             NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
             if (idnumber<0) {
                 idnumber = idnumber*-1;
@@ -350,6 +350,7 @@ MMNumberKeyboardDelegate
 }
 
 #pragma mark 刪除cell
+
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle ==UITableViewCellEditingStyleDelete) {//如果编辑样式为删除样式
@@ -358,13 +359,10 @@ MMNumberKeyboardDelegate
             [order.AllOrder removeObjectAtIndex:indexPath.row];//移除数据源的数据
             [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];//移除tableView中的数据
             
-            SystemSoundID click;
-            NSURL *sound = [[NSBundle mainBundle]URLForResource:@"blip2" withExtension:@"mp3"];
-            AudioServicesCreateSystemSoundID((CFURLRef)CFBridgingRetain(sound),&click);
-            AudioServicesPlaySystemSound(click);
+            AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+            [appDelegate prepareSound:@"blip2"];
         }
     }
-    
 }
 
 #pragma mark 登入/登出
@@ -375,7 +373,7 @@ MMNumberKeyboardDelegate
     
     if (appDelegate.isLogined == false) {
         UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
-        [self presentViewController:LoginVC animated:true completion:nil];
+        [self.navigationController pushViewController:LoginVC animated:true];
     } else {
         [appDelegate logout];
         appDelegate.Account = @"";
