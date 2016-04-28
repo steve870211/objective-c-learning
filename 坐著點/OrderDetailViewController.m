@@ -21,7 +21,7 @@ UICollectionViewDelegate,
 UICollectionViewDelegateFlowLayout
 >
 {
-    
+    NSTimer *timer;
 }
 
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -58,18 +58,23 @@ UICollectionViewDelegateFlowLayout
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewDidDisappear:(BOOL)animated {
+    [timer setFireDate:[NSDate distantFuture]];
+}
+
 #pragma mark Timer
 -(void)initializeTimer {
     
     //設定Timer觸發的頻率，每30秒1次
-    float theInterval = 3.0/1.0;
+    float theInterval = 5.0/1.0;
     
     //正式啟用Timer，selector是設定Timer觸發時所要呼叫的函式
-    [NSTimer scheduledTimerWithTimeInterval:theInterval
+    timer = [NSTimer scheduledTimerWithTimeInterval:theInterval
                                      target:self
                                    selector:@selector(the_reload_model)
                                    userInfo:nil
                                     repeats:YES];
+    
 }
 
 #pragma mark TableView
@@ -88,8 +93,6 @@ UICollectionViewDelegateFlowLayout
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     OrderDetailCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-    
-#pragma mark 問老師
     OrderDetail *orderdetail = _orderarr[indexPath.row];
     
     cell.ShopName.text = [NSString stringWithFormat:@"店家：%@",orderdetail.shopname];
@@ -125,18 +128,25 @@ UICollectionViewDelegateFlowLayout
     
     // 讀取動畫開始
     dispatch_async(dispatch_get_main_queue(),^{
-    self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeNineDots tintColor:[UIColor whiteColor] size:45.0f];
+    self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeTripleRings tintColor:[UIColor whiteColor] size:45.0f];
     self.dgActivity.center = self.view.center;
     [self.view addSubview:self.dgActivity];
     [self.dgActivity startAnimating];
     });
     
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    
     NSURL *url = [NSURL URLWithString:@"http://scu-ordereasy.rhcloud.com/Order.php"];
-    NSMutableURLRequest *request;
-    request = [NSMutableURLRequest requestWithURL:url];
+    // 讀取
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    
+    request.HTTPMethod=@"POST";
+    NSString *parameter=[NSString stringWithFormat:@"Account=%@",appDelegate.Account];
+    NSData *body=[parameter dataUsingEncoding:NSUTF8StringEncoding];
+    request.HTTPBody=body;
+    
     NSURLSession *session = [NSURLSession sharedSession] ;
-    NSURLSessionDataTask *dataTask;
-    dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
         if (error == nil) {
             
@@ -174,7 +184,7 @@ UICollectionViewDelegateFlowLayout
             } else {
                 
                 UIAlertController *alert;
-                alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您沒有任何未出餐的訂單喔！" preferredStyle:UIAlertControllerStyleAlert];
+                alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您沒有任何排隊中的餐點喔！" preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction * alertAct;
                 alertAct = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                     [self.navigationController popViewControllerAnimated:YES];

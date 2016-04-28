@@ -65,7 +65,7 @@ UITableViewDataSource
 -(void)initializeTimer {
     
     //設定Timer觸發的頻率，每30秒1次
-    float theInterval = 30.0/1.0;
+    float theInterval = 10.0/1.0;
     
     //正式啟用Timer，selector是設定Timer觸發時所要呼叫的函式
     [NSTimer scheduledTimerWithTimeInterval:theInterval
@@ -105,14 +105,24 @@ UITableViewDataSource
 
 -(void)the_reload_model{
     
+    dispatch_async(dispatch_get_main_queue(),^{
+        
     self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallScaleRippleMultiple tintColor:[UIColor grayColor] size:60.0f];
     self.dgActivity.center = CGPointMake([[UIScreen mainScreen]bounds].size.width/2, [[UIScreen mainScreen]bounds].size.height/2);
     [self.view addSubview:self.dgActivity];
     [self.dgActivity startAnimating]; // 轉轉轉開始！
+    });
     
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
     NSURL *url = [NSURL URLWithString:@"http://scu-ordereasy.rhcloud.com/CompanyOrder.php"];
     NSMutableURLRequest *request;
     request = [NSMutableURLRequest requestWithURL:url];
+    
+    request.HTTPMethod=@"POST";
+    NSString *parameter=[NSString stringWithFormat:@"userName=%@",appDelegate.userName];
+    NSData *body=[parameter dataUsingEncoding:NSUTF8StringEncoding];
+    request.HTTPBody=body;
+    
     NSURLSession *session = [NSURLSession sharedSession] ;
     NSURLSessionDataTask *dataTask;
     dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -136,7 +146,6 @@ UITableViewDataSource
                 orderdetail.ordertime = [NSString stringWithFormat:@"%@",book[@"ordertime"]];
                 orderdetail.Situation = [NSString stringWithFormat:@"%@",book[@"Situation"]];
                 
-                AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
                 if ([appDelegate.userName isEqualToString:orderdetail.shopname]) {
                     [_orderarr addObject:orderdetail];
                 }
@@ -156,7 +165,7 @@ UITableViewDataSource
                 alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"您沒有任何訂單喔！" preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction * alertAct;
                 alertAct = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    [self.navigationController popViewControllerAnimated:YES];
+//                    [self.navigationController popViewControllerAnimated:YES];
                 }];
                 [alert addAction:alertAct];
                 
@@ -164,7 +173,9 @@ UITableViewDataSource
                 dispatch_async(dispatch_get_main_queue(),^{
                     [self.dgActivity stopAnimating];
                     [self.dgActivity removeFromSuperview];
-                    [self presentViewController:alert animated:YES completion:nil];
+                    if (alert) {
+                        [self presentViewController:alert animated:YES completion:nil];
+                    }
                 });
                 
                 
@@ -275,6 +286,7 @@ UITableViewDataSource
         [appDelegate logout];
         appDelegate.Account = @"";
         [self.LoginBtn setTitle:@"登入"];
+//        [self dismissViewControllerAnimated:true completion:nil];
         [self.navigationController popViewControllerAnimated:true];
     }
     

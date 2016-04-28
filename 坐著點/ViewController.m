@@ -30,7 +30,7 @@ UITableViewDelegate
 @property DGActivityIndicatorView *dgActivity;
 @property NSArray *colors;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *LoginBtn;
-
+@property(nonatomic) NSOperationQueue * queue;
 
 
 @end
@@ -85,12 +85,6 @@ UITableViewDelegate
     
     self.colors = [NSArray arrayWithObjects:cloudsColor,alizarinColor,sunFlowerColor,peterriver,carrotColor,orangeColor,silverColor,emeraldColor,pumpkinColor,concreteColor,asbestosColor,amethystColor, nil]; // 隨機色彩
     
-    // 讀取動畫
-    self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeLineScaleParty tintColor:[UIColor whiteColor] size:45.0f];
-    self.dgActivity.center = self.view.center;
-    [self.view addSubview:self.dgActivity];
-    [self.dgActivity startAnimating]; // 轉轉轉開始！
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -132,16 +126,29 @@ UITableViewDelegate
     Note *note = _Menus[indexPath.row];
     cell.foodname.text = note.FoodName;
     cell.price.text = [NSString stringWithFormat:@"單價:%@元",note.Price];
-    cell.foodphoto.image = [UIImage imageNamed:@"loading.png"];
+    //    cell.foodphoto.image = [UIImage imageNamed:@"loading.png"];
+    // 加入圖片
+    cell.foodphoto.animationImages = [NSArray arrayWithObjects:
+                              [UIImage imageNamed:@"1.png"],
+                              [UIImage imageNamed:@"2.png"],
+                              [UIImage imageNamed:@"3.png"],
+                              [UIImage imageNamed:@"4.png"],nil ];
+    // 設定一輪播放的時間
+    cell.foodphoto.animationDuration = 1;
+    // 設置0 不斷重複
+    cell.foodphoto.animationRepeatCount = 0;
+    // 開始動畫
+    [cell.foodphoto startAnimating];
+    
     cell.note = note;
     
-    CGFloat comps[3];
-    for (int i = 0; i < 3; i++)
-        comps[i] = (CGFloat)arc4random_uniform(256)/255.f;
-    cell.backgroundColor = [UIColor colorWithRed:comps[0] green:comps[1] blue:comps[2] alpha:1.0];
-
-//    int anycolor = arc4random()%self.colors.count;
-//    cell.backgroundColor = self.colors[anycolor];
+//    CGFloat comps[3];
+//    for (int i = 0; i < 3; i++)
+//        comps[i] = (CGFloat)arc4random_uniform(256)/255.f;
+//    cell.backgroundColor = [UIColor colorWithRed:comps[0] green:comps[1] blue:comps[2] alpha:1.0];
+    cell.backgroundColor = [UIColor whiteColor];
+    
+    cell.foodphoto.image = nil;
     
 //    圖片下載並顯示
     NSString *food = note.FoodPhotoName;
@@ -155,8 +162,13 @@ UITableViewDelegate
             NSLog(@"error %@",error.description);
         } else {
             dispatch_async(dispatch_get_main_queue(),^{
-                UIImage *image = [UIImage imageWithData:data];
-                cell.foodphoto.image = image;
+                TheTableViewCell *cell1 = (TheTableViewCell*)[tableView cellForRowAtIndexPath:indexPath];
+                if ( cell1 ){
+                    [cell1.foodphoto stopAnimating];
+                    UIImage *image = [UIImage imageWithData:data];
+                    cell1.foodphoto.image = image;
+                    [cell setNeedsLayout];
+                }
             });
         }
     }];
@@ -170,15 +182,34 @@ UITableViewDelegate
     
 }
 
-// 與伺服器溝通
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    
+}
+
+#pragma mark Talk with PHP
 -(void)the_reload_model{
     
+    // 讀取動畫
+    dispatch_async(dispatch_get_main_queue(),^{
+        
+    self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeLineScaleParty tintColor:[UIColor whiteColor] size:45.0f];
+    self.dgActivity.center = self.view.center;
+    [self.view addSubview:self.dgActivity];
+    [self.dgActivity startAnimating]; // 轉轉轉開始！
+    });
+    
     NSURL *url = [NSURL URLWithString:@"http://scu-ordereasy.rhcloud.com/Menus.php"];
-    NSMutableURLRequest *request;
-    request = [NSMutableURLRequest requestWithURL:url];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     NSURLSession *session = [NSURLSession sharedSession] ;
-    NSURLSessionDataTask *dataTask;
-    dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    
+    request.HTTPMethod=@"POST";
+    NSString *parameter=[NSString stringWithFormat:@"shopID=%@",_Shops.ShopID];
+    NSData *body=[parameter dataUsingEncoding:NSUTF8StringEncoding];
+    request.HTTPBody=body;
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
         if (error != nil) {
             
@@ -251,6 +282,7 @@ UITableViewDelegate
     [dataTask resume];
 }
 
+#pragma mark Segue
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"MenuToDetail"]) {
         

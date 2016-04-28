@@ -78,6 +78,7 @@ UITableViewDataSource
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark Tableview delegate.datasource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _ShopsList.count;
 }
@@ -87,12 +88,26 @@ UITableViewDataSource
     Note *note = _ShopsList[indexPath.row];
     cell.ShopName.text = note.ShopName;
     cell.ShopID.text = note.ShopID;
-    cell.ShopsImage.image = [UIImage imageNamed:@"loading.png"];
+//    cell.ShopsImage.image = [UIImage imageNamed:@"loading.png"];
+    // 加入圖片
+    cell.ShopsImage.animationImages = [NSArray arrayWithObjects:
+                                      [UIImage imageNamed:@"1.png"],
+                                      [UIImage imageNamed:@"2.png"],
+                                      [UIImage imageNamed:@"3.png"],
+                                      [UIImage imageNamed:@"4.png"],nil ];
+    // 設定一輪播放的時間
+    cell.ShopsImage.animationDuration = 1;
+    // 設置0 不斷重複
+    cell.ShopsImage.animationRepeatCount = 0;
+    // 開始動畫
+    [cell.ShopsImage startAnimating];
     
-    CGFloat comps[3];
-    for (int i = 0; i < 3; i++)
-        comps[i] = (CGFloat)arc4random_uniform(256)/255.f;
-    cell.backgroundColor = [UIColor colorWithRed:comps[0] green:comps[1] blue:comps[2] alpha:1.0];
+//    隨機色彩
+//    CGFloat comps[3];
+//    for (int i = 0; i < 3; i++)
+//        comps[i] = (CGFloat)arc4random_uniform(256)/255.f;
+//    cell.backgroundColor = [UIColor colorWithRed:comps[0] green:comps[1] blue:comps[2] alpha:1.0];
+    cell.backgroundColor = [UIColor whiteColor];
     
 //    int anycolor = arc4random()%self.colors.count;
 //    cell.backgroundColor = self.colors[anycolor];
@@ -108,6 +123,7 @@ UITableViewDataSource
             NSLog(@"error %@",error.description);
         } else {
             dispatch_async(dispatch_get_main_queue(),^{
+                [cell.ShopsImage stopAnimating];
                 UIImage *image = [UIImage imageWithData:data];
                 cell.ShopsImage.image = image;
             });
@@ -121,6 +137,7 @@ UITableViewDataSource
     return cell;
 }
 
+#pragma mark Talk with PHP
 -(void)the_reload_model {
     
     NSURL *url = [NSURL URLWithString:@"http://scu-ordereasy.rhcloud.com/Shops.php"];
