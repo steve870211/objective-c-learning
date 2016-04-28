@@ -62,7 +62,7 @@ UICollectionViewDelegateFlowLayout
 -(void)initializeTimer {
     
     //設定Timer觸發的頻率，每30秒1次
-    float theInterval = 10.0/1.0;
+    float theInterval = 3.0/1.0;
     
     //正式啟用Timer，selector是設定Timer觸發時所要呼叫的函式
     [NSTimer scheduledTimerWithTimeInterval:theInterval
@@ -123,7 +123,6 @@ UICollectionViewDelegateFlowLayout
 // 與伺服器溝通
 -(void)the_reload_model{
     
-    [_orderarr removeAllObjects];
     // 讀取動畫開始
     dispatch_async(dispatch_get_main_queue(),^{
     self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeNineDots tintColor:[UIColor whiteColor] size:45.0f];
@@ -144,7 +143,7 @@ UICollectionViewDelegateFlowLayout
             NSArray * arr = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             
             _myarr = [NSMutableArray arrayWithArray:arr];
-                
+            [_orderarr removeAllObjects];
             for (int i=0; i<_myarr.count; i++) {
                 
                 NSDictionary *book = _myarr[i];
