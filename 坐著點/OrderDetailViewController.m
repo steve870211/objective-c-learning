@@ -240,6 +240,7 @@ UICollectionViewDelegateFlowLayout
         [appDelegate logout];
         appDelegate.Account = @"";
         [self.LoginBtn setTitle:@"登入"];
+        [self.navigationController popViewControllerAnimated:true];
     }
     
 }

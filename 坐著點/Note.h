@@ -21,5 +21,6 @@
 @property (nonatomic) NSString *FoodPhotoName;
 @property (nonatomic) NSString *ShopLogoName;
 @property (nonatomic) NSString *FoodID;
+@property (nonatomic) NSString *orderNumber;
 
 @end

@@ -13,6 +13,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *ShopsImage;
 @property (weak, nonatomic) IBOutlet UILabel *ShopID;
 @property (weak, nonatomic) IBOutlet UILabel *ShopName;
+@property (weak, nonatomic) IBOutlet UILabel *orderNumber;
+
 @property (nonatomic) Note *note;
 
 @end

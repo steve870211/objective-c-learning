@@ -25,6 +25,8 @@ UITableViewDataSource
 @property DGActivityIndicatorView *dgActivity;
 @property NSArray *colors;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *LoginBtn;
+@property NSString *ordernumber;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 
@@ -50,6 +52,7 @@ UITableViewDataSource
     [self.dgActivity startAnimating];
     
     [self the_reload_model];
+    
     self.tableView.dataSource = self;
     _ShopsList = [[NSMutableArray alloc]initWithObjects:_the_arr, nil];
     
@@ -71,11 +74,21 @@ UITableViewDataSource
     UIColor *peterriver = [ASCFlatUIColor peterRiverColor];
     self.colors = [NSArray arrayWithObjects:cloudsColor,alizarinColor,sunFlowerColor,peterriver,carrotColor,orangeColor,silverColor,emeraldColor,pumpkinColor,concreteColor,asbestosColor,amethystColor, nil]; // 隨機色彩
     
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refresh)
+                  forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:self.refreshControl]; //把RefreshControl加到TableView中
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void) refresh{
+    
+    [self.tableView reloadData];
+    
 }
 
 #pragma mark Tableview delegate.datasource
@@ -88,7 +101,10 @@ UITableViewDataSource
     Note *note = _ShopsList[indexPath.row];
     cell.ShopName.text = note.ShopName;
     cell.ShopID.text = note.ShopID;
-//    cell.ShopsImage.image = [UIImage imageNamed:@"loading.png"];
+    
+    [self orderNumberLoad:note.ShopID indexPath:indexPath];
+    cell.orderNumber.text = note.orderNumber;
+
     // 加入圖片
     cell.ShopsImage.animationImages = [NSArray arrayWithObjects:
                                       [UIImage imageNamed:@"1.png"],
@@ -102,15 +118,7 @@ UITableViewDataSource
     // 開始動畫
     [cell.ShopsImage startAnimating];
     
-//    隨機色彩
-//    CGFloat comps[3];
-//    for (int i = 0; i < 3; i++)
-//        comps[i] = (CGFloat)arc4random_uniform(256)/255.f;
-//    cell.backgroundColor = [UIColor colorWithRed:comps[0] green:comps[1] blue:comps[2] alpha:1.0];
     cell.backgroundColor = [UIColor whiteColor];
-    
-//    int anycolor = arc4random()%self.colors.count;
-//    cell.backgroundColor = self.colors[anycolor];
     
     NSString *shop = note.ShopLogoName;
     shop = [shop stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
@@ -134,6 +142,7 @@ UITableViewDataSource
     // 讀取動畫結束
     [self.dgActivity stopAnimating];
     [self.dgActivity removeFromSuperview];
+    [self.refreshControl endRefreshing];
     return cell;
 }
 
@@ -141,14 +150,10 @@ UITableViewDataSource
 -(void)the_reload_model {
     
     NSURL *url = [NSURL URLWithString:@"http://scu-ordereasy.rhcloud.com/Shops.php"];
-    NSMutableURLRequest *request;
-    request = [NSMutableURLRequest requestWithURL:url];
-    NSURLSessionConfiguration *config;
-    config = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *session;
-    session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
-    NSURLSessionDataTask *dataTask;
-    dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
         if (error != nil) {
             
@@ -176,26 +181,22 @@ UITableViewDataSource
             
         } else {
             
-//            NSString *con = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            
-//            NSLog(@"josn=%@", con);
-            
             NSArray * arr = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            
             _the_arr = [NSMutableArray arrayWithArray:arr];
+            
             
             for (int i=0; i<_the_arr.count; i++) {
                 
                 NSDictionary *book = _the_arr[i];
+                
                 Note* note = [Note new];
                 note.ShopID = book[@"shopID"];
                 note.ShopName = book[@"shopName"];
                 note.ShopLogoName = book[@"shopLogo"];
+
                 [self.ShopsList addObject:note];
                 
             }
-            
-            
             
             if (_the_arr) {
                 
@@ -221,7 +222,51 @@ UITableViewDataSource
     
 }
 
-// Login/Logout
+#pragma mark orderNumber
+-(void)orderNumberLoad: (NSString *)shopid indexPath:(NSIndexPath*)indexPath{
+    
+    NSURL *url = [NSURL URLWithString:@"http://scu-ordereasy.rhcloud.com/orderNumber.php"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    NSURLSession *session = [NSURLSession sharedSession] ;
+    
+    request.HTTPMethod=@"POST";
+//    NSString *parameter = [NSString stringWithFormat:@"shopID=%@",self.shopID];
+    NSString *parameter = [NSString stringWithFormat:@"shopID=%@",shopid];
+    NSData *body=[parameter dataUsingEncoding:NSUTF8StringEncoding];
+    request.HTTPBody=body;
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        if (error != nil) {
+            NSLog(@"%@",error);
+        } else {
+
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+//            NSLog(@"%@",[dic objectForKey:@"COUNT( * )"]);
+            //self.ordernumber = [NSString stringWithFormat:@"%@",[dic objectForKey:@"COUNT( * )"]];
+            //NSLog(@"ordernumber=%@",self.ordernumber);
+            // 找尋相同的ShopID，更新Note中的orderNumber
+            for (int i=0; i< self.ShopsList.count; i++) {
+                Note* note = self.ShopsList[i];
+                if ( [note.ShopID isEqualToString:shopid]){
+                    note.orderNumber = [dic objectForKey:@"COUNT( DISTINCT orderID )"];
+                    //取得該筆資料的cell，更新cell上的orderNumber
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        ShopsTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+                        if ( cell ){
+                            cell.orderNumber.text = [NSString stringWithFormat:@"排隊人數:%@",note.orderNumber];
+                        }
+                    });
+                }
+            }
+        }
+    }];
+    
+    [dataTask resume];
+    
+}
+
+#pragma mark Login
 - (IBAction)LoginBtnPressed:(id)sender {
     
     AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
@@ -236,7 +281,6 @@ UITableViewDataSource
         appDelegate.Account = @"";
         [self.LoginBtn setTitle:@"登入"];
     }
-
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -266,7 +310,6 @@ UITableViewDataSource
         
         [appDelegate prepareSound:@"burp1"];
     }
-    
 }
 
 

@@ -211,8 +211,8 @@ MMNumberKeyboardDelegate
         }
     }];
     
-    [alert addAction:addtoOrder];
     [alert addAction:cancel];
+    [alert addAction:addtoOrder];
     
     [self presentViewController:alert animated:YES completion:nil];
     
