@@ -74,6 +74,9 @@
     }
 }
 
+
+
+#pragma mark 送出註冊資料
 -(void) Register {
     
     // 讀取動畫

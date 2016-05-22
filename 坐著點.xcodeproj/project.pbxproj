@@ -26,7 +26,6 @@
 		AAABC2A71CBE1CB5006788C1 /* purchase_order.png in Resources */ = {isa = PBXBuildFile; fileRef = AAABC2A61CBE1CB5006788C1 /* purchase_order.png */; };
 		AAABC2AF1CBE1E2C006788C1 /* add_cart.png in Resources */ = {isa = PBXBuildFile; fileRef = AAABC2AE1CBE1E2C006788C1 /* add_cart.png */; };
 		AAABC2B11CBE1ED4006788C1 /* add_cart2.png in Resources */ = {isa = PBXBuildFile; fileRef = AAABC2B01CBE1ED4006788C1 /* add_cart2.png */; };
-		AAABC2B31CBE2FB0006788C1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAABC2B21CBE2FB0006788C1 /* QuartzCore.framework */; };
 		AAC669271CD1B2D6008A5E92 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = AAC669231CD1B2D6008A5E92 /* 1.png */; };
 		AAC669281CD1B2D6008A5E92 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = AAC669241CD1B2D6008A5E92 /* 2.png */; };
 		AAC669291CD1B2D6008A5E92 /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = AAC669251CD1B2D6008A5E92 /* 3.png */; };
@@ -91,6 +90,10 @@
 		AA59E4D11C97B3FA003EA63B /* PayCheckTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayCheckTableViewCell.m; sourceTree = "<group>"; };
 		AA59E4D31C97B890003EA63B /* PayCheckViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayCheckViewController.h; sourceTree = "<group>"; };
 		AA59E4D41C97B890003EA63B /* PayCheckViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayCheckViewController.m; sourceTree = "<group>"; };
+		AA5D16CF1CD8542900E15662 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		AA5D16D11CD8543100E15662 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		AA5D16D31CD8543A00E15662 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		AA5D16D51CD8547B00E15662 /* libiconv.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.2.tbd; path = usr/lib/libiconv.2.tbd; sourceTree = SDKROOT; };
 		AA940A4C1CCCFC9E000CBF8E /* burp1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = burp1.mp3; sourceTree = "<group>"; };
 		AA940A4D1CCCFC9E000CBF8E /* click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = click.mp3; sourceTree = "<group>"; };
 		AA940A4E1CCCFC9E000CBF8E /* guitar.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = guitar.mp3; sourceTree = "<group>"; };
@@ -154,7 +157,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAF0553E1CCCF2FB00F88F34 /* AudioToolbox.framework in Frameworks */,
-				AAABC2B31CBE2FB0006788C1 /* QuartzCore.framework in Frameworks */,
 				DE18376D529C2E315EF47316 /* Pods____.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -179,6 +181,10 @@
 		41B89E2746D226BB9011E396 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AA5D16D51CD8547B00E15662 /* libiconv.2.tbd */,
+				AA5D16D31CD8543A00E15662 /* CoreVideo.framework */,
+				AA5D16D11CD8543100E15662 /* CoreMedia.framework */,
+				AA5D16CF1CD8542900E15662 /* AVFoundation.framework */,
 				AAF0553D1CCCF2FB00F88F34 /* AudioToolbox.framework */,
 				AAABC2B21CBE2FB0006788C1 /* QuartzCore.framework */,
 				CAF0314E5453C79A75EB446E /* Pods____.framework */,
@@ -761,6 +767,10 @@
 				INFOPLIST_FILE = "坐著點/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ZBarSDK-for-iOS-master",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.steve870211.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -777,6 +787,10 @@
 				INFOPLIST_FILE = "坐著點/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ZBarSDK-for-iOS-master",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.steve870211.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

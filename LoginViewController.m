@@ -119,7 +119,7 @@ UITextFieldDelegate
         [self.LoginBtn setEnabled:false];
         [self.RegisterBtn setEnabled:false];
         self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallScaleRippleMultiple tintColor:[UIColor whiteColor] size:40.0f];
-        self.dgActivity.center = CGPointMake([[UIScreen mainScreen]bounds].size.width/2, [[UIScreen mainScreen]bounds].size.height-220);
+        self.dgActivity.center = CGPointMake([[UIScreen mainScreen]bounds].size.width/2, [[UIScreen mainScreen]bounds].size.height-190);
         [self.view addSubview:self.dgActivity];
         [self.dgActivity startAnimating]; // 轉轉轉開始！
     });

@@ -56,8 +56,6 @@ UITableViewDataSource
     self.tableView.dataSource = self;
     _ShopsList = [[NSMutableArray alloc]initWithObjects:_the_arr, nil];
     
-    
-    
     self.tableView.backgroundColor = [UIColor brownColor];
     
     UIColor *alizarinColor = [ASCFlatUIColor alizarinColor];
@@ -74,6 +72,7 @@ UITableViewDataSource
     UIColor *peterriver = [ASCFlatUIColor peterRiverColor];
     self.colors = [NSArray arrayWithObjects:cloudsColor,alizarinColor,sunFlowerColor,peterriver,carrotColor,orangeColor,silverColor,emeraldColor,pumpkinColor,concreteColor,asbestosColor,amethystColor, nil]; // 隨機色彩
     
+    // pull refresh
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refresh)
                   forControlEvents:UIControlEventValueChanged];

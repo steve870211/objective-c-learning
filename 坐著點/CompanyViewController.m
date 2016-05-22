@@ -24,7 +24,8 @@ UITableViewDataSource
 @property (nonatomic) DGActivityIndicatorView *dgActivity;
 @property NSString *TrueParameter;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *LoginBtn;
-
+@property BOOL timerGO;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 
@@ -39,6 +40,8 @@ UITableViewDataSource
         self.LoginBtn.title = [NSString stringWithFormat:@"登入"];
     }
 
+    self.tableview.backgroundColor = [UIColor brownColor];
+    
     [self initializeTimer];
     
 }
@@ -54,6 +57,7 @@ UITableViewDataSource
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     
+    self.timerGO = true;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,18 +65,28 @@ UITableViewDataSource
     // Dispose of any resources that can be recreated.
 }
 
+-(void) refresh{
+    
+    [self.tableview reloadData];
+    
+}
+
 #pragma mark Timer
 -(void)initializeTimer {
     
-    //設定Timer觸發的頻率，每30秒1次
+    if (self.timerGO == true) {
+    
+    //設定Timer觸發的頻率，每10秒1次
     float theInterval = 10.0/1.0;
     
     //正式啟用Timer，selector是設定Timer觸發時所要呼叫的函式
     [NSTimer scheduledTimerWithTimeInterval:theInterval
                                      target:self
-                                   selector:@selector(viewDidLoad)
+                                   selector:@selector(the_reload_model)
                                    userInfo:nil
                                     repeats:YES];
+    }
+    
 }
 
 #pragma mark tableview delegate
@@ -91,6 +105,7 @@ UITableViewDataSource
     cell.Price.text = [NSString stringWithFormat:@"共%@元",orderdetail.totalprice];
     cell.OrderID.text = [NSString stringWithFormat:@"orderID=%@",orderdetail.orderID];
     cell.Time.text = [NSString stringWithFormat:@"%@",orderdetail.ordertime];
+    cell.customerLabel.text = [NSString stringWithFormat:@"訂購人:%@",orderdetail.customerName];
     
     if ([orderdetail.Situation isEqualToString:@"準備中"]) {
         cell.Segment.selectedSegmentIndex = 0;
@@ -107,7 +122,7 @@ UITableViewDataSource
     
     dispatch_async(dispatch_get_main_queue(),^{
         
-    self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallScaleRippleMultiple tintColor:[UIColor grayColor] size:60.0f];
+    self.dgActivity = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallScaleRippleMultiple tintColor:[UIColor whiteColor] size:60.0f];
     self.dgActivity.center = CGPointMake([[UIScreen mainScreen]bounds].size.width/2, [[UIScreen mainScreen]bounds].size.height/2);
     [self.view addSubview:self.dgActivity];
     [self.dgActivity startAnimating]; // 轉轉轉開始！
@@ -129,6 +144,8 @@ UITableViewDataSource
         
         if (error == nil) {
             
+            [self.orderarr removeAllObjects];
+            
             NSArray * arr = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             
             _myarr = [NSMutableArray arrayWithArray:arr];
@@ -145,20 +162,20 @@ UITableViewDataSource
                 orderdetail.Account = [NSString stringWithFormat:@"%@",book[@"Account"]];
                 orderdetail.ordertime = [NSString stringWithFormat:@"%@",book[@"ordertime"]];
                 orderdetail.Situation = [NSString stringWithFormat:@"%@",book[@"Situation"]];
+                orderdetail.customerName = [NSString stringWithFormat:@"%@",book[@"customerName"]];
                 
                 if ([appDelegate.userName isEqualToString:orderdetail.shopname]) {
                     [_orderarr addObject:orderdetail];
                 }
             }
             if (_orderarr.count != 0) {
-                
-                // 讀取動畫結束
                 dispatch_async(dispatch_get_main_queue(),^{
+                    // 讀取動畫結束
                     [self.dgActivity stopAnimating];
                     [self.dgActivity removeFromSuperview];
                     [self.tableview reloadData];
                 });
-                
+            
             } else {
                 
                 UIAlertController *alert;
@@ -169,15 +186,15 @@ UITableViewDataSource
                 }];
                 [alert addAction:alertAct];
                 
-                // 讀取動畫結束
                 dispatch_async(dispatch_get_main_queue(),^{
+                    // 讀取動畫結束
                     [self.dgActivity stopAnimating];
                     [self.dgActivity removeFromSuperview];
                     if (alert) {
-                        [self presentViewController:alert animated:YES completion:nil];
+//                        [self presentViewController:alert animated:YES completion:nil];
                     }
                 });
-                
+            
                 
                 
             }
@@ -194,11 +211,11 @@ UITableViewDataSource
                 //讀取動畫結束
                 [self.dgActivity stopAnimating];
                 [self.dgActivity removeFromSuperview];
-                
+//
                 [self presentViewController:alert animated:true completion:nil];
                 [self dismissViewControllerAnimated:true completion:nil];
             });
-            
+        
         }
     }];
     
@@ -283,6 +300,7 @@ UITableViewDataSource
         UIViewController *LoginVC = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
         [self.navigationController pushViewController:LoginVC animated:true];
     } else {
+        self.timerGO = false;
         [appDelegate logout];
         appDelegate.Account = @"";
         [self.LoginBtn setTitle:@"登入"];

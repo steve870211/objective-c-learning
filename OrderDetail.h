@@ -18,5 +18,6 @@
 @property (nonatomic) NSString *ordertime;
 @property (nonatomic) NSString *Account;
 @property (nonatomic) NSString *Situation;
+@property (nonatomic) NSString *customerName;
 
 @end
